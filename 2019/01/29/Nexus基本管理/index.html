@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="python," />
+  <meta name="keywords" content="Nexus," />
 
 
 
@@ -79,18 +79,23 @@
 
 
 
-<meta name="description" content="python中将方法或者特性变为私有（无法从外部访问）,只需要在名字前面加上双下划线即可.1234567class Seretive:    def __inaccessible(self):        print &quot;can&apos;t see&quot;    def accessible(self):        print &quot;can see&quot;        self.__inaccessible() 现">
-<meta name="keywords" content="python">
+<meta name="description" content="Nexus基本管理Nexus初始化在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.在有两个SUP的情况下VDC的分布:    8个普通vdc, 1个admin vdc(只有管理流量) 7个普通vdc, 1个default vdc(即有管理流量也有业务流量)在N7K启动过程中,会先启动kickstart版本的镜像, 在其">
+<meta name="keywords" content="Nexus">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python Note Part 7">
-<meta property="og:url" content="https://hxwiwsh.com/2018/10/30/Python-Note-Part-7/index.html">
+<meta property="og:title" content="Nexus基本管理">
+<meta property="og:url" content="https://hxwiwsh.com/2019/01/29/Nexus基本管理/index.html">
 <meta property="og:site_name" content="Learn More Do More">
-<meta property="og:description" content="python中将方法或者特性变为私有（无法从外部访问）,只需要在名字前面加上双下划线即可.1234567class Seretive:    def __inaccessible(self):        print &quot;can&apos;t see&quot;    def accessible(self):        print &quot;can see&quot;        self.__inaccessible() 现">
+<meta property="og:description" content="Nexus基本管理Nexus初始化在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.在有两个SUP的情况下VDC的分布:    8个普通vdc, 1个admin vdc(只有管理流量) 7个普通vdc, 1个default vdc(即有管理流量也有业务流量)在N7K启动过程中,会先启动kickstart版本的镜像, 在其">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-29T03:49:56.110Z">
+<meta property="og:image" content="https://hxwiwsh.com/images/nexus/show%20boot.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/nexus/show%20module.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/nexus/power%20redundant.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/nexus/cfs.PNG">
+<meta property="og:updated_time" content="2019-01-29T09:14:54.006Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python Note Part 7">
-<meta name="twitter:description" content="python中将方法或者特性变为私有（无法从外部访问）,只需要在名字前面加上双下划线即可.1234567class Seretive:    def __inaccessible(self):        print &quot;can&apos;t see&quot;    def accessible(self):        print &quot;can see&quot;        self.__inaccessible() 现">
+<meta name="twitter:title" content="Nexus基本管理">
+<meta name="twitter:description" content="Nexus基本管理Nexus初始化在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.在有两个SUP的情况下VDC的分布:    8个普通vdc, 1个admin vdc(只有管理流量) 7个普通vdc, 1个default vdc(即有管理流量也有业务流量)在N7K启动过程中,会先启动kickstart版本的镜像, 在其">
+<meta name="twitter:image" content="https://hxwiwsh.com/images/nexus/show%20boot.PNG">
 
 
 
@@ -120,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://hxwiwsh.com/2018/10/30/Python-Note-Part-7/"/>
+  <link rel="canonical" href="https://hxwiwsh.com/2019/01/29/Nexus基本管理/"/>
 
 
 
 
 
-  <title>Python Note Part 7 | Learn More Do More</title>
+  <title>Nexus基本管理 | Learn More Do More</title>
   
 
 
@@ -253,7 +258,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2018/10/30/Python-Note-Part-7/">
+    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/01/29/Nexus基本管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="XuWei Huang">
@@ -270,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python Note Part 7</h1>
+          <h1 class="post-title" itemprop="name headline">Nexus基本管理</h1>
         
 
         <div class="post-meta">
@@ -282,8 +287,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-30T17:06:45+08:00">
-                2018-10-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T15:53:37+08:00">
+                2019-01-29
               </time>
             
 
@@ -305,8 +310,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index">
-                    <span itemprop="name">python</span>
+                  <a href="/categories/network/" itemprop="url" rel="index">
+                    <span itemprop="name">network</span>
                   </a>
                 </span>
 
@@ -342,19 +347,41 @@
       
 
       
-        <p>python中将方法或者特性变为私有（无法从外部访问）,只需要在名字前面加上双下划线即可.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Seretive</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__inaccessible</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"can't see"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">accessible</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"can see"</span></span><br><span class="line">        self.__inaccessible()</span><br></pre></td></tr></table></figure></p>
-<p>现在的__inaccessible从外界无法访问，但是在内部还能使用.  </p>
-<p>输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">can see</span><br><span class="line">can&apos;t see</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;New_Class.py&quot;, line 25, in &lt;module&gt;</span><br><span class="line">    pro = Person().__inaccessible()</span><br><span class="line">AttributeError: &apos;Person&apos; object has no attribute &apos;__inaccessible&apos;</span><br></pre></td></tr></table></figure></p>
-<p>但是其实还是可以在外部访问私有方法__inaccessible()的，因为在类内部所有双下划线开始的名字都被翻译成了类名加单下划线的形式Seretive_inaccessible()，可以通过这个访问到私有方法。<br>如果实在不想让其他对象访问内部数据，那么可以是用单下划线。所有前面有单下划线的名字都不会被带星号的import语句导入  </p>
-<h1 id="多个超类"><a href="#多个超类" class="headerlink" title="多个超类"></a>多个超类</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Calculator</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">calculate</span><span class="params">(self, expression)</span>:</span></span><br><span class="line">        self.value = eval(expression)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Talker</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">talk</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"value is "</span>, self.value</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TalkingCalculator</span><span class="params">(Calculator, Talker)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<p>子类不做任何事情,从自己的超类继承所有的行为。这个被称为多重继承，但是尽量避免使用.<br>当使用多重继承的时候,如果一个方法从多个超类继承（就是有两个具有相同名字的不同方法）,那么要注意超类的顺序,先继承的类会重写后继承的类中的方法.  </p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>对象<br>对象包括特性和方法. 特性只是作为对象的一部分变量;方法是存储在对象内部的函数. (绑定)方法和其他函数的区别在于方法总是将对象作为自己的第一个参数(self).  </li>
-<li>类<br>类代表对象的集合,每一个对象（实例）都有一个类. 类的主要任务是定义它的实例会用到的方法.  </li>
-<li>多态<br>多态是实现将不同类型和类的对象进行同样对待的特性—不需要知道对象属于哪个类就可以调用.  </li>
-<li>封装<br>对象可以将内部状态隐藏（封装）起来.  </li>
-<li>继承<br>一个类可以是一个或者多个类的子类. 子类从超类继承所有方法. 可以使用多个超类. 普通的实现方式是使用核心的超类和一个或者多个混合的超类  </li>
+        <h1 id="Nexus基本管理"><a href="#Nexus基本管理" class="headerlink" title="Nexus基本管理"></a>Nexus基本管理</h1><h2 id="Nexus初始化"><a href="#Nexus初始化" class="headerlink" title="Nexus初始化"></a>Nexus初始化</h2><p>在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.<br>在有两个SUP的情况下VDC的分布:  </p>
+<ol>
+<li>8个普通vdc, 1个admin vdc(只有管理流量)</li>
+<li>7个普通vdc, 1个default vdc(即有管理流量也有业务流量)<br>在N7K启动过程中,会先启动kickstart版本的镜像, 在其启动dk9版本的镜像.这两个版本信息一定要一致才可以.<br><img src="/images/nexus/show boot.PNG" alt="show boot">  <h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2></li>
+<li>show module 查看引擎板卡等信息<br><img src="/images/nexus/show module.PNG" alt="show module"></li>
+<li><p>配置管理端口<br>管理端口默认在vrf management下, 只需要配置ip地址就可以了<br>配置管理路由的话, 需要按照下面命令:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vrf context management</span><br><span class="line">    ip route 0.0.0.0 0.0.0.0 (gateway-ip)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>show cdp neighbor<br>可以看到每个VDC的mgmt ip都是在同一个mgmt口上的<br>每个mgmt ip都可以ping通外部地址, 但是同一个mgmt口上的mgmt ip之间是无法ping通的<br>N2K不支持cdp  </p>
+</li>
+<li>power redundancy-mode (combined/insrc-redundant/ps-redundant/redunant)<br>必须在default vdc或者admin vdc下操作<br><img src="/images/nexus/power redundant.PNG" alt="power">  </li>
+<li>NTP<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 配置命令</span><br><span class="line">clock timezone GMT 8 0</span><br><span class="line">ntp server x.x.x.x vrf management</span><br><span class="line">ntp source-interface mgmt0</span><br><span class="line"># 查看命令</span><br><span class="line">show ntp peer-status</span><br><span class="line">show ntp</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>在配置NTP有问题的时候, 可能会出现问题, 需要额外配置一条命令’clock protocol none’  </p>
+<ol start="6">
+<li>CFS(cisco fabric service)<br>cisco私有特性, 分发数据包含配置的变化, 面向在同一个网络的所有nexus设备<br>主要为以下运行配置下发:  </li>
+</ol>
+<ul>
+<li>RADIUS</li>
+<li>TACACS+</li>
+<li>User and administrator roles</li>
+<li>call Home</li>
+<li>ntp</li>
+<li>L2FM(layer 2 forwarding manager)<br><img src="/images/nexus/cfs.PNG" alt="cfs"><br>根据上图的拓扑, N7K上之前配置ntp配置, 按照上述配置完成之后, N5K就可以通过CFS同步ntp配置  </li>
 </ul>
+<ol start="7">
+<li>Scheduler<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">feature scheduler</span><br><span class="line">scheduler job name testjob</span><br><span class="line">  copy running-config tftp://10.1.1.1/run.cfg vrf management</span><br><span class="line">  configure</span><br><span class="line">    feature telnet</span><br><span class="line">    exit</span><br><span class="line">  exit</span><br><span class="line">scheduler schedule name testscheduler</span><br><span class="line">  job name testjob</span><br><span class="line">  time daily 10:00</span><br><span class="line">  exit</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>可以建立一个运行一次或者周期性运行的定时任务.  </p>
+<ol start="8">
+<li>Rollback<br>允许为NX-OS配置创建一个快照, 并且在任何时间点, 在不重启设备的情况下, 重新运用快照的配置.<br>检查点的配置是存储在内存中的, 如果设备重启了, 就没有了. 而且设备不能开启FCoE特性  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">checkpoint before-ospf</span><br><span class="line">feature ospf</span><br><span class="line">router ospf 1</span><br><span class="line">checkpoint after-ospf</span><br><span class="line"># 这时候我们创建了两个检查点, 使用下面的命令可以对比两个检查点之间的区别</span><br><span class="line">show differ rollback-path checkpoint before-ospf checkpoint after-ospf</span><br><span class="line"># 进行回退操作</span><br><span class="line">rollback running-config checkpoint before-ospf</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
       
     </div>
@@ -372,7 +399,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/python/" rel="tag"># python</a>
+            <a href="/tags/Nexus/" rel="tag"># Nexus</a>
           
         </div>
       
@@ -385,8 +412,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/19/Ansible初步了解/" rel="next" title="Ansible初步了解">
-                <i class="fa fa-chevron-left"></i> Ansible初步了解
+              <a href="/2019/01/29/DHCP工作原理/" rel="next" title="DHCP工作原理">
+                <i class="fa fa-chevron-left"></i> DHCP工作原理
               </a>
             
           </div>
@@ -394,10 +421,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/09/Socket编程/" rel="prev" title="Socket编程">
-                Socket编程 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -545,7 +568,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#多个超类"><span class="nav-number">1.</span> <span class="nav-text">多个超类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nexus基本管理"><span class="nav-number">1.</span> <span class="nav-text">Nexus基本管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nexus初始化"><span class="nav-number">1.1.</span> <span class="nav-text">Nexus初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本命令"><span class="nav-number">1.2.</span> <span class="nav-text">基本命令</span></a></li></ol></li></ol></div>
             
 
           </div>
