@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="dhcp,network," />
+  <meta name="keywords" content="Nexus,VDC," />
 
 
 
@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="DHCP报文类型 DHCP Discover客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫">
-<meta name="keywords" content="dhcp,network">
+<meta name="description" content="VDC概念虚拟化可扩展性SUP2引擎支持4个VDC(1个default vdc + 3个no-default vdc)或者(1个admin vdc + 4个no-default vdc)SUP2E引擎支持8个VDC(1个default vdc + 7个no-default vdc)或者(1个admin vdc + 8个no-default vdc)    每一个vdc最多支持4096个vlan 每">
+<meta name="keywords" content="Nexus,VDC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DHCP工作原理">
-<meta property="og:url" content="https://hxwiwsh.com/2019/01/29/DHCP工作原理/index.html">
+<meta property="og:title" content="Nexus VDC">
+<meta property="og:url" content="https://hxwiwsh.com/2019/01/30/Nexus-VDC/index.html">
 <meta property="og:site_name" content="Learn More Do More">
-<meta property="og:description" content="DHCP报文类型 DHCP Discover客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫">
+<meta property="og:description" content="VDC概念虚拟化可扩展性SUP2引擎支持4个VDC(1个default vdc + 3个no-default vdc)或者(1个admin vdc + 4个no-default vdc)SUP2E引擎支持8个VDC(1个default vdc + 7个no-default vdc)或者(1个admin vdc + 8个no-default vdc)    每一个vdc最多支持4096个vlan 每">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://hxwiwsh.com/images/dhcp/DHCP拓扑.PNG">
-<meta property="og:image" content="https://hxwiwsh.com/images/dhcp/DHCP报文.PNG">
-<meta property="og:image" content="https://hxwiwsh.com/images/dhcp/DHCP%20offer报文.PNG">
-<meta property="og:updated_time" content="2019-01-30T02:45:51.787Z">
+<meta property="og:image" content="https://hxwiwsh.com/images/nexus/vdc%20resource%20template.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/nexus/Layer2Switch.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/nexus/Layer3Switch.PNG">
+<meta property="og:updated_time" content="2019-01-30T03:46:29.599Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DHCP工作原理">
-<meta name="twitter:description" content="DHCP报文类型 DHCP Discover客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫">
-<meta name="twitter:image" content="https://hxwiwsh.com/images/dhcp/DHCP拓扑.PNG">
+<meta name="twitter:title" content="Nexus VDC">
+<meta name="twitter:description" content="VDC概念虚拟化可扩展性SUP2引擎支持4个VDC(1个default vdc + 3个no-default vdc)或者(1个admin vdc + 4个no-default vdc)SUP2E引擎支持8个VDC(1个default vdc + 7个no-default vdc)或者(1个admin vdc + 8个no-default vdc)    每一个vdc最多支持4096个vlan 每">
+<meta name="twitter:image" content="https://hxwiwsh.com/images/nexus/vdc%20resource%20template.PNG">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://hxwiwsh.com/2019/01/29/DHCP工作原理/"/>
+  <link rel="canonical" href="https://hxwiwsh.com/2019/01/30/Nexus-VDC/"/>
 
 
 
 
 
-  <title>DHCP工作原理 | Learn More Do More</title>
+  <title>Nexus VDC | Learn More Do More</title>
   
 
 
@@ -257,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/01/29/DHCP工作原理/">
+    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/01/30/Nexus-VDC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="XuWei Huang">
@@ -274,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">DHCP工作原理</h1>
+          <h1 class="post-title" itemprop="name headline">Nexus VDC</h1>
         
 
         <div class="post-meta">
@@ -286,8 +286,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T12:11:59+08:00">
-                2019-01-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-30T10:44:51+08:00">
+                2019-01-30
               </time>
             
 
@@ -346,34 +346,17 @@
       
 
       
-        <h2 id="DHCP报文类型"><a href="#DHCP报文类型" class="headerlink" title="DHCP报文类型"></a>DHCP报文类型</h2><ol>
-<li>DHCP Discover<br>客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255<br>discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫秒之间随机长度的时间). 如果没有得到DHCP server的回应. 客户端会从169.254.0.0/16这个地址段中选取一个IP地址. 并且每隔5分钟重新广播依次. 如果收到dhcp server的响应, 则继续IP租用过程.  </li>
-<li>DHCP Offer<br>服务器单播客户端提供IP地址</li>
-<li>DHCP Request<br>客户端向服务器请求使用该IP地址</li>
-<li>DHCP ACK<br>服务器确认客户端可以使用该地址, 这个时候客户端上IP地址开始生效<h2 id="DHCP验证"><a href="#DHCP验证" class="headerlink" title="DHCP验证"></a>DHCP验证</h2></li>
-<li>直连情况下, client与server直连, 拓扑如下:<br><img src="/images/dhcp/DHCP拓扑.PNG" alt="dhcp拓扑-1"><br>我们在client-1和server之间进行抓包, 结果如下:<br><img src="/images/dhcp/DHCP报文.PNG" alt="dhcp报文">  </li>
-</ol>
+        <h1 id="VDC概念"><a href="#VDC概念" class="headerlink" title="VDC概念"></a>VDC概念</h1><h2 id="虚拟化可扩展性"><a href="#虚拟化可扩展性" class="headerlink" title="虚拟化可扩展性"></a>虚拟化可扩展性</h2><p>SUP2引擎支持4个VDC(1个default vdc + 3个no-default vdc)或者(1个admin vdc + 4个no-default vdc)<br>SUP2E引擎支持8个VDC(1个default vdc + 7个no-default vdc)或者(1个admin vdc + 8个no-default vdc)  </p>
 <ul>
-<li>client接入网络后, 会先发送一个dhcp discover广播包源为0.0.0.0目的为255.255.255.255</li>
-<li>server收到广播包后, server会根据请求报文来自的接口所属网段进行IP地址分配, 并且会发出广播包确认分配的IP地址是否已经存在, 如果不存在就将该IP地址分配给client并将相关信息放入dhcp offer包中回复给client.(这里是单播包)<br><img src="/images/dhcp/DHCP offer报文.PNG" alt="dhcp-offer"></li>
-<li>client收到回复之后, 会向dhcp server请求使用该IP地址. 此时还无法使用分配的IP地址, 所以发送的还是广播包(dhcp request中包含了offer包中提供的信息)</li>
-<li>dhcp server收到request包之后, 会向client回复一个dhcp ack的单播包(包含了相关信息).</li>
-<li>client收到dhcp server回复的dhcp ack包之后, 分配的IP地址就正式生效了.</li>
+<li>每一个vdc最多支持4096个vlan</li>
+<li>每一个vdc最多支持4096个vrf</li>
+<li>在一台物理设备上最多支持768个port-channel</li>
+<li>一台物理设备上只支持2个SPAN  <h2 id="default-vdc"><a href="#default-vdc" class="headerlink" title="default vdc"></a>default vdc</h2>完整功能的VDC, 拥有所有功能. 既包含管理流量, 也能承载业务流量.  <h2 id="VDC资源共享"><a href="#VDC资源共享" class="headerlink" title="VDC资源共享"></a>VDC资源共享</h2>在default vdc或者admin vdc下设置的资源都是全局共享的<br>在其他vdc下的vlan等信息都是只在vdc内生效的  <h2 id="Storge-VDC"><a href="#Storge-VDC" class="headerlink" title="Storge VDC"></a>Storge VDC</h2>主要用来运行FCoE的流量.</li>
+<li>分离LAN和SAN的流量</li>
+<li>支持连接FCoE的存储或主机</li>
+<li>支持与其他交换机(N7K, N5K, MDS)之间的FCoE ISLs</li>
+<li>每一个物理设备只支持一个storge vdc<h2 id="Line-Card-—-port-group"><a href="#Line-Card-—-port-group" class="headerlink" title="Line Card — port group"></a>Line Card — port group</h2>在线卡上存在port group的概念, 属于同一个port group的端口必须划分到同一个vdc. 不同的线卡, port group的数量也是不一样的.  <h2 id="VDC-之间的通讯"><a href="#VDC-之间的通讯" class="headerlink" title="VDC 之间的通讯"></a>VDC 之间的通讯</h2>只能通过物理连线才可以通信.  <h2 id="Resource-Template"><a href="#Resource-Template" class="headerlink" title="Resource Template"></a>Resource Template</h2>下图是创建VDC时分配的默认资源模板<br><img src="/images/nexus/vdc resource template.PNG" alt="vdc resource template">  <h2 id="VDC硬件利用"><a href="#VDC硬件利用" class="headerlink" title="VDC硬件利用"></a>VDC硬件利用</h2>在特定线卡上的转发引擎, 只包含线卡上关联的vdc的MAC地址条目<br><img src="/images/nexus/Layer2Switch.PNG" alt="Layer2"><br>同理, 三层交换也是一样的. FIB表以及ACL TCAM表<br><img src="/images/nexus/Layer3Switch.PNG" alt="Layer3"><br><strong>一般vdc用到几个端口, 才把几个线卡上的端口划入到vdc中去</strong><br><strong>理论上 一个线卡上的端口全都分配给一个vdc使用是最优化的</strong>  <h1 id="VDC配置"><a href="#VDC配置" class="headerlink" title="VDC配置"></a>VDC配置</h1>直接使用vdc <vdc name="">就可以创建一个vdc; 如果要删除的话, 只要no vdc <vdc name=""><br>使用show vdc membership可以查看当前端口的分配  <h2 id="启动顺序"><a href="#启动顺序" class="headerlink" title="启动顺序"></a>启动顺序</h2>当设备重启后, default vdc或者admin vdc是第一个启动的. 其他non-default vdc按顺序启动. 影响启动的参数boot order默认都是1, 越小越优先, 当boot order相同时, 按照顺序启动.  </vdc></vdc></li>
 </ul>
-<ol start="2">
-<li>当client和server不在同一vlan下的时候, 我们可以使用ip helper-address <server ip="">将DHCP请求单播到server</server></li>
-</ol>
-<ul>
-<li>client接入网络的时候, 还是会发送dhcp discover去请求IP, 由于和server不在一个vlan, 所以我们在client所在vlan的网关上配置了ip helper-address x.x.x.x. 网关收到dhcp discover的广播包之后会将其重新封装成一个单播包(源是网关地址, 目的是server地址)</li>
-<li>server收到单播的广播包之后 根据客户端所在子网所在网络进行IP分配, 发送dhcp offer</li>
-<li>client收到回复后 提出dhcp request 广播包</li>
-<li>server收到后 返回dhcp ack包, 此时client分配的IP地址开始生效</li>
-<li>client和switch之间的交互就可案例1中client和server交互式一样的, server的ip地址是在dhcp报文中进行体现的</li>
-<li>switch和server之间就是单播包的交互, switch将收到的所有dhcp请求报文封装成单播包发送给server<h2 id="DHCP配置"><a href="#DHCP配置" class="headerlink" title="DHCP配置"></a>DHCP配置</h2>一般在cisco设备上的配置如下:  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ip dhcp excluded-address 192.168.1.200 192.168.1.255</span><br><span class="line">ip dhcp excluded-address 192.168.100.200 192.168.100.255</span><br><span class="line">ip dhcp pool test</span><br><span class="line"> network 192.168.1.0 255.255.255.0</span><br><span class="line"> default-router 192.168.1.254</span><br><span class="line"> dns-server 192.168.1.254</span><br><span class="line">ip dhcp pool vlan100</span><br><span class="line"> network 192.168.100.0 255.255.255.0</span><br><span class="line"> default-router 192.168.100.254</span><br><span class="line"> dns-server 192.168.100.254</span><br><span class="line">ip dhcp pool vlan1_tom</span><br><span class="line">  host 10.1.1.50 255.255.255.0</span><br><span class="line">  client-identifier 010010.3ab1.eac8</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>可以给pool指定一个地址端, 可以将某些地址排除在pool之外, 可以根据mac和IP进行绑定<br>可以配置租期等其他属性  </p>
-<h2 id="DHCP冗余"><a href="#DHCP冗余" class="headerlink" title="DHCP冗余"></a>DHCP冗余</h2><p>一般情况下, 公司都会配置2台dhcp服务器进行冗余, 提高可用性. 但是在网络设备上,同时配置两台dhcp服务器进行冗余的方法没有碰到过.<br>也可以使用专门的dhcp服务器, 这种一般都会提供冗余的特性<br>或者在windows或者linux服务器上搭建dhcp服务也可以, 但是冗余的配置方法就不确定<br>关于dhcp冗余的方法将在之后另外用一篇文章来讲述  </p>
 
       
     </div>
@@ -391,9 +374,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/dhcp/" rel="tag"># dhcp</a>
+            <a href="/tags/Nexus/" rel="tag"># Nexus</a>
           
-            <a href="/tags/network/" rel="tag"># network</a>
+            <a href="/tags/VDC/" rel="tag"># VDC</a>
           
         </div>
       
@@ -406,8 +389,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/09/Socket编程/" rel="next" title="Socket编程">
-                <i class="fa fa-chevron-left"></i> Socket编程
+              <a href="/2019/01/29/Nexus基本管理/" rel="next" title="Nexus基本管理">
+                <i class="fa fa-chevron-left"></i> Nexus基本管理
               </a>
             
           </div>
@@ -416,8 +399,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/29/Nexus基本管理/" rel="prev" title="Nexus基本管理">
-                Nexus基本管理 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/30/Nexus-VPC/" rel="prev" title="Nexus VPC">
+                Nexus VPC <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -566,7 +549,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP报文类型"><span class="nav-number">1.</span> <span class="nav-text">DHCP报文类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP验证"><span class="nav-number">2.</span> <span class="nav-text">DHCP验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP配置"><span class="nav-number">3.</span> <span class="nav-text">DHCP配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP冗余"><span class="nav-number">4.</span> <span class="nav-text">DHCP冗余</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VDC概念"><span class="nav-number">1.</span> <span class="nav-text">VDC概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟化可扩展性"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟化可扩展性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#default-vdc"><span class="nav-number">1.2.</span> <span class="nav-text">default vdc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VDC资源共享"><span class="nav-number">1.3.</span> <span class="nav-text">VDC资源共享</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Storge-VDC"><span class="nav-number">1.4.</span> <span class="nav-text">Storge VDC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Line-Card-—-port-group"><span class="nav-number">1.5.</span> <span class="nav-text">Line Card — port group</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VDC-之间的通讯"><span class="nav-number">1.6.</span> <span class="nav-text">VDC 之间的通讯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Resource-Template"><span class="nav-number">1.7.</span> <span class="nav-text">Resource Template</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VDC硬件利用"><span class="nav-number">1.8.</span> <span class="nav-text">VDC硬件利用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VDC配置"><span class="nav-number">2.</span> <span class="nav-text">VDC配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动顺序"><span class="nav-number">2.1.</span> <span class="nav-text">启动顺序</span></a></li></ol></li></ol></div>
             
 
           </div>

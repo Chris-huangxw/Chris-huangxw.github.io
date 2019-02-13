@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="dhcp,network," />
+  <meta name="keywords" content="Nexus," />
 
 
 
@@ -79,22 +79,18 @@
 
 
 
-<meta name="description" content="DHCP报文类型 DHCP Discover客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫">
-<meta name="keywords" content="dhcp,network">
+<meta name="description" content="FEX技术FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.N2K 无法被管理, 只能通过上联设备来进行统一管理.N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧   NIV(network interface virtualization)NIV架构扩展了交换机端口到下游设">
+<meta name="keywords" content="Nexus">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DHCP工作原理">
-<meta property="og:url" content="https://hxwiwsh.com/2019/01/29/DHCP工作原理/index.html">
+<meta property="og:title" content="Nexus FEX技术">
+<meta property="og:url" content="https://hxwiwsh.com/2019/02/13/Nexus-FEX技术/index.html">
 <meta property="og:site_name" content="Learn More Do More">
-<meta property="og:description" content="DHCP报文类型 DHCP Discover客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫">
+<meta property="og:description" content="FEX技术FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.N2K 无法被管理, 只能通过上联设备来进行统一管理.N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧   NIV(network interface virtualization)NIV架构扩展了交换机端口到下游设">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://hxwiwsh.com/images/dhcp/DHCP拓扑.PNG">
-<meta property="og:image" content="https://hxwiwsh.com/images/dhcp/DHCP报文.PNG">
-<meta property="og:image" content="https://hxwiwsh.com/images/dhcp/DHCP%20offer报文.PNG">
-<meta property="og:updated_time" content="2019-01-30T02:45:51.787Z">
+<meta property="og:updated_time" content="2019-02-13T09:02:42.008Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DHCP工作原理">
-<meta name="twitter:description" content="DHCP报文类型 DHCP Discover客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫">
-<meta name="twitter:image" content="https://hxwiwsh.com/images/dhcp/DHCP拓扑.PNG">
+<meta name="twitter:title" content="Nexus FEX技术">
+<meta name="twitter:description" content="FEX技术FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.N2K 无法被管理, 只能通过上联设备来进行统一管理.N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧   NIV(network interface virtualization)NIV架构扩展了交换机端口到下游设">
 
 
 
@@ -124,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://hxwiwsh.com/2019/01/29/DHCP工作原理/"/>
+  <link rel="canonical" href="https://hxwiwsh.com/2019/02/13/Nexus-FEX技术/"/>
 
 
 
 
 
-  <title>DHCP工作原理 | Learn More Do More</title>
+  <title>Nexus FEX技术 | Learn More Do More</title>
   
 
 
@@ -257,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/01/29/DHCP工作原理/">
+    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/02/13/Nexus-FEX技术/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="XuWei Huang">
@@ -274,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">DHCP工作原理</h1>
+          <h1 class="post-title" itemprop="name headline">Nexus FEX技术</h1>
         
 
         <div class="post-meta">
@@ -286,8 +282,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T12:11:59+08:00">
-                2019-01-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-13T14:34:49+08:00">
+                2019-02-13
               </time>
             
 
@@ -346,34 +342,24 @@
       
 
       
-        <h2 id="DHCP报文类型"><a href="#DHCP报文类型" class="headerlink" title="DHCP报文类型"></a>DHCP报文类型</h2><ol>
-<li>DHCP Discover<br>客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255<br>discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫秒之间随机长度的时间). 如果没有得到DHCP server的回应. 客户端会从169.254.0.0/16这个地址段中选取一个IP地址. 并且每隔5分钟重新广播依次. 如果收到dhcp server的响应, 则继续IP租用过程.  </li>
-<li>DHCP Offer<br>服务器单播客户端提供IP地址</li>
-<li>DHCP Request<br>客户端向服务器请求使用该IP地址</li>
-<li>DHCP ACK<br>服务器确认客户端可以使用该地址, 这个时候客户端上IP地址开始生效<h2 id="DHCP验证"><a href="#DHCP验证" class="headerlink" title="DHCP验证"></a>DHCP验证</h2></li>
-<li>直连情况下, client与server直连, 拓扑如下:<br><img src="/images/dhcp/DHCP拓扑.PNG" alt="dhcp拓扑-1"><br>我们在client-1和server之间进行抓包, 结果如下:<br><img src="/images/dhcp/DHCP报文.PNG" alt="dhcp报文">  </li>
-</ol>
+        <h1 id="FEX技术"><a href="#FEX技术" class="headerlink" title="FEX技术"></a>FEX技术</h1><p>FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.<br>N2K 无法被管理, 只能通过上联设备来进行统一管理.<br>N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧  </p>
+<h2 id="NIV-network-interface-virtualization"><a href="#NIV-network-interface-virtualization" class="headerlink" title="NIV(network interface virtualization)"></a>NIV(network interface virtualization)</h2><p>NIV架构扩展了交换机端口到下游设备.  </p>
 <ul>
-<li>client接入网络后, 会先发送一个dhcp discover广播包源为0.0.0.0目的为255.255.255.255</li>
-<li>server收到广播包后, server会根据请求报文来自的接口所属网段进行IP地址分配, 并且会发出广播包确认分配的IP地址是否已经存在, 如果不存在就将该IP地址分配给client并将相关信息放入dhcp offer包中回复给client.(这里是单播包)<br><img src="/images/dhcp/DHCP offer报文.PNG" alt="dhcp-offer"></li>
-<li>client收到回复之后, 会向dhcp server请求使用该IP地址. 此时还无法使用分配的IP地址, 所以发送的还是广播包(dhcp request中包含了offer包中提供的信息)</li>
-<li>dhcp server收到request包之后, 会向client回复一个dhcp ack的单播包(包含了相关信息).</li>
-<li>client收到dhcp server回复的dhcp ack包之后, 分配的IP地址就正式生效了.</li>
-</ul>
-<ol start="2">
-<li>当client和server不在同一vlan下的时候, 我们可以使用ip helper-address <server ip="">将DHCP请求单播到server</server></li>
-</ol>
-<ul>
-<li>client接入网络的时候, 还是会发送dhcp discover去请求IP, 由于和server不在一个vlan, 所以我们在client所在vlan的网关上配置了ip helper-address x.x.x.x. 网关收到dhcp discover的广播包之后会将其重新封装成一个单播包(源是网关地址, 目的是server地址)</li>
-<li>server收到单播的广播包之后 根据客户端所在子网所在网络进行IP分配, 发送dhcp offer</li>
-<li>client收到回复后 提出dhcp request 广播包</li>
-<li>server收到后 返回dhcp ack包, 此时client分配的IP地址开始生效</li>
-<li>client和switch之间的交互就可案例1中client和server交互式一样的, server的ip地址是在dhcp报文中进行体现的</li>
-<li>switch和server之间就是单播包的交互, switch将收到的所有dhcp请求报文封装成单播包发送给server<h2 id="DHCP配置"><a href="#DHCP配置" class="headerlink" title="DHCP配置"></a>DHCP配置</h2>一般在cisco设备上的配置如下:  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ip dhcp excluded-address 192.168.1.200 192.168.1.255</span><br><span class="line">ip dhcp excluded-address 192.168.100.200 192.168.100.255</span><br><span class="line">ip dhcp pool test</span><br><span class="line"> network 192.168.1.0 255.255.255.0</span><br><span class="line"> default-router 192.168.1.254</span><br><span class="line"> dns-server 192.168.1.254</span><br><span class="line">ip dhcp pool vlan100</span><br><span class="line"> network 192.168.100.0 255.255.255.0</span><br><span class="line"> default-router 192.168.100.254</span><br><span class="line"> dns-server 192.168.100.254</span><br><span class="line">ip dhcp pool vlan1_tom</span><br><span class="line">  host 10.1.1.50 255.255.255.0</span><br><span class="line">  client-identifier 010010.3ab1.eac8</span><br></pre></td></tr></table></figure>
+<li>所有的FEX fabric link必须在同一个VDC下  </li>
+<li>SPAN的时候, N2K上的端口可以作为源端口, 但是不能作为目的端口.  </li>
+<li>etherchannel模式下, 针对2层帧, 基于源目MAC地址做load balance; 针对3层帧, 基于源目MAC地址以及源目IP地址进行负载  </li>
+<li><p>同时etherchannel模式不支持LACP, 只支持channel-group 1 mode on  </p>
+<h2 id="端口命名规则"><a href="#端口命名规则" class="headerlink" title="端口命名规则"></a>端口命名规则</h2><p>interface ethernet chassis/slot/port  </p>
+<h2 id="Host-Interface"><a href="#Host-Interface" class="headerlink" title="Host Interface"></a>Host Interface</h2><p>FEX上所有的host interface 都不允许接交换机, 默认开启了bpdu guard, 而且无法关闭<br>这样的话我们可以在host interface上启用快速收敛 spanning-tree port type edge (trunk)  </p>
+<h2 id="FEX支持的拓扑"><a href="#FEX支持的拓扑" class="headerlink" title="FEX支持的拓扑"></a>FEX支持的拓扑</h2><p>可以参考cisco官网给出的建议来部署:<br><a href="https://www.cisco.com/c/en/us/support/docs/switches/nexus-2000-series-fabric-extenders/200363-nexus-2000-fabric-extenders-supported-un.html?dtid=osscdc000283" target="_blank" rel="noopener">https://www.cisco.com/c/en/us/support/docs/switches/nexus-2000-series-fabric-extenders/200363-nexus-2000-fabric-extenders-supported-un.html?dtid=osscdc000283</a>  </p>
+<h2 id="FEX配置"><a href="#FEX配置" class="headerlink" title="FEX配置"></a>FEX配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#N5K下的配置</span></span><br><span class="line">feature fex</span><br><span class="line">fex 158</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"><span class="comment">#static pinning模式</span></span><br><span class="line">int e1/20</span><br><span class="line">switchport mode fex-fabric</span><br><span class="line">fex associate 158</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">show fex</span><br><span class="line">show fex detail</span><br><span class="line">show fex e1/20 fex-intf</span><br><span class="line"><span class="comment">#etherchannel模式</span></span><br><span class="line">int e1/21,e1/22</span><br><span class="line">channel-group 159 mode on</span><br><span class="line">int po 159</span><br><span class="line">switchport mode fex-fabric</span><br><span class="line">fex associate 159</span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
 </li>
+<li><p>FEX会在父系交换机上下载对应的镜像  </p>
+</li>
+<li>FEX本身没有任何转发能力  </li>
+<li>N7K上只支持portchannel模式, 而且需要在管理VDC下install feature-set fex, 然后在对应的VDC下开启fex特性 feature-set fex  </li>
+<li>一个FEX只能被一台设备管理, 只有一种特殊情况就是上联的两台N5K启用了vPC的时候, 一台fex N2K可以被两台N5K管理  </li>
 </ul>
-<p>可以给pool指定一个地址端, 可以将某些地址排除在pool之外, 可以根据mac和IP进行绑定<br>可以配置租期等其他属性  </p>
-<h2 id="DHCP冗余"><a href="#DHCP冗余" class="headerlink" title="DHCP冗余"></a>DHCP冗余</h2><p>一般情况下, 公司都会配置2台dhcp服务器进行冗余, 提高可用性. 但是在网络设备上,同时配置两台dhcp服务器进行冗余的方法没有碰到过.<br>也可以使用专门的dhcp服务器, 这种一般都会提供冗余的特性<br>或者在windows或者linux服务器上搭建dhcp服务也可以, 但是冗余的配置方法就不确定<br>关于dhcp冗余的方法将在之后另外用一篇文章来讲述  </p>
 
       
     </div>
@@ -391,9 +377,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/dhcp/" rel="tag"># dhcp</a>
-          
-            <a href="/tags/network/" rel="tag"># network</a>
+            <a href="/tags/Nexus/" rel="tag"># Nexus</a>
           
         </div>
       
@@ -406,8 +390,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/09/Socket编程/" rel="next" title="Socket编程">
-                <i class="fa fa-chevron-left"></i> Socket编程
+              <a href="/2019/02/13/Nexus-L2-L3基本配置/" rel="next" title="Nexus L2 L3基本配置">
+                <i class="fa fa-chevron-left"></i> Nexus L2 L3基本配置
               </a>
             
           </div>
@@ -415,10 +399,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/29/Nexus基本管理/" rel="prev" title="Nexus基本管理">
-                Nexus基本管理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -566,7 +546,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP报文类型"><span class="nav-number">1.</span> <span class="nav-text">DHCP报文类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP验证"><span class="nav-number">2.</span> <span class="nav-text">DHCP验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP配置"><span class="nav-number">3.</span> <span class="nav-text">DHCP配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP冗余"><span class="nav-number">4.</span> <span class="nav-text">DHCP冗余</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FEX技术"><span class="nav-number">1.</span> <span class="nav-text">FEX技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NIV-network-interface-virtualization"><span class="nav-number">1.1.</span> <span class="nav-text">NIV(network interface virtualization)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口命名规则"><span class="nav-number">1.2.</span> <span class="nav-text">端口命名规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Host-Interface"><span class="nav-number">1.3.</span> <span class="nav-text">Host Interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FEX支持的拓扑"><span class="nav-number">1.4.</span> <span class="nav-text">FEX支持的拓扑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FEX配置"><span class="nav-number">1.5.</span> <span class="nav-text">FEX配置</span></a></li></ol></li></ol></div>
             
 
           </div>

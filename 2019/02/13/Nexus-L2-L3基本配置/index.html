@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="dhcp,network," />
+  <meta name="keywords" content="Nexus," />
 
 
 
@@ -79,22 +79,18 @@
 
 
 
-<meta name="description" content="DHCP报文类型 DHCP Discover客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫">
-<meta name="keywords" content="dhcp,network">
+<meta name="description" content="接口基本配置N7K上所有端口默认处于shutdown状态; N5K上所有端口默认处于no shutdown状态(所有端口都是switchport)默认所有接口都是三层route模式, 只有当线卡不支持三层的时候, 接口才会处于二层switchport模式show run all | in “system default”    创建SVI口需要提前打开特性 feature interface-vl">
+<meta name="keywords" content="Nexus">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DHCP工作原理">
-<meta property="og:url" content="https://hxwiwsh.com/2019/01/29/DHCP工作原理/index.html">
+<meta property="og:title" content="Nexus L2 L3基本配置">
+<meta property="og:url" content="https://hxwiwsh.com/2019/02/13/Nexus-L2-L3基本配置/index.html">
 <meta property="og:site_name" content="Learn More Do More">
-<meta property="og:description" content="DHCP报文类型 DHCP Discover客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫">
+<meta property="og:description" content="接口基本配置N7K上所有端口默认处于shutdown状态; N5K上所有端口默认处于no shutdown状态(所有端口都是switchport)默认所有接口都是三层route模式, 只有当线卡不支持三层的时候, 接口才会处于二层switchport模式show run all | in “system default”    创建SVI口需要提前打开特性 feature interface-vl">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://hxwiwsh.com/images/dhcp/DHCP拓扑.PNG">
-<meta property="og:image" content="https://hxwiwsh.com/images/dhcp/DHCP报文.PNG">
-<meta property="og:image" content="https://hxwiwsh.com/images/dhcp/DHCP%20offer报文.PNG">
-<meta property="og:updated_time" content="2019-01-30T02:45:51.787Z">
+<meta property="og:updated_time" content="2019-02-13T06:34:02.153Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DHCP工作原理">
-<meta name="twitter:description" content="DHCP报文类型 DHCP Discover客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫">
-<meta name="twitter:image" content="https://hxwiwsh.com/images/dhcp/DHCP拓扑.PNG">
+<meta name="twitter:title" content="Nexus L2 L3基本配置">
+<meta name="twitter:description" content="接口基本配置N7K上所有端口默认处于shutdown状态; N5K上所有端口默认处于no shutdown状态(所有端口都是switchport)默认所有接口都是三层route模式, 只有当线卡不支持三层的时候, 接口才会处于二层switchport模式show run all | in “system default”    创建SVI口需要提前打开特性 feature interface-vl">
 
 
 
@@ -124,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://hxwiwsh.com/2019/01/29/DHCP工作原理/"/>
+  <link rel="canonical" href="https://hxwiwsh.com/2019/02/13/Nexus-L2-L3基本配置/"/>
 
 
 
 
 
-  <title>DHCP工作原理 | Learn More Do More</title>
+  <title>Nexus L2 L3基本配置 | Learn More Do More</title>
   
 
 
@@ -257,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/01/29/DHCP工作原理/">
+    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/02/13/Nexus-L2-L3基本配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="XuWei Huang">
@@ -274,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">DHCP工作原理</h1>
+          <h1 class="post-title" itemprop="name headline">Nexus L2 L3基本配置</h1>
         
 
         <div class="post-meta">
@@ -286,8 +282,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T12:11:59+08:00">
-                2019-01-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-13T10:39:31+08:00">
+                2019-02-13
               </time>
             
 
@@ -346,34 +342,47 @@
       
 
       
-        <h2 id="DHCP报文类型"><a href="#DHCP报文类型" class="headerlink" title="DHCP报文类型"></a>DHCP报文类型</h2><ol>
-<li>DHCP Discover<br>客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255<br>discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫秒之间随机长度的时间). 如果没有得到DHCP server的回应. 客户端会从169.254.0.0/16这个地址段中选取一个IP地址. 并且每隔5分钟重新广播依次. 如果收到dhcp server的响应, 则继续IP租用过程.  </li>
-<li>DHCP Offer<br>服务器单播客户端提供IP地址</li>
-<li>DHCP Request<br>客户端向服务器请求使用该IP地址</li>
-<li>DHCP ACK<br>服务器确认客户端可以使用该地址, 这个时候客户端上IP地址开始生效<h2 id="DHCP验证"><a href="#DHCP验证" class="headerlink" title="DHCP验证"></a>DHCP验证</h2></li>
-<li>直连情况下, client与server直连, 拓扑如下:<br><img src="/images/dhcp/DHCP拓扑.PNG" alt="dhcp拓扑-1"><br>我们在client-1和server之间进行抓包, 结果如下:<br><img src="/images/dhcp/DHCP报文.PNG" alt="dhcp报文">  </li>
-</ol>
+        <h1 id="接口基本配置"><a href="#接口基本配置" class="headerlink" title="接口基本配置"></a>接口基本配置</h1><p>N7K上所有端口默认处于shutdown状态; N5K上所有端口默认处于no shutdown状态(所有端口都是switchport)<br>默认所有接口都是三层route模式, 只有当线卡不支持三层的时候, 接口才会处于二层switchport模式<br>show run all | in “system default”  </p>
 <ul>
-<li>client接入网络后, 会先发送一个dhcp discover广播包源为0.0.0.0目的为255.255.255.255</li>
-<li>server收到广播包后, server会根据请求报文来自的接口所属网段进行IP地址分配, 并且会发出广播包确认分配的IP地址是否已经存在, 如果不存在就将该IP地址分配给client并将相关信息放入dhcp offer包中回复给client.(这里是单播包)<br><img src="/images/dhcp/DHCP offer报文.PNG" alt="dhcp-offer"></li>
-<li>client收到回复之后, 会向dhcp server请求使用该IP地址. 此时还无法使用分配的IP地址, 所以发送的还是广播包(dhcp request中包含了offer包中提供的信息)</li>
-<li>dhcp server收到request包之后, 会向client回复一个dhcp ack的单播包(包含了相关信息).</li>
-<li>client收到dhcp server回复的dhcp ack包之后, 分配的IP地址就正式生效了.</li>
+<li>创建SVI口需要提前打开特性 feature interface-vlan, 并且需要在创建SVI口之后, 手动no shutdown  </li>
+<li>show interface e1/1 transceiver 可以查看端口上的模块信息  </li>
+<li>show interface e1/1 cap 查看端口能力  <h2 id="MTU"><a href="#MTU" class="headerlink" title="MTU"></a>MTU</h2>数据中心中一些overlay技术或者FCoE环境下需要修改网络的最大MTU  </li>
+<li>对于三层接口, 576-9216之间的偶数都可以来配置MTU  </li>
+<li>对于二层接口, 要么1500, 要么是9216(default system jumbo MTU, 如果要修改这个值需要在全局模式下修改)  </li>
+<li><p>N5K的二层接口不支持MTU, 需要基于QoS class来进行设置  </p>
+<h2 id="UDLD"><a href="#UDLD" class="headerlink" title="UDLD"></a>UDLD</h2><p>UDLD是二层技术使交换机检查单向链路故障, 可以和物理层协商工作.<br>当一个单向链路被发现, 会被标记为未确定状态或者被关闭; UDLD aggressive模式当丢失邻居的时候, UDLD主动尝试重新建立与邻居的连接. 但是尝试次数超过8次之后, 端口状态会变成err-disable状态  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">feature udld</span><br><span class="line">inter e1/1</span><br><span class="line">udld aggressive</span><br><span class="line"><span class="comment"># 禁用命令</span></span><br><span class="line">no udld aggressive</span><br><span class="line">no udld <span class="built_in">enable</span></span><br><span class="line"><span class="comment"># 查看命令</span></span><br><span class="line">show udld neighbor</span><br><span class="line">show udld global</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>UDLD是由supervisor来处理的, 不建议在所有的端口上开启, 建议在internal switch之间以及WAN互联接口之间开启  </p>
+</li>
+<li>推荐UDLD的normal模式, 可以在vPC的peer-link以及member port上开启  <h2 id="port-profile"><a href="#port-profile" class="headerlink" title="port profile"></a>port profile</h2>Port Profile 可以为相同配置的端口配置一个相同的模板; port profile之间是可以继承的  </li>
 </ul>
-<ol start="2">
-<li>当client和server不在同一vlan下的时候, 我们可以使用ip helper-address <server ip="">将DHCP请求单播到server</server></li>
-</ol>
-<ul>
-<li>client接入网络的时候, 还是会发送dhcp discover去请求IP, 由于和server不在一个vlan, 所以我们在client所在vlan的网关上配置了ip helper-address x.x.x.x. 网关收到dhcp discover的广播包之后会将其重新封装成一个单播包(源是网关地址, 目的是server地址)</li>
-<li>server收到单播的广播包之后 根据客户端所在子网所在网络进行IP分配, 发送dhcp offer</li>
-<li>client收到回复后 提出dhcp request 广播包</li>
-<li>server收到后 返回dhcp ack包, 此时client分配的IP地址开始生效</li>
-<li>client和switch之间的交互就可案例1中client和server交互式一样的, server的ip地址是在dhcp报文中进行体现的</li>
-<li>switch和server之间就是单播包的交互, switch将收到的所有dhcp请求报文封装成单播包发送给server<h2 id="DHCP配置"><a href="#DHCP配置" class="headerlink" title="DHCP配置"></a>DHCP配置</h2>一般在cisco设备上的配置如下:  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ip dhcp excluded-address 192.168.1.200 192.168.1.255</span><br><span class="line">ip dhcp excluded-address 192.168.100.200 192.168.100.255</span><br><span class="line">ip dhcp pool test</span><br><span class="line"> network 192.168.1.0 255.255.255.0</span><br><span class="line"> default-router 192.168.1.254</span><br><span class="line"> dns-server 192.168.1.254</span><br><span class="line">ip dhcp pool vlan100</span><br><span class="line"> network 192.168.100.0 255.255.255.0</span><br><span class="line"> default-router 192.168.100.254</span><br><span class="line"> dns-server 192.168.100.254</span><br><span class="line">ip dhcp pool vlan1_tom</span><br><span class="line">  host 10.1.1.50 255.255.255.0</span><br><span class="line">  client-identifier 010010.3ab1.eac8</span><br></pre></td></tr></table></figure>
+<h1 id="动态路由协议"><a href="#动态路由协议" class="headerlink" title="动态路由协议"></a>动态路由协议</h1><ul>
+<li>对于OSPF, 可以直接在接口下使用 ip router ospf 1 area 0 来将端口宣告进OSPF中  <h2 id="针对OSPF快速收敛的BFD"><a href="#针对OSPF快速收敛的BFD" class="headerlink" title="针对OSPF快速收敛的BFD"></a>针对OSPF快速收敛的BFD</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feature bfd</span><br><span class="line">router ospf 1</span><br><span class="line">bfd</span><br><span class="line">int vlan12</span><br><span class="line">no ip redirects</span><br><span class="line">bfd interval 150 min 150 mul 150</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>可以给pool指定一个地址端, 可以将某些地址排除在pool之外, 可以根据mac和IP进行绑定<br>可以配置租期等其他属性  </p>
-<h2 id="DHCP冗余"><a href="#DHCP冗余" class="headerlink" title="DHCP冗余"></a>DHCP冗余</h2><p>一般情况下, 公司都会配置2台dhcp服务器进行冗余, 提高可用性. 但是在网络设备上,同时配置两台dhcp服务器进行冗余的方法没有碰到过.<br>也可以使用专门的dhcp服务器, 这种一般都会提供冗余的特性<br>或者在windows或者linux服务器上搭建dhcp服务也可以, 但是冗余的配置方法就不确定<br>关于dhcp冗余的方法将在之后另外用一篇文章来讲述  </p>
+<p>BFD邻居关系的建立  </p>
+<ol>
+<li>当OSPF发现一个邻居  </li>
+<li>它会要求本地BFD进程与发现的邻居建立一个BFD session  </li>
+<li>如果BFD检测到对端邻居不可达, 会立刻告诉OSPF进程, 达到快速收敛的目的<br>BFD理论:  </li>
+</ol>
+<ul>
+<li>检测机制: 默认回声模式; 还有查询模式, 异步模式  </li>
+<li>需要no ip redirect<h2 id="PSS-默认开启"><a href="#PSS-默认开启" class="headerlink" title="PSS(默认开启)"></a>PSS(默认开启)</h2>在运行动态路由协议的时候, 协议进程的数据是存储在内存中的. PSS提供了额外的数据信息备份. 在协议进程意外重启的时候, 可以通过PSS存储的数据恢复之前的状态.  <h2 id="NSF-不间断转发-默认开启"><a href="#NSF-不间断转发-默认开启" class="headerlink" title="NSF 不间断转发(默认开启)"></a>NSF 不间断转发(默认开启)</h2>当手动重启路由协议进程的时候, 会给邻居发送一个9类的LSA, 让邻居暂时保存当前的路由表(保留时间120s, 如果超过120s之后按正常收敛的路由更新路由表), 可以保证正在传输的数据不会中断.<br>完美重启的条件:  </li>
+</ul>
+<ol>
+<li>手动重启路由进程 restart ospf 1</li>
+<li>Active 引擎被移除, standby引擎开始工作</li>
+<li>Active 引擎重启, reload module active-sup  </li>
+</ol>
+<h1 id="二层配置Trunk-VLAN-VTP"><a href="#二层配置Trunk-VLAN-VTP" class="headerlink" title="二层配置Trunk, VLAN, VTP"></a>二层配置Trunk, VLAN, VTP</h1><p>N7K支持 MST和rapid pvst. 前者基于实例, 后者基于vlan  </p>
+<h1 id="HSRP与VRRP"><a href="#HSRP与VRRP" class="headerlink" title="HSRP与VRRP"></a>HSRP与VRRP</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">feature hsrp</span><br><span class="line">feature vrrp</span><br><span class="line">feature interface-vlan</span><br><span class="line">int vlan100</span><br><span class="line">  ip add 192.168.1.1/24</span><br><span class="line">  hsrp 1</span><br><span class="line">    preempt</span><br><span class="line">    priority 105</span><br><span class="line">    ip 192.168.1.3</span><br><span class="line">int vlan200</span><br><span class="line">  ip add 192.168.2.1/24</span><br><span class="line">  vrrp 1</span><br><span class="line">    address 192.168.2.3</span><br><span class="line">    no shutdown</span><br><span class="line"><span class="comment"># 另一边配置相似</span></span><br></pre></td></tr></table></figure>
+<p>HSRP与VRRP的区别:  </p>
+<ul>
+<li>VRRP抢占默认开启, HSRP需要手动开启  </li>
+<li>VRRP的虚IP必须要手动输入no shutdown来启用  </li>
+</ul>
 
       
     </div>
@@ -391,9 +400,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/dhcp/" rel="tag"># dhcp</a>
-          
-            <a href="/tags/network/" rel="tag"># network</a>
+            <a href="/tags/Nexus/" rel="tag"># Nexus</a>
           
         </div>
       
@@ -406,8 +413,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/09/Socket编程/" rel="next" title="Socket编程">
-                <i class="fa fa-chevron-left"></i> Socket编程
+              <a href="/2019/01/30/Nexus-VPC/" rel="next" title="Nexus VPC">
+                <i class="fa fa-chevron-left"></i> Nexus VPC
               </a>
             
           </div>
@@ -416,8 +423,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/29/Nexus基本管理/" rel="prev" title="Nexus基本管理">
-                Nexus基本管理 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/13/Nexus-FEX技术/" rel="prev" title="Nexus FEX技术">
+                Nexus FEX技术 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -566,7 +573,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP报文类型"><span class="nav-number">1.</span> <span class="nav-text">DHCP报文类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP验证"><span class="nav-number">2.</span> <span class="nav-text">DHCP验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP配置"><span class="nav-number">3.</span> <span class="nav-text">DHCP配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DHCP冗余"><span class="nav-number">4.</span> <span class="nav-text">DHCP冗余</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#接口基本配置"><span class="nav-number">1.</span> <span class="nav-text">接口基本配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MTU"><span class="nav-number">1.1.</span> <span class="nav-text">MTU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDLD"><span class="nav-number">1.2.</span> <span class="nav-text">UDLD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#port-profile"><span class="nav-number">1.3.</span> <span class="nav-text">port profile</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态路由协议"><span class="nav-number">2.</span> <span class="nav-text">动态路由协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#针对OSPF快速收敛的BFD"><span class="nav-number">2.1.</span> <span class="nav-text">针对OSPF快速收敛的BFD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PSS-默认开启"><span class="nav-number">2.2.</span> <span class="nav-text">PSS(默认开启)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSF-不间断转发-默认开启"><span class="nav-number">2.3.</span> <span class="nav-text">NSF 不间断转发(默认开启)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二层配置Trunk-VLAN-VTP"><span class="nav-number">3.</span> <span class="nav-text">二层配置Trunk, VLAN, VTP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HSRP与VRRP"><span class="nav-number">4.</span> <span class="nav-text">HSRP与VRRP</span></a></li></ol></div>
             
 
           </div>
