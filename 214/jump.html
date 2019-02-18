@@ -7,7 +7,7 @@
   <script type="text/javascript">
 
       var imgUrl = 'http://www.baidu.com/images/share.jpg';  // 分享后展示的一张图片
-      //var lineLink = 'http://www.baidu.com'; // 点击分享后跳转的页面地址
+      var lineLink = 'http://www.baidu.com'; // 点击分享后跳转的页面地址
           var descContent = "诚邀各位于5.25参加婚礼";  // 分享后的描述信息
           var shareTitle = '黄徐伟&王思慧的婚礼邀请';  // 分享后的标题
           var appid = '';  // 应用id,如果有可以填，没有就留空
@@ -49,15 +49,7 @@
               // 发送给好友
               WeixinJSBridge.on('menu:share:appmessage', function(argv){
                   shareFriend();
-              });
-             // 分享到朋友圈
-              WeixinJSBridge.on('menu:share:timeline', function(argv){
-                  shareTimeline();
-              });
-              // 分享到微博
-              WeixinJSBridge.on('menu:share:weibo', function(argv){
-                    shareWeibo();
-              });
+              });)
           }, false);
           </script>
 
@@ -65,6 +57,7 @@
 </head>
 
 <body>
-<img src="./214/invite.jpg" />
+
+<button onlick='shareFriend()'>SHARE</button>
 
 </body>
