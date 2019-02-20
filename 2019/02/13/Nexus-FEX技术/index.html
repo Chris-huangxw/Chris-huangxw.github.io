@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Learn More Do More">
 <meta property="og:description" content="FEX技术FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.N2K 无法被管理, 只能通过上联设备来进行统一管理.N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧   NIV(network interface virtualization)NIV架构扩展了交换机端口到下游设">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-13T09:02:42.008Z">
+<meta property="og:updated_time" content="2019-02-14T01:47:53.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nexus FEX技术">
 <meta name="twitter:description" content="FEX技术FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.N2K 无法被管理, 只能通过上联设备来进行统一管理.N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧   NIV(network interface virtualization)NIV架构扩展了交换机端口到下游设">
@@ -348,15 +348,15 @@
 <li>所有的FEX fabric link必须在同一个VDC下  </li>
 <li>SPAN的时候, N2K上的端口可以作为源端口, 但是不能作为目的端口.  </li>
 <li>etherchannel模式下, 针对2层帧, 基于源目MAC地址做load balance; 针对3层帧, 基于源目MAC地址以及源目IP地址进行负载  </li>
-<li><p>同时etherchannel模式不支持LACP, 只支持channel-group 1 mode on  </p>
-<h2 id="端口命名规则"><a href="#端口命名规则" class="headerlink" title="端口命名规则"></a>端口命名规则</h2><p>interface ethernet chassis/slot/port  </p>
-<h2 id="Host-Interface"><a href="#Host-Interface" class="headerlink" title="Host Interface"></a>Host Interface</h2><p>FEX上所有的host interface 都不允许接交换机, 默认开启了bpdu guard, 而且无法关闭<br>这样的话我们可以在host interface上启用快速收敛 spanning-tree port type edge (trunk)  </p>
+<li><p>同时etherchannel模式不支持LACP, 只支持channel-group 1 mode on</p>
+<h2 id="端口命名规则"><a href="#端口命名规则" class="headerlink" title="端口命名规则"></a>端口命名规则</h2><p>interface ethernet chassis/slot/port</p>
+<h2 id="Host-Interface"><a href="#Host-Interface" class="headerlink" title="Host Interface"></a>Host Interface</h2><p>FEX上所有的host interface 都不允许接交换机, 默认开启了bpdu guard, 而且无法关闭<br>这样的话我们可以在host interface上启用快速收敛 spanning-tree port type edge (trunk)</p>
 <h2 id="FEX支持的拓扑"><a href="#FEX支持的拓扑" class="headerlink" title="FEX支持的拓扑"></a>FEX支持的拓扑</h2><p>可以参考cisco官网给出的建议来部署:<br><a href="https://www.cisco.com/c/en/us/support/docs/switches/nexus-2000-series-fabric-extenders/200363-nexus-2000-fabric-extenders-supported-un.html?dtid=osscdc000283" target="_blank" rel="noopener">https://www.cisco.com/c/en/us/support/docs/switches/nexus-2000-series-fabric-extenders/200363-nexus-2000-fabric-extenders-supported-un.html?dtid=osscdc000283</a>  </p>
 <h2 id="FEX配置"><a href="#FEX配置" class="headerlink" title="FEX配置"></a>FEX配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#N5K下的配置</span></span><br><span class="line">feature fex</span><br><span class="line">fex 158</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"><span class="comment">#static pinning模式</span></span><br><span class="line">int e1/20</span><br><span class="line">switchport mode fex-fabric</span><br><span class="line">fex associate 158</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">show fex</span><br><span class="line">show fex detail</span><br><span class="line">show fex e1/20 fex-intf</span><br><span class="line"><span class="comment">#etherchannel模式</span></span><br><span class="line">int e1/21,e1/22</span><br><span class="line">channel-group 159 mode on</span><br><span class="line">int po 159</span><br><span class="line">switchport mode fex-fabric</span><br><span class="line">fex associate 159</span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>FEX会在父系交换机上下载对应的镜像  </p>
+<li><p>FEX会在父系交换机上下载对应的镜像</p>
 </li>
-<li>FEX本身没有任何转发能力  </li>
+<li>FEX本身没有任何转发能力</li>
 <li>N7K上只支持portchannel模式, 而且需要在管理VDC下install feature-set fex, 然后在对应的VDC下开启fex特性 feature-set fex  </li>
 <li>一个FEX只能被一台设备管理, 只有一种特殊情况就是上联的两台N5K启用了vPC的时候, 一台fex N2K可以被两台N5K管理  </li>
 </ul>
@@ -399,6 +399,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/15/Nexus-OTV/" rel="prev" title="Nexus OTV">
+                Nexus OTV <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -475,7 +479,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -486,7 +490,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -497,7 +501,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

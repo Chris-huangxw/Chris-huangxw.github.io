@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Nexus,Vxlan," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Vxlan overviewVxlan 基于MAC in UDP的方式传输.   Vxlan Format24位网络标识符(instance id)为流量隔离提供了1600万个vxlan字段   Vxlan VTEP Vxlan隧道终结在VTEP上 每个VTEP都会有两种端口, 一种为本地主机提供桥接功能, 另一个拥有核心网IP封装解封装vxlan数据包.Vxlan Forwarding Plan">
+<meta name="keywords" content="Nexus,Vxlan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nexus Vxlan">
+<meta property="og:url" content="https://hxwiwsh.com/2019/02/18/Nexus-Vxlan/index.html">
+<meta property="og:site_name" content="Learn More Do More">
+<meta property="og:description" content="Vxlan overviewVxlan 基于MAC in UDP的方式传输.   Vxlan Format24位网络标识符(instance id)为流量隔离提供了1600万个vxlan字段   Vxlan VTEP Vxlan隧道终结在VTEP上 每个VTEP都会有两种端口, 一种为本地主机提供桥接功能, 另一个拥有核心网IP封装解封装vxlan数据包.Vxlan Forwarding Plan">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://hxwiwsh.com/images/nexus/vxlan报文-1.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/nexus/vxlan报文-2.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/nexus/vxlan-evpn.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/nexus/分布式网关-对称.PNG">
+<meta property="og:updated_time" content="2019-02-19T09:15:12.934Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nexus Vxlan">
+<meta name="twitter:description" content="Vxlan overviewVxlan 基于MAC in UDP的方式传输.   Vxlan Format24位网络标识符(instance id)为流量隔离提供了1600万个vxlan字段   Vxlan VTEP Vxlan隧道终结在VTEP上 每个VTEP都会有两种端口, 一种为本地主机提供桥接功能, 另一个拥有核心网IP封装解封装vxlan数据包.Vxlan Forwarding Plan">
+<meta name="twitter:image" content="https://hxwiwsh.com/images/nexus/vxlan报文-1.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxwiwsh.com/2019/02/18/Nexus-Vxlan/"/>
+
+
+
+
+
+  <title>Nexus Vxlan | Learn More Do More</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Learn More Do More</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/02/18/Nexus-Vxlan/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuWei Huang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn More Do More">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Nexus Vxlan</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-18T15:33:04+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/network/" itemprop="url" rel="index">
+                    <span itemprop="name">network</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Vxlan-overview"><a href="#Vxlan-overview" class="headerlink" title="Vxlan overview"></a>Vxlan overview</h1><p>Vxlan 基于MAC in UDP的方式传输.  </p>
+<h2 id="Vxlan-Format"><a href="#Vxlan-Format" class="headerlink" title="Vxlan Format"></a>Vxlan Format</h2><p>24位网络标识符(instance id)为流量隔离提供了1600万个vxlan字段<br><img src="/images/nexus/vxlan报文-1.PNG" alt="vxlan报文-1"><br><img src="/images/nexus/vxlan报文-2.PNG" alt="vxlan报文-2">  </p>
+<h2 id="Vxlan-VTEP"><a href="#Vxlan-VTEP" class="headerlink" title="Vxlan VTEP"></a>Vxlan VTEP</h2><ul>
+<li>Vxlan隧道终结在VTEP上</li>
+<li>每个VTEP都会有两种端口, 一种为本地主机提供桥接功能, 另一个拥有核心网IP封装解封装vxlan数据包.<h2 id="Vxlan-Forwarding-Plane"><a href="#Vxlan-Forwarding-Plane" class="headerlink" title="Vxlan Forwarding Plane"></a>Vxlan Forwarding Plane</h2></li>
+<li>如果源目MAC地址在同一台交换机, 流量本地转发(没有vxlan解封装过程)</li>
+<li>如果目的MAC已知, 二层帧被本地VTEP封装成vxlan格式, 单播到远端VTEP; 然后再远端VTEP上解封装vxlan后以传统以太网帧格式发送到目的地</li>
+<li>如果目的MAC未知, 通过组播来泛洪(后面会描述)<h2 id="Vxlan-BUM-Traffic-Handling"><a href="#Vxlan-BUM-Traffic-Handling" class="headerlink" title="Vxlan BUM Traffic Handling"></a>Vxlan BUM Traffic Handling</h2></li>
+<li>Vxlan没有控制平面(所以必须要支持组播)</li>
+<li>对于MAC地址发现和转发组播广播流量, 直接利用VNID与之映射的组播组</li>
+<li>vxlan基于数据驱动的泛洪学习</li>
+<li>BUM traffic<ol>
+<li>Broadcast</li>
+<li>Unknown Layer2 Unicast</li>
+<li>Multicast<h2 id="Vxlan-Support-for-EVPN"><a href="#Vxlan-Support-for-EVPN" class="headerlink" title="Vxlan Support for EVPN"></a>Vxlan Support for EVPN</h2></li>
+</ol>
+</li>
+<li>标准的Vxlan搭配标准的BGP作为控制平面</li>
+<li>BGP作为控制平面分发二层MAC和三层IP的映射</li>
+<li>基于控制层面做转发决定, 减少泛洪</li>
+<li>在Vxlan通过集成式路由桥接优化转发路径<br><img src="/images/nexus/vxlan-evpn.PNG" alt="vxlan-evpn"><br><strong>EVPN MP-BGP可以充当多种overlay技术的控制层面</strong>  <h3 id="EVPN-MP-BGP功能"><a href="#EVPN-MP-BGP功能" class="headerlink" title="EVPN MP-BGP功能"></a>EVPN MP-BGP功能</h3></li>
+<li>通过控制平面通告主机网络可达性</li>
+<li>通过BGP对等体认证机制认证VTEPs</li>
+<li>优化无缝结合虚拟机迁移</li>
+<li>ARP抑制, ARP进程学习本地化, 减少网络泛洪</li>
+<li>支持单播网络替代底层网络<h3 id="MP-BGP-Review"><a href="#MP-BGP-Review" class="headerlink" title="MP-BGP Review"></a>MP-BGP Review</h3></li>
+<li>VRF 为不同租户实现三层隔离</li>
+<li>RD 8bit VRF参数 唯一的值(提供IP地址重复利用 rd+ip)</li>
+<li>RT 8bit 控制租户内导入和导出路由</li>
+<li>只需要和RR建立邻居就可以, 不用全网full mesh互联<h2 id="分布式网关-Anycast-Gateway"><a href="#分布式网关-Anycast-Gateway" class="headerlink" title="分布式网关 Anycast Gateway"></a>分布式网关 Anycast Gateway</h2></li>
+<li>不同VNI之间的路由</li>
+<li>相同VNI之间的桥接</li>
+<li>所有的叶节点共享网关IP和MAC(不需要HSRP)<h2 id="Vxlan路由"><a href="#Vxlan路由" class="headerlink" title="Vxlan路由"></a>Vxlan路由</h2></li>
+<li>对称式Symmetric (在VTEP的出入方向都要做路由)<ol>
+<li>每一个租户一个三层VNI</li>
+<li>每个租户会有多个二层VNI</li>
+<li>不同VTEP下的主机进行通讯, 在出入VTEP的时候, 都会把二层VNI转换成三层VNI<br><img src="/images/nexus/分布式网关-对称.PNG" alt="分布式网关-对称">  </li>
+</ol>
+</li>
+<li>非对称式Symmetric</li>
+</ul>
+<h1 id="VXLAN-STEP"><a href="#VXLAN-STEP" class="headerlink" title="VXLAN STEP"></a>VXLAN STEP</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nexus/" rel="tag"># Nexus</a>
+          
+            <a href="/tags/Vxlan/" rel="tag"># Vxlan</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/15/Nexus-OTV/" rel="next" title="Nexus OTV">
+                <i class="fa fa-chevron-left"></i> Nexus OTV
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/20/SSL-VPN设置每次登陆都需要输入密码-防止踢人后自动重连/" rel="prev" title="SSL VPN设置每次登陆都需要输入密码,防止踢人后自动重连">
+                SSL VPN设置每次登陆都需要输入密码,防止踢人后自动重连 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">XuWei Huang</p>
+              <p class="site-description motion-element" itemprop="description">Your path will make sense in the end.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Chris-huangxw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chris_huangxw@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vxlan-overview"><span class="nav-number">1.</span> <span class="nav-text">Vxlan overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vxlan-Format"><span class="nav-number">1.1.</span> <span class="nav-text">Vxlan Format</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vxlan-VTEP"><span class="nav-number">1.2.</span> <span class="nav-text">Vxlan VTEP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vxlan-Forwarding-Plane"><span class="nav-number">1.3.</span> <span class="nav-text">Vxlan Forwarding Plane</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vxlan-BUM-Traffic-Handling"><span class="nav-number">1.4.</span> <span class="nav-text">Vxlan BUM Traffic Handling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vxlan-Support-for-EVPN"><span class="nav-number">1.5.</span> <span class="nav-text">Vxlan Support for EVPN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#EVPN-MP-BGP功能"><span class="nav-number">1.5.1.</span> <span class="nav-text">EVPN MP-BGP功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MP-BGP-Review"><span class="nav-number">1.5.2.</span> <span class="nav-text">MP-BGP Review</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式网关-Anycast-Gateway"><span class="nav-number">1.6.</span> <span class="nav-text">分布式网关 Anycast Gateway</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vxlan路由"><span class="nav-number">1.7.</span> <span class="nav-text">Vxlan路由</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VXLAN-STEP"><span class="nav-number">2.</span> <span class="nav-text">VXLAN STEP</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuWei Huang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
