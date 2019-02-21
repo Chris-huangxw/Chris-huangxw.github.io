@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="PaloAlto," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据包处理过程 初始化数据包–&amp;gt;源Zone和地址匹配–&amp;gt;PBF查询(策略路由)–&amp;gt;目的Zone匹配–&amp;gt;NAT策略评估 安全策略预匹配–&amp;gt;检查允许端口–&amp;gt;会话建立 应用程序–&amp;gt;检查加密流量–&amp;gt;解密策略–&amp;gt;应用overrid匹配–&amp;gt;NAT策略评估 安全策略匹配–&amp;gt;检查安全端口–&amp;gt;检查安全建模 弹出数据包–&amp;gt;重新加密–&amp;gt;">
+<meta name="keywords" content="PaloAlto">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PaloAlto基本运维操作">
+<meta property="og:url" content="https://hxwiwsh.com/2019/02/21/PaloAlto基本运维操作/index.html">
+<meta property="og:site_name" content="Learn More Do More">
+<meta property="og:description" content="数据包处理过程 初始化数据包–&amp;gt;源Zone和地址匹配–&amp;gt;PBF查询(策略路由)–&amp;gt;目的Zone匹配–&amp;gt;NAT策略评估 安全策略预匹配–&amp;gt;检查允许端口–&amp;gt;会话建立 应用程序–&amp;gt;检查加密流量–&amp;gt;解密策略–&amp;gt;应用overrid匹配–&amp;gt;NAT策略评估 安全策略匹配–&amp;gt;检查安全端口–&amp;gt;检查安全建模 弹出数据包–&amp;gt;重新加密–&amp;gt;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/session-info.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/cpu.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/d-cpu.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/t-cpu.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/less-mp-log.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/tail.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/debug.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/ike-1.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/ike-2.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/log-1.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/log-2.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/show-power.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/show-fan.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/show-temp.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/log-alarm.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/log-config.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/log-config-1.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/HA.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/pac-drop.png">
+<meta property="og:image" content="https://hxwiwsh.com/images/PA/vpn.png">
+<meta property="og:updated_time" content="2019-02-21T07:19:58.697Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PaloAlto基本运维操作">
+<meta name="twitter:description" content="数据包处理过程 初始化数据包–&amp;gt;源Zone和地址匹配–&amp;gt;PBF查询(策略路由)–&amp;gt;目的Zone匹配–&amp;gt;NAT策略评估 安全策略预匹配–&amp;gt;检查允许端口–&amp;gt;会话建立 应用程序–&amp;gt;检查加密流量–&amp;gt;解密策略–&amp;gt;应用overrid匹配–&amp;gt;NAT策略评估 安全策略匹配–&amp;gt;检查安全端口–&amp;gt;检查安全建模 弹出数据包–&amp;gt;重新加密–&amp;gt;">
+<meta name="twitter:image" content="https://hxwiwsh.com/images/PA/session-info.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxwiwsh.com/2019/02/21/PaloAlto基本运维操作/"/>
+
+
+
+
+
+  <title>PaloAlto基本运维操作 | Learn More Do More</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Learn More Do More</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/02/21/PaloAlto基本运维操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuWei Huang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn More Do More">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PaloAlto基本运维操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-21T13:57:37+08:00">
+                2019-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Firewall/" itemprop="url" rel="index">
+                    <span itemprop="name">Firewall</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数据包处理过程"><a href="#数据包处理过程" class="headerlink" title="数据包处理过程"></a>数据包处理过程</h1><ul>
+<li>初始化数据包–&gt;源Zone和地址匹配–&gt;PBF查询(策略路由)–&gt;目的Zone匹配–&gt;NAT策略评估</li>
+<li>安全策略预匹配–&gt;检查允许端口–&gt;会话建立</li>
+<li>应用程序–&gt;检查加密流量–&gt;解密策略–&gt;应用overrid匹配–&gt;NAT策略评估</li>
+<li>安全策略匹配–&gt;检查安全端口–&gt;检查安全建模</li>
+<li>弹出数据包–&gt;重新加密–&gt;NAT策略应用–&gt;数据包转发</li>
+</ul>
+<h1 id="会话处理"><a href="#会话处理" class="headerlink" title="会话处理"></a>会话处理</h1><ol>
+<li>查看会话汇总<br>show session info<br><img src="/images/PA/session-info.png" alt="session-info"></li>
+<li>查看会话详情, 根据seesion id进一步查询会话的详细信息<br>show session id xxxx</li>
+<li>根据源目IP地址, application类型进行查询会话信息<br>show session all filter source [ip] destination [ip] application [app]</li>
+<li><p>会话过多处理方法</p>
+<ul>
+<li>show session all 检查所有session</li>
+<li>show session id xxx 检查session中是否存在非法流量<br>如果发现会话数大于设备可支撑的性能, 先发现会话数总数较多的ID, 然后查看该ID是否存在非法流量. 通过Dos保护或者会话限制ID的会话数限制该IP数目</li>
+</ul>
+</li>
+<li><p>清除会话, 可以根据后面的条件清除指定的会话, 或者清除所有<br>clear session all (filter source…)</p>
+</li>
+<li>抓包和过滤<br>在debug/less或者抓包的时候, 最好把PA的fastpath功能关闭. 这样可以看到更完整的报文.  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭fastpath命令</span></span><br><span class="line"><span class="built_in">set</span> deviceconfig setting session offload no  </span><br><span class="line"><span class="built_in">set</span> session offload no</span><br><span class="line"><span class="comment"># 创建过滤规则</span></span><br><span class="line">debug dataplane packet-diag <span class="built_in">set</span> filter match <span class="built_in">source</span> x.x.x.x destination x.x.x.x</span><br><span class="line"><span class="comment"># 开启过滤规则</span></span><br><span class="line">debug dataplane packet-diag <span class="built_in">set</span> filter on</span><br><span class="line"><span class="comment"># 配置抓包对象</span></span><br><span class="line"><span class="comment"># 抓取来自接口的流量</span></span><br><span class="line">debug dataplane packet-diag <span class="built_in">set</span> capture stage receive file x.pcap</span><br><span class="line"><span class="comment"># 抓取地址转换后的流量</span></span><br><span class="line">debug dataplane packet-diag <span class="built_in">set</span> capture stage transmit file x.pcap</span><br><span class="line"><span class="comment"># 抓取经过防火墙的流量</span></span><br><span class="line">debug dataplane packet-diag <span class="built_in">set</span> capture stage filewall file x.pcap</span><br><span class="line"><span class="comment"># 全局抓包开关</span></span><br><span class="line">debug dataplane packet-diag <span class="built_in">set</span> capture on</span><br><span class="line"><span class="comment"># 全局抓包配置</span></span><br><span class="line">debug dataplane packet-diag show setting</span><br><span class="line"><span class="comment"># 关闭抓包</span></span><br><span class="line">debug dataplane packet-diag <span class="built_in">set</span> capture off</span><br><span class="line"><span class="comment"># 清除所有抓包内容</span></span><br><span class="line">debug dataplane packet-diag clear all</span><br><span class="line"><span class="comment"># 删除文件</span></span><br><span class="line">delete debug-filter file x.pcap</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="CPU和内存"><a href="#CPU和内存" class="headerlink" title="CPU和内存"></a>CPU和内存</h1><ul>
+<li>管理平台CPU和内存<br>show system resources<br><img src="/images/PA/cpu.png" alt="c-cpu"><br>如果发现CPU过高可以使用show system resources follow(-l 检查哪个CPU高; -M 检查内存使用率是否高) 检查是哪个应用有问题</li>
+<li>数据平台CPU和内存<br>show running rescource-monitor<br><img src="/images/PA/d-cpu.png" alt="d-cpu"><br>flow_lookup 检查会话是否存在进程<br>flow_forwarding 是transmit地址转换进程</li>
+<li>全局利用率<br>show counter global<br><img src="/images/PA/t-cpu.png" alt="t-cpu"></li>
+</ul>
+<h1 id="Debug和Less"><a href="#Debug和Less" class="headerlink" title="Debug和Less"></a>Debug和Less</h1><p>Debug 主要是查看平台信息进而判断故障问题, 类似show命令<br>Less 管理和查看平台log日志, 在命令行下能看到更消息的log日志信息</p>
+<ul>
+<li>管理平台Debug和Less<br>less mp-log<br><img src="/images/PA/less-mp-log.png" alt="less-mp-log"><br>tail follow yes mp-log authd.log 可以实时发现流量信息<br><img src="/images/PA/tail.png" alt="tail"></li>
+<li>数据平台Debug和Less<br>debug dataplane 查看数据平台流量<br><img src="/images/PA/debug.png" alt="debug"></li>
+<li>其他<br>debug ike global on debug<br>查看VPN ike信息<br>less mp-log ikemgr.log<br>查看vpn ike 日志信息<br><img src="/images/PA/ike-1.png" alt="ike-1"><br><img src="/images/PA/ike-2.png" alt="ike-2"></li>
+</ul>
+<p>debug log-receiver statistics 查看日志情况<br>less mp-log logrcvr.log 查看日志缓存情况<br><img src="/images/PA/log-1.png" alt="log-1"><br><img src="/images/PA/log-2.png" alt="log-2"></p>
+<h1 id="硬件异常查看"><a href="#硬件异常查看" class="headerlink" title="硬件异常查看"></a>硬件异常查看</h1><h2 id="电源状态查看"><a href="#电源状态查看" class="headerlink" title="电源状态查看"></a>电源状态查看</h2><p>show system environmentals power<br><img src="/images/PA/show-power.png" alt="show-power"></p>
+<h2 id="风扇"><a href="#风扇" class="headerlink" title="风扇"></a>风扇</h2><p>show system environmentals fans<br><img src="/images/PA/show-fan.png" alt="show-fans"></p>
+<h2 id="温度"><a href="#温度" class="headerlink" title="温度"></a>温度</h2><p>show system environmentals thermal<br><img src="/images/PA/show-temp.png" alt="show-temp"></p>
+<h1 id="日志查看"><a href="#日志查看" class="headerlink" title="日志查看"></a>日志查看</h1><ul>
+<li>show log alarm<br><img src="/images/PA/log-alarm.png" alt="log-alarm"></li>
+<li>show log config<br><img src="/images/PA/log-config.png" alt="log-config"><br><img src="/images/PA/log-config-1.png" alt="log-config-1"></li>
+</ul>
+<h1 id="双机热备异常处理"><a href="#双机热备异常处理" class="headerlink" title="双机热备异常处理"></a>双机热备异常处理</h1><ul>
+<li>show high-availability state<br>查询防火墙HA状态</li>
+<li>show high-availablity all<br>查询完整HA信息</li>
+<li>show high-availability state-sync<br>查询HA同步信息</li>
+<li>request high-availability state suspend<br>手动切换主备, 运行该命令的防火墙会从active/passive 状态切换为暂停状态</li>
+<li>request high-availability state functional<br>手动恢复防火墙HA<br><img src="/images/PA/HA.png" alt="HA"><br>因为PA采用管理层面和数据层面分离的方式, 所以HA要分开维护. HA的状态主要有以下几种:  </li>
+</ul>
+<ol>
+<li>Initial—初始化状态, 防火墙发现对等体并进行HA协商之前的状态. 阈值为60s, 超过60s没有发现对等体自动进入active状态</li>
+<li>Active—活跃状态, 防火墙此时能处理所有流量</li>
+<li>Passove—被动状态, 备份主状态防火墙的所有业务流量</li>
+<li>Suspend—暂停状态,  管理员手动暂停</li>
+<li>Non-functional—错误状态, 当防火墙故障时出现</li>
+</ol>
+<h1 id="接口丢包"><a href="#接口丢包" class="headerlink" title="接口丢包"></a>接口丢包</h1><p>show counter global | match drop<br><img src="/images/PA/pac-drop.png" alt="pac-drop"></p>
+<h1 id="VPN故障"><a href="#VPN故障" class="headerlink" title="VPN故障"></a>VPN故障</h1><ol>
+<li>show vpn flow<br>查看防火墙加解密状态</li>
+<li>show vpn gateway<br>查看vpn配置</li>
+<li>show vpn ike-sa<br>查看一阶段ike-sa</li>
+<li>show vpn ipsec-sa<br>查看二阶段ipsec-sa</li>
+<li>show vpn tunnel<br>查看tunnel配置</li>
+<li>less mp-log ikemgr.log<br>查看ike日志信息<br><img src="/images/PA/vpn.png" alt="vpn"></li>
+</ol>
+<ul>
+<li>Wrong IP: vpn两端使用了错误的公网ip建立vpn</li>
+<li>no matching p1 or p2：vpn两端加解密算法, hash等不匹配</li>
+<li>PFS group mismatch：vpn两端使用不同DH算法</li>
+<li>Mismatched proxy id: vpn两端policy id不一致(通常发生在policy based)</li>
+<li>Mismatched Peer id：vpn两端peer id不一致</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PaloAlto/" rel="tag"># PaloAlto</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/21/PaloAlto基本配置/" rel="next" title="PaloAlto基本配置">
+                <i class="fa fa-chevron-left"></i> PaloAlto基本配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/21/PaloAlto版本升级/" rel="prev" title="PaloAlto版本升级">
+                PaloAlto版本升级 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">XuWei Huang</p>
+              <p class="site-description motion-element" itemprop="description">Your path will make sense in the end.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Chris-huangxw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chris_huangxw@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据包处理过程"><span class="nav-number">1.</span> <span class="nav-text">数据包处理过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#会话处理"><span class="nav-number">2.</span> <span class="nav-text">会话处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CPU和内存"><span class="nav-number">3.</span> <span class="nav-text">CPU和内存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Debug和Less"><span class="nav-number">4.</span> <span class="nav-text">Debug和Less</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#硬件异常查看"><span class="nav-number">5.</span> <span class="nav-text">硬件异常查看</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#电源状态查看"><span class="nav-number">5.1.</span> <span class="nav-text">电源状态查看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#风扇"><span class="nav-number">5.2.</span> <span class="nav-text">风扇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#温度"><span class="nav-number">5.3.</span> <span class="nav-text">温度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日志查看"><span class="nav-number">6.</span> <span class="nav-text">日志查看</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#双机热备异常处理"><span class="nav-number">7.</span> <span class="nav-text">双机热备异常处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口丢包"><span class="nav-number">8.</span> <span class="nav-text">接口丢包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VPN故障"><span class="nav-number">9.</span> <span class="nav-text">VPN故障</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuWei Huang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
