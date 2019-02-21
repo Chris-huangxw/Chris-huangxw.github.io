@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="3850 trunk接口下有大量丢包使用命令show int t1/1/1和show int t1/1/1 controller以及show int counters error查看相关信息 total output drops：丢包数为6882754 Excess Defer frames： 6882754  说明丢包的帧都是Excess Defer frames1234567891011121">
+<meta name="keywords" content="TS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="交换机端口丢包">
+<meta property="og:url" content="https://hxwiwsh.com/2019/02/21/交换机端口丢包/index.html">
+<meta property="og:site_name" content="Learn More Do More">
+<meta property="og:description" content="3850 trunk接口下有大量丢包使用命令show int t1/1/1和show int t1/1/1 controller以及show int counters error查看相关信息 total output drops：丢包数为6882754 Excess Defer frames： 6882754  说明丢包的帧都是Excess Defer frames1234567891011121">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-21T08:18:52.466Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="交换机端口丢包">
+<meta name="twitter:description" content="3850 trunk接口下有大量丢包使用命令show int t1/1/1和show int t1/1/1 controller以及show int counters error查看相关信息 total output drops：丢包数为6882754 Excess Defer frames： 6882754  说明丢包的帧都是Excess Defer frames1234567891011121">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxwiwsh.com/2019/02/21/交换机端口丢包/"/>
+
+
+
+
+
+  <title>交换机端口丢包 | Learn More Do More</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Learn More Do More</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/02/21/交换机端口丢包/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuWei Huang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn More Do More">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">交换机端口丢包</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-21T16:17:57+08:00">
+                2019-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/network/" itemprop="url" rel="index">
+                    <span itemprop="name">network</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="3850-trunk接口下有大量丢包"><a href="#3850-trunk接口下有大量丢包" class="headerlink" title="3850 trunk接口下有大量丢包"></a>3850 trunk接口下有大量丢包</h1><h2 id="使用命令show-int-t1-1-1和show-int-t1-1-1-controller以及show-int-counters-error查看相关信息"><a href="#使用命令show-int-t1-1-1和show-int-t1-1-1-controller以及show-int-counters-error查看相关信息" class="headerlink" title="使用命令show int t1/1/1和show int t1/1/1 controller以及show int counters error查看相关信息"></a>使用命令show int t1/1/1和show int t1/1/1 controller以及show int counters error查看相关信息</h2><ol>
+<li>total output drops：丢包数为6882754</li>
+<li>Excess Defer frames： 6882754</li>
+</ol>
+<p>说明丢包的帧都是Excess Defer frames<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">SDC-E01-C3850-01#show int t1/1/1 controller</span><br><span class="line">TenGigabitEthernet1/1/1 is up, line protocol is up (connected)</span><br><span class="line">  Hardware is Ten Gigabit Ethernet, address is 0c11.67b8.0635 (bia 0c11.67b8.0635)</span><br><span class="line">  Description: To IDX-VCO-P-JWIDXRF0502606&amp;&amp;Boeing</span><br><span class="line">  MTU 9198 bytes, BW 1000000 Kbit/sec, DLY 10 usec,</span><br><span class="line">     reliability 255/255, txload 1/255, rxload 1/255</span><br><span class="line">  Encapsulation ARPA, loopback not set</span><br><span class="line">  Keepalive not set</span><br><span class="line">  Full-duplex, 1000Mb/s, link type is auto, media type is 1000BaseSX SFP</span><br><span class="line">  input flow-control is off, output flow-control is unsupported</span><br><span class="line">  ARP type: ARPA, ARP Timeout 04:00:00</span><br><span class="line">  Last input 00:00:00, output never, output hang never</span><br><span class="line">  Last clearing of &quot;show interface&quot; counters never</span><br><span class="line">  Input queue: 0/2000/0/0 (size/max/drops/flushes); Total output drops: 6882754</span><br><span class="line">  Queueing strategy: fifo</span><br><span class="line">  Output queue: 0/40 (size/max)</span><br><span class="line">  5 minute input rate 215000 bits/sec, 124 packets/sec</span><br><span class="line">  5 minute output rate 2069000 bits/sec, 238 packets/sec</span><br><span class="line">     448781344 packets input, 103583916744 bytes, 0 no buffer</span><br><span class="line">     Received 6262901 broadcasts (6241876 multicasts)</span><br><span class="line">     0 runts, 0 giants, 0 throttles</span><br><span class="line">     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored</span><br><span class="line">     0 watchdog, 6241876 multicast, 0 pause input</span><br><span class="line">     0 input packets with dribble condition detected</span><br><span class="line">     1083907813 packets output, 1269540548698 bytes, 0 underruns</span><br><span class="line">     0 output errors, 0 collisions, 2 interface resets</span><br><span class="line">     0 unknown protocol drops</span><br><span class="line">     0 babbles, 0 late collision, 0 deferred</span><br><span class="line">     0 lost carrier, 0 no carrier, 0 pause output</span><br><span class="line">     0 output buffer failures, 0 output buffers swapped out</span><br><span class="line">Transmit                  TenGigabitEthernet1/1/1               Receive                 </span><br><span class="line">1269540548698 Total bytes                103583916744 Total bytes              </span><br><span class="line">   1080436550 Unicast frames                442518443 Unicast frames           </span><br><span class="line">1269248250406 Unicast bytes              103077478553 Unicast bytes            </span><br><span class="line">      2411364 Multicast frames                6241876 Multicast frames         </span><br><span class="line">    214954128 Multicast bytes               504600197 Multicast bytes          </span><br><span class="line">      1059899 Broadcast frames                  21025 Broadcast frames         </span><br><span class="line">     77344164 Broadcast bytes                 1837994 Broadcast bytes               </span><br><span class="line">     21556908 Minimum size frames              756073 Minimum size frames      </span><br><span class="line">     94757793 65 to 127 byte frames         364340783 65 to 127 byte frames    </span><br><span class="line">     69082138 128 to 255 byte frames         16989391 128 to 255 byte frames   </span><br><span class="line">     16000442 256 to 511 byte frames         12693888 256 to 511 byte frames   </span><br><span class="line">     22739718 512 to 1023 byte frames         8736837 512 to 1023 byte frames  </span><br><span class="line">    859770812 1024 to 1518 byte frames       45264370 1024 to 1518 byte frames</span><br><span class="line">            2 1519 to 2047 byte frames              2 1519 to 2047 byte frames</span><br><span class="line">            0 2048 to 4095 byte frames              0 2048 to 4095 byte frames</span><br><span class="line">            0 4096 to 8191 byte frames              0 4096 to 8191 byte frames</span><br><span class="line">            0 8192 to 16383 byte frames             0 8192 to 16383 byte frames</span><br><span class="line">            0 16384 to 32767 byte frame             0 16384 to 32767 byte frame</span><br><span class="line">            0 &gt; 32768 byte frames                   0 &gt; 32768 byte frames      </span><br><span class="line">            0 Late collision frames                 0 SymbolErr frames         </span><br><span class="line">      6882754 Excess Defer frames                   0 Collision fragments      </span><br><span class="line">            0 Good (1 coll) frames                  0 ValidUnderSize frames    </span><br><span class="line">            0 Good (&gt;1 coll) frames                 0 InvalidOverSize frames   </span><br><span class="line">            0 Deferred frames                       0 ValidOverSize frames     </span><br><span class="line">            0 Gold frames dropped                   0 FcsErr frames            </span><br><span class="line">LAST UPDATE 1980 msecs AGO</span><br><span class="line">SDC-E01-C3850-01#</span><br></pre></td></tr></table></figure></p>
+<h2 id="初步分析"><a href="#初步分析" class="headerlink" title="初步分析"></a>初步分析</h2><p>由于原来只承载了3个VLAN的流量,但是后来增加了3个VLAN的流量. 有可能突增流量超过了端口的缓冲区,导致端口产生出方向的丢包.  </p>
+<ol>
+<li>Out-Discard<br>说明：选择的出局信息包的数量被丢弃，即使未发现错误。常见原因：之所以丢弃此类数据包，一个可能的原因是为了释放缓冲区空间。</li>
+<li>Total output drops</li>
+</ol>
+<p>因输出队列已满而被丢弃的数据包数量.此的常见原因也许是从换成一条更低的带宽链路的一条高带宽链路从换成单个outbound链路的多条入站链路的数据流或数据流.例如,如果很多突发数据流在千兆接口进来和换成100Mbps接口,这在100Mbps接口也许造成输出下落增加.这是因为入站和出站带宽的速度不匹配,导致接口的输出队列被过量数据流淹没.</p>
+<h2 id="进一步分析"><a href="#进一步分析" class="headerlink" title="进一步分析"></a>进一步分析</h2><p>使用命令show controllers t1/1/1 utilization可以查看当前端口出方向和入方向的带宽利用率.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SDC-E01-C3850-01#sh controllers tenGigabitEthernet 1/1/1 utilization</span><br><span class="line">Receive Bandwidth Percentage Utilization   : 0</span><br><span class="line">Transmit Bandwidth Percentage Utilization  : 1</span><br></pre></td></tr></table></figure></p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
+<li>增加端口的带宽，这样缓冲区也会增加，不会让出方向的缓冲区溢出</li>
+<li>减少该端口的流量进行分流</li>
+</ol>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://www.fir3net.com/Switches/Cisco/troubleshooting-interface-drops-on-a-cisco-switch.html" target="_blank" rel="noopener">https://www.fir3net.com/Switches/Cisco/troubleshooting-interface-drops-on-a-cisco-switch.html</a><br><a href="https://www.cisco.com/c/en/us/support/docs/switches/catalyst-3850-series-switches/200594-Catalyst-3850-Troubleshooting-Output-dr.html?dtid=osscdc000283" target="_blank" rel="noopener">https://www.cisco.com/c/en/us/support/docs/switches/catalyst-3850-series-switches/200594-Catalyst-3850-Troubleshooting-Output-dr.html?dtid=osscdc000283</a>  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TS/" rel="tag"># TS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/21/Learn-Git/" rel="next" title="Learn Git">
+                <i class="fa fa-chevron-left"></i> Learn Git
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/21/Vi-Vim/" rel="prev" title="Vi&Vim">
+                Vi&Vim <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">XuWei Huang</p>
+              <p class="site-description motion-element" itemprop="description">Your path will make sense in the end.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Chris-huangxw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chris_huangxw@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3850-trunk接口下有大量丢包"><span class="nav-number">1.</span> <span class="nav-text">3850 trunk接口下有大量丢包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用命令show-int-t1-1-1和show-int-t1-1-1-controller以及show-int-counters-error查看相关信息"><span class="nav-number">1.1.</span> <span class="nav-text">使用命令show int t1/1/1和show int t1/1/1 controller以及show int counters error查看相关信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初步分析"><span class="nav-number">1.2.</span> <span class="nav-text">初步分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进一步分析"><span class="nav-number">1.3.</span> <span class="nav-text">进一步分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方法"><span class="nav-number">1.4.</span> <span class="nav-text">解决方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">1.5.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuWei Huang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

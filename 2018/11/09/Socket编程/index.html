@@ -88,7 +88,7 @@
 <meta property="og:description" content="Socket介绍在网络上两个程序通过一个双向的通信连接实现数据交换，这个链接的一端称为一个Socket（套接字），用于描述IP地址和端口。建立网络通信连接至少要有一对端口号（socket），Socket本质是API，对于TCP/IP的封装提供网络通信能力。每一种服务都打开一个socket并绑定在端口上，不同端口对应不同服务。Socket是面向C/S模型设计的，客户端在本地随机申请一个唯一的sock">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://hxwiwsh.com/images/socket.PNG">
-<meta property="og:updated_time" content="2019-02-21T02:53:25.840Z">
+<meta property="og:updated_time" content="2019-02-21T09:08:40.699Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Socket编程">
 <meta name="twitter:description" content="Socket介绍在网络上两个程序通过一个双向的通信连接实现数据交换，这个链接的一端称为一个Socket（套接字），用于描述IP地址和端口。建立网络通信连接至少要有一对端口号（socket），Socket本质是API，对于TCP/IP的封装提供网络通信能力。每一种服务都打开一个socket并绑定在端口上，不同端口对应不同服务。Socket是面向C/S模型设计的，客户端在本地随机申请一个唯一的sock">
@@ -447,7 +447,8 @@
 </ol>
 <h3 id="UDP编程"><a href="#UDP编程" class="headerlink" title="UDP编程"></a>UDP编程</h3><p>可以查看代码<strong>socket_server_udp.py</strong>和<strong>socket_client_udp.py</strong>。<br>与TCP不同的是，UDP的服务器端缺少了listen()和accept(),不需要建立连接就可以把数据直接发送给客户端; 同时客户端少了connect(),同样直接通过sendto()给服务器发送数据。</p>
 <h3 id="客户端发送bash命令-然后在服务器端执行"><a href="#客户端发送bash命令-然后在服务器端执行" class="headerlink" title="客户端发送bash命令,然后在服务器端执行"></a>客户端发送bash命令,然后在服务器端执行</h3><p>可以查看代码<strong>bash_socket_server.py</strong>和<strong>bash_socket_client.py</strong></p>
-<h2 id="SocketServer"><a href="#SocketServer" class="headerlink" title="SocketServer"></a>SocketServer</h2><p>SocketServer是socket服务端库, 实现多线程, 并法处理客户端请求.<br>|:–|:–|<br>|SocketServer.TCPServer(server_address, RequestHandlerClass, bind_and_activate=True)|服务器类, TCP协议|<br>|SocketServer.UDPServer(server_address, RequestHandlerClass, bind_and_activate=True)|服务器类, UDP协议|<br>|SocketServer.BaseServer(server_address, RequestHandlerClass)|这个是所有服务器对象的超类,定义了接口,不提供大多数方法|<br>|SocketServer.BaseRequestHandler|所有请求处理对象的超类, 定义了接口, 一个具体的请求处理程序子类必须定义一个新的handler()方法|<br>|SocketServer.StreamRequestHandler|流式socket, 根据socket生成读写socket用的两个文件对象, 调用rfile和wfile读写|<br>|SocketServer.DatagramRequestHandler|数据报socket,同样生成rfile和wfile,但是UDP不直接关联socket.rfile是由UDP中读取的数据生成的,wfile是新建一个StringIO,用于写数据|<br>|SocketServer.ForkingMixIn/ThreadingMixIn|多进程(分叉)多线程实现异步. 混合类, 这个类不会直接实例化. 用于实现处理多连接|</p>
+<h2 id="SocketServer"><a href="#SocketServer" class="headerlink" title="SocketServer"></a>SocketServer</h2><p>SocketServer是socket服务端库, 实现多线程, 并法处理客户端请求.</p>
+<p>|:–|:–|<br>|SocketServer.TCPServer(server_address, RequestHandlerClass, bind_and_activate=True)|服务器类, TCP协议|<br>|SocketServer.UDPServer(server_address, RequestHandlerClass, bind_and_activate=True)|服务器类, UDP协议|<br>|SocketServer.BaseServer(server_address, RequestHandlerClass)|这个是所有服务器对象的超类,定义了接口,不提供大多数方法|<br>|SocketServer.BaseRequestHandler|所有请求处理对象的超类, 定义了接口, 一个具体的请求处理程序子类必须定义一个新的handler()方法|<br>|SocketServer.StreamRequestHandler|流式socket, 根据socket生成读写socket用的两个文件对象, 调用rfile和wfile读写|<br>|SocketServer.DatagramRequestHandler|数据报socket,同样生成rfile和wfile,但是UDP不直接关联socket.rfile是由UDP中读取的数据生成的,wfile是新建一个StringIO,用于写数据|<br>|SocketServer.ForkingMixIn/ThreadingMixIn|多进程(分叉)多线程实现异步. 混合类, 这个类不会直接实例化. 用于实现处理多连接|</p>
 
       
     </div>
@@ -569,7 +570,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -580,7 +581,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -591,7 +592,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SQLSQL就是处理关系数据库的标准语言.非关系数据库(MongoDB, Cassandra, Dynamo等等)   数据库模型 层次模型以“上下级”的层次关系来组织数据的一种方式, 层次模型的数据结构看起来就像一棵树   网状模型把每个数据节点和其他很多节点都连接起来, 它的数据结构看起来就像很多城市之间的路网   关系模型把数据看作一个二维表格, 任何数据都可以通过行号+列号来唯一确定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql基本知识点">
+<meta property="og:url" content="https://hxwiwsh.com/2019/02/21/sql基本知识点/index.html">
+<meta property="og:site_name" content="Learn More Do More">
+<meta property="og:description" content="SQLSQL就是处理关系数据库的标准语言.非关系数据库(MongoDB, Cassandra, Dynamo等等)   数据库模型 层次模型以“上下级”的层次关系来组织数据的一种方式, 层次模型的数据结构看起来就像一棵树   网状模型把每个数据节点和其他很多节点都连接起来, 它的数据结构看起来就像很多城市之间的路网   关系模型把数据看作一个二维表格, 任何数据都可以通过行号+列号来唯一确定">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://hxwiwsh.com/images/sql/层次模型.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/sql/网状模型.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/sql/关系模型.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/sql/students.PNG">
+<meta property="og:updated_time" content="2019-02-21T09:12:20.572Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sql基本知识点">
+<meta name="twitter:description" content="SQLSQL就是处理关系数据库的标准语言.非关系数据库(MongoDB, Cassandra, Dynamo等等)   数据库模型 层次模型以“上下级”的层次关系来组织数据的一种方式, 层次模型的数据结构看起来就像一棵树   网状模型把每个数据节点和其他很多节点都连接起来, 它的数据结构看起来就像很多城市之间的路网   关系模型把数据看作一个二维表格, 任何数据都可以通过行号+列号来唯一确定">
+<meta name="twitter:image" content="https://hxwiwsh.com/images/sql/层次模型.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxwiwsh.com/2019/02/21/sql基本知识点/"/>
+
+
+
+
+
+  <title>sql基本知识点 | Learn More Do More</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Learn More Do More</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/02/21/sql基本知识点/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuWei Huang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn More Do More">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sql基本知识点</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-21T16:59:46+08:00">
+                2019-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sql/" itemprop="url" rel="index">
+                    <span itemprop="name">sql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h1><p>SQL就是处理关系数据库的标准语言.<br>非关系数据库(MongoDB, Cassandra, Dynamo等等)  </p>
+<h2 id="数据库模型"><a href="#数据库模型" class="headerlink" title="数据库模型"></a>数据库模型</h2><ol>
+<li>层次模型<br>以“上下级”的层次关系来组织数据的一种方式, 层次模型的数据结构看起来就像一棵树<br><img src="/images/sql/层次模型.PNG" alt="层次模型">  </li>
+<li>网状模型<br>把每个数据节点和其他很多节点都连接起来, 它的数据结构看起来就像很多城市之间的路网<br><img src="/images/sql/网状模型.PNG" alt="网状模型">  </li>
+<li>关系模型<br>把数据看作一个二维表格, 任何数据都可以通过行号+列号来唯一确定</li>
+</ol>
+<p><img src="/images/sql/关系模型.PNG" alt="关系模型">  </p>
+<h2 id="主流关系数据库"><a href="#主流关系数据库" class="headerlink" title="主流关系数据库"></a>主流关系数据库</h2><ol>
+<li>商用数据库, Oracle, SQL Server, DB2等</li>
+<li>开源数据库, MySQL, PostgreSQL等</li>
+<li>桌面数据库, Access等, 适用桌面应用程序使用</li>
+<li>嵌入式数据库, Sqlite等, 适合手机应用和桌面程序</li>
+</ol>
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><p>MySQL是目前应用最广泛的开源关系数据库. 本身实际上只是一个SQL接口, 内部还包含了多种数据引擎：  </p>
+<ol>
+<li>InnoDB</li>
+<li>MyISAM(不支持事务)</li>
+</ol>
+<p>使用MySQL时, 不同的表可以使用不同的数据库引擎. 如果不知道采用哪一种, 可以选择InnoDB就可以了.  </p>
+<h2 id="MariaDB"><a href="#MariaDB" class="headerlink" title="MariaDB"></a>MariaDB</h2><p>使用XtraDB引擎  </p>
+<h2 id="Aurora"><a href="#Aurora" class="headerlink" title="Aurora"></a>Aurora</h2><p>由Amazon改进的一个MySQL版本, 专门提供给在AWS托管MySQL用户  </p>
+<h2 id="PolarDB"><a href="#PolarDB" class="headerlink" title="PolarDB"></a>PolarDB</h2><p>Alibaba改进的MySQL版本</p>
+<h1 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h1><p>关系数据库建立在关系模型上, 关系是通过主键和外键来维护的.  </p>
+<h2 id="主键"><a href="#主键" class="headerlink" title="主键"></a>主键</h2><p>对于关系表, 任意两条记录不能重复. 指能够通过某个字段唯一区分出不同的记录, 这个字段称为主键<br>如果我们把名字作为主键, 那么在数据库中就不能存在两个名字是一样的人的数据<br>一旦记录插入到表中, 最好不要再修改主键内容. 所以对于主键的选择原则：不适用任何业务相关的字段作为主键<br>作为主键最好是业务无关的字段, 一般我们会使用id. 常见的可作为id字段的类型有:</p>
+<ol>
+<li>自增整数类型：数据库会再插入数据时自动为每一条记录分配一个自增整数</li>
+<li>全局唯一GUID类型：使用一种全局唯一的字符串作为主键. GUID算法通过网卡MAC地址, 时间戳和随机数保证任意计算机再任意时间生成的字符串都是不同的.</li>
+</ol>
+<p>大部分情况下, 使用自增类型的主键就能满足需求. 如果使用INT自增类型, 那么记录数超过21亿的时候, 会到达上限而出错. 使用BIGINT自增类型可以最多存储922亿亿条数据  </p>
+<h3 id="联合主键"><a href="#联合主键" class="headerlink" title="联合主键"></a>联合主键</h3><p>关系数据库还允许通过多个字段唯一标识记录, 即两个或更多的字段都设置为主键, 这种主键被称为联合主键.对于联合主键只要不是所有主键都重复即可.(但是使用联合主键增加了表的复杂度, 尽量不使用)  </p>
+<h2 id="外键"><a href="#外键" class="headerlink" title="外键"></a>外键</h2><p>可以通过一个字段把数据与另一张表关联起来, 这种列称为外键<br>外键并不是通过列名实现的, 而是通过定义外键约束实现的<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> students</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_class_id</span><br><span class="line">FOREIGN <span class="keyword">KEY</span> (class_id)</span><br><span class="line"><span class="keyword">REFERENCES</span> classes (<span class="keyword">id</span>);</span><br></pre></td></tr></table></figure></p>
+<p>外键约束的名称fk_class_id可以是任意, FOREIGN KEY (class_id)指定了class_id作为外键, REFERENCES classes (id)指定了这个外键将关联表classes中的id列(也是就该表的主键)<br>通过定义外键约束, 关系数据库可以保证无法插入无效的数据. 如果classes表内不存在id=99的记录, 那么students表中就无法插入class_id=99的记录.<br>一般情况下外键约束会降低数据库的性能, 所以有些时候class_id仅仅是一个普通的列, 只是它起到了外键的作用.  </p>
+<h3 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h3><p>通过一个表的外键关联到另一个表, 我们可以定义出一对多关系. 有些时候, 还需要定义多对多关系.<br>多对多关系实际上是通过两个一对多关系实现的, 即通过一个中间表, 关联两个一对多关系, 就形成了多对多关系.<br>teacher表：  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th style="text-align:left">name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">张老师</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">王老师</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">李老师</td>
+</tr>
+</tbody>
+</table>
+<p>classes表:  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th style="text-align:left">name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">一班</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">二班</td>
+</tr>
+</tbody>
+</table>
+<p>teacher_class：  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th style="text-align:left">teacher_id</th>
+<th style="text-align:left">class_id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">2</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">2</td>
+</tr>
+</tbody>
+</table>
+<p>通过中间表teacher_class可以知道teachers和classes之间的关系  </p>
+<h3 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h3><p>一般情况下, 会将一个大表拆成两个一对一的表, 目的是把经常读取和不经常读取的字段分开, 以获得更高的性能.  </p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>索引是关系数据库中对某一列或多个列的值进行预排序的数据结构. 通过索引, 可以让数据库系统不扫描整个表, 直接定位到符合条件的记录, 可以大大加快查询速度.<br>对于students表,<br><img src="/images/sql/students.PNG" alt="students"><br>如果经常根据score进行查询, 就可以对score创建索引:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> students</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">INDEX</span> idx_score (score)</span><br></pre></td></tr></table></figure></p>
+<p>使用<strong>ADD INDEX idx_score (score)</strong> 就创建了一个名称为idx_score, 使用列score的索引. 索引名称是任意的, 如果索引有多列, 可以再括号内依次写上.<br>索引的效率取决于索引列的值是否散列, 该列的值越不相同, 那么索引效率越高.<br>可以对一个表创建多个索引, 索引的优点是调高了查询效率, 缺点是插入,更新和删除记录时, 需要同时修改索引. 所以索引越多, 插入、更新和删除记录的速度越慢.  </p>
+<h3 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h3><p>设计关系数据表的时候, 看上去唯一的列 因为具有业务含义不能作为主键.<br>但是这些列根据业务要求具有唯一性约束, 那么可以给该列添加一个唯一索引.<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> students</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> uni_name (<span class="keyword">name</span>);</span><br></pre></td></tr></table></figure></p>
+<p>通过UNIQUE关键字我们添加了一个唯一索引, 也可以支队某一列添加一个唯一约束而不创建唯一索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> students</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> uni_name <span class="keyword">UNIQUE</span> (<span class="keyword">name</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这个时候name列没有索引, 但是仍然具有唯一性保证<br>无论是否创建索引, 对于用户和应用程序来说, 没有区别. 只不过存在索引的时候, 我们的查询速度会变快.  </p>
+<h1 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h1><p>我们有两张表students和classes, 结构如下:<br>students表：  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th style="text-align:left">class_id</th>
+<th style="text-align:left">name</th>
+<th style="text-align:left">gender</th>
+<th style="text-align:left">score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p>classes表:  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th style="text-align:left">name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> classes;</span><br><span class="line"># 查询classes表中的所有数据</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> score &gt;= <span class="number">80</span>;</span><br><span class="line"># 查询students中所有score大于等于80的学生信息</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> score &gt;= <span class="number">80</span> <span class="keyword">OR</span> gengder = <span class="string">'M'</span>;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> score &gt;= <span class="number">80</span> <span class="keyword">AND</span> gengder = <span class="string">'M'</span>;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> <span class="keyword">NOT</span> class_id = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> (score &lt; <span class="number">80</span> <span class="keyword">OR</span> score &gt; <span class="number">90</span>) <span class="keyword">AND</span> gender = <span class="string">'M'</span>;</span><br><span class="line"># 多条件查询的时候, 可以用()来表示如何进行条件运算</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> score <span class="keyword">LIKE</span> <span class="string">'%8'</span>;</span><br><span class="line"># 查询所有成绩是8结尾的学生信息</span><br></pre></td></tr></table></figure>
+<h2 id="投影查询"><a href="#投影查询" class="headerlink" title="投影查询"></a>投影查询</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, <span class="keyword">name</span> <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> score &gt;= <span class="number">80</span>;</span><br><span class="line"># 仅返回指定列, 这种操作称为投影</span><br></pre></td></tr></table></figure>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, <span class="keyword">name</span>, gender <span class="keyword">FROM</span> students <span class="keyword">ORDER</span> <span class="keyword">BY</span> score;</span><br><span class="line"># 默认按照分数从低到高排列</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, <span class="keyword">name</span>, gender <span class="keyword">FROM</span> students <span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">DESC</span>;</span><br><span class="line"># 如果要从高到低排列, 在最后添加DESC参数就可以了</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, <span class="keyword">name</span>, gender <span class="keyword">FROM</span> students <span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">DESC</span>, gender;</span><br><span class="line"># 如果有score一样的情况下, 按gender排列</span><br></pre></td></tr></table></figure>
+<h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, <span class="keyword">name</span>, gender, score</span><br><span class="line"><span class="keyword">FROM</span> students</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">DESC</span></span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">3</span> <span class="keyword">OFFSET</span> <span class="number">0</span>;</span><br><span class="line"># LIMIT 3 OFFSET 0表示对结果集从0号记录开始, 最多取3条.</span><br><span class="line"># 查询第二页内容的话 LIMIT 3 OFFSET 3</span><br></pre></td></tr></table></figure>
+<h2 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> students;</span><br><span class="line"># 查询students中总共有多少条数据</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">num</span> <span class="keyword">FROM</span> students;</span><br><span class="line"># 可以将查询的结果集列名设置为num</span><br></pre></td></tr></table></figure>
+<p>除了COUNT(), SQL还提供如下的聚合函数:  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">SUM</td>
+<td style="text-align:left">计算某一列的合计值, 该列必须为数值类型</td>
+</tr>
+<tr>
+<td style="text-align:left">AVG</td>
+<td style="text-align:left">计算某一列的平均值, 该列必须为数值类型</td>
+</tr>
+<tr>
+<td style="text-align:left">MAX</td>
+<td style="text-align:left">计算某一列的最大值</td>
+</tr>
+<tr>
+<td style="text-align:left">MIN</td>
+<td style="text-align:left">计算某一列的最小值</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">AVG</span>(score) average <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> gender = <span class="string">'M'</span>;</span><br><span class="line"><span class="keyword">SELECT</span> class_id, <span class="keyword">COUNT</span>(*) <span class="keyword">num</span> <span class="keyword">FROM</span> students <span class="keyword">GROUP</span> <span class="keyword">BY</span> class_id;</span><br><span class="line"># 查询所有班级内学生的数量</span><br><span class="line"><span class="keyword">SELECT</span> class_id, gender, <span class="keyword">COUNT</span>(*) <span class="keyword">num</span> <span class="keyword">FROM</span> students <span class="keyword">GROUP</span> <span class="keyword">BY</span> class_id, gender;</span><br><span class="line"># 查询所有班级内男女学生的数量</span><br></pre></td></tr></table></figure>
+<h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> students, classes;</span><br><span class="line"># 查询两张表内的所有内容(笛卡尔查询)</span><br></pre></td></tr></table></figure>
+<p>多表查询又称为笛卡尔查询, 返回的结果集是目标表的行数乘积.<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">    s.id <span class="keyword">sid</span>,</span><br><span class="line">    s.name,</span><br><span class="line">    s.gender,</span><br><span class="line">    s.score,</span><br><span class="line">    c.id cid,</span><br><span class="line">    c.name cname</span><br><span class="line"><span class="keyword">FROM</span> students s, classes c;</span><br><span class="line"># 设置别名</span><br></pre></td></tr></table></figure></p>
+<h2 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h2><p>对多个表进行JOIN计算<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> s.id, s.name, s.class_id, c.name class_name, s.gender, s.score</span><br><span class="line"><span class="keyword">FROM</span> students s</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> classes c</span><br><span class="line"><span class="keyword">ON</span> s.class_id = c.id;</span><br><span class="line"># 根据students中的class_id找到classes中对应的行, 再取出name列</span><br></pre></td></tr></table></figure></p>
+<p>INNER JOIN查询的写法是:  </p>
+<ol>
+<li>先确定主表, 仍然使用FROM &lt;表1&gt;的语法</li>
+<li>再确定需要连接的表, 使用INNER JOIN &lt;表2&gt;的语法</li>
+<li>然后再确定连接条件, 使用ON &lt;条件…&gt;</li>
+<li>可选, 加上WHERE或者 ORDER BY等子句</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> s.id, s.name, s.class_id, c.name class_name, s.gender, s.score</span><br><span class="line"><span class="keyword">FROM</span> students s</span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> classes c</span><br><span class="line"><span class="keyword">ON</span> s.class_id = c.id;</span><br></pre></td></tr></table></figure>
+<p>INNER  JOIN只返回同时存在与=于两张表的行数据.<br>RIGHT  OUTER JOIN 返回右表都存在的行<br>LEFT OUTER JOIN 返回左表都存在的行<br>FULL OUTER JOIN 返回两张表所有的记录, 并自动把对方不存在的列填充为NULL  </p>
+<h1 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h1><h2 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h2><p>INSERT语句的基本语法: INSERT INTO &lt;表名&gt; (字段1, 字段2, …) VALUES (值1, 值2, …);<br>也可以一次插入多条数据<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (class_id, <span class="keyword">name</span>, gender, score) <span class="keyword">VALUES</span></span><br><span class="line">  (<span class="number">1</span>, <span class="string">'大宝'</span>, <span class="string">'M'</span>, <span class="number">87</span>),</span><br><span class="line">  (<span class="number">2</span>, <span class="string">'二宝'</span>, <span class="string">'M'</span>, <span class="number">81</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h2><p>UPDATE语句的基本语法: UPDATE &lt;表名&gt; SET 字段1=值1, 字段2=值2, … WHERE …;<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> students <span class="keyword">SET</span> <span class="keyword">name</span>=<span class="string">'大牛'</span>, score=<span class="number">66</span> <span class="keyword">WHERE</span> <span class="keyword">id</span>=<span class="number">1</span>;  </span><br><span class="line"><span class="keyword">UPDATE</span> students <span class="keyword">SET</span> <span class="keyword">name</span>=<span class="string">'小牛'</span>, score=<span class="number">77</span> <span class="keyword">WHERE</span> <span class="keyword">id</span>&gt;=<span class="number">5</span> <span class="keyword">AND</span> <span class="keyword">id</span>&lt;=<span class="number">7</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> students <span class="keyword">SET</span> score=score+<span class="number">10</span> <span class="keyword">WHERE</span> score&lt;<span class="number">80</span>;</span><br></pre></td></tr></table></figure></p>
+<p>UPDATE语句不需要WHERE条件就可以执行, 如果不加条件就会更新表内的所有数据.  </p>
+<h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><p>DELETE语句的基本语法: DELETE FROM &lt;表名&gt; WHERE …;<br>和UPDATE类似, 不加WHERE条件就会删除整个表的信息  </p>
+<h1 id="管理MySQL"><a href="#管理MySQL" class="headerlink" title="管理MySQL"></a>管理MySQL</h1><p>此处后面补充内容</p>
+<h2 id="实用SQL语句"><a href="#实用SQL语句" class="headerlink" title="实用SQL语句"></a>实用SQL语句</h2><ol>
+<li>插入和替换<br>如果我们要插入一条新记录, 但是如果记录已经存在就需要先删除再插入<br>REPLACE INTO students (id, class_id, name, gender, score) VALUES (1, 1, ‘小明’, ‘F’, 99);<br>如果id为1的记录不存在就直接插入, 如果存在则删除后插入  </li>
+<li>插入或更新<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (<span class="keyword">id</span>, class_id, <span class="keyword">name</span>, gender, score) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>, <span class="string">'小明'</span>, <span class="string">'F'</span>, <span class="number">99</span>) <span class="keyword">ON</span> <span class="keyword">DUPLICATE</span> <span class="keyword">KEY</span> <span class="keyword">UPDATE</span> <span class="keyword">name</span>=<span class="string">'小明'</span>, gender=<span class="string">'F'</span>, score=<span class="number">99</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果id=1的记录不存在, 则插入数据; 如果存在, 则更新指定的字段的内容  </p>
+<ol start="3">
+<li>插入或忽略<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">IGNORE</span> <span class="keyword">INTO</span> students (<span class="keyword">id</span>, class_id, <span class="keyword">name</span>, gender, score) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>, <span class="string">'小明'</span>, <span class="string">'F'</span>, <span class="number">99</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果id=1的记录不存在则插入数据; 如果存在则忽略该操作  </p>
+<ol start="4">
+<li>快照<br>CREATE TABLE students_of_class1 SELECT * FROM students WHERE class_id=1;<br>复制当前表的数据到一个新表(新表的内容就是select的内容)  </li>
+<li>写入查询结果集<br>创建一个新表, 把查询的内容写入新表中  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">statistics</span> (</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">BIGINT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    class_id <span class="built_in">BIGINT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    average <span class="keyword">DOUBLE</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">statistics</span> (class_id, average) <span class="keyword">SELECT</span> class_id, <span class="keyword">AVG</span>(score) <span class="keyword">FROM</span> students <span class="keyword">GROUP</span> <span class="keyword">BY</span> class_id;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>在执行业务语句的时候要求, 几个操作都要执行, 如果有操作执行失败, 那么其他操作全部撤销<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 从id=1的账户给id=2的账户转账100元</span></span><br><span class="line"><span class="comment">-- 第一步：将id=1的A账户余额减去100</span></span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance = balance - <span class="number">100</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">1</span>;</span><br><span class="line"><span class="comment">-- 第二步：将id=2的B账户余额加上100</span></span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance = balance + <span class="number">100</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">2</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这种把多个SQL语句作为一个整体进行操作的功能, 被称为数据库事务. 如果事务操作失败, 那么效果就和没有执行SQL语句一样, 不会对数据库数据有任何改动<br>数据库事务具有ACID这4个特性：  </p>
+<ul>
+<li>A:Atomic, 原子性, 将所有SQL作为原子工作单元执行, 要么全部执行, 要么全部不执行  </li>
+<li>C:Consistent, 一致性, 事务完成后, 所有数据状态都是一致的. A账号减去了100, 那么B账号必定加上了100  </li>
+<li>I:Isolation, 隔离性, 如果多个事务并法执行, 每个事务做出的修改必须与其他事务隔离  </li>
+<li>D:Duration, 持久性, 事务完成后, 对数据库数据的修改被持久化存储</li>
+</ul>
+<p><strong>对于单条SQL语句, 数据库系统自动将其作为一个事务执行, 这种事务被称为隐式事务</strong><br>使用<strong>BEGIN</strong>开启一个事务, 使用<strong>COMMIT</strong>提交一个事务, 这种事务被称为显式事务<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 将上述操作改为一个显式事务</span><br><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance = balance - <span class="number">100</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance = balance + <span class="number">100</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure></p>
+<p>COMMIT是指提交事务, 把事务内所有SQL所作的需改永久保存, 如果COMMIT失败, 那么整个事务也会失败<br>使用ROLLBACK回滚事务, 整个事务会失败<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance = balance - <span class="number">100</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance = balance + <span class="number">100</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">ROLLBACK</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h2><p>对于两个并发执行的事务, 如果涉及到操作同一条记录的时候, 可以能会发生问题. 因为并发操作会带来数据的不一致性, 包括脏读、不可重复读、幻读等. 数据库系统提供隔离级别让我们有针对性地选择事务的隔离级别, 避免数据不一致的问题.  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Isolation</th>
+<th style="text-align:left">脏读(Dirty Read)</th>
+<th style="text-align:left">不可重复读(Non Repeatedable Read)</th>
+<th style="text-align:left">幻读(Phantom Read)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Read Uncommitted</td>
+<td style="text-align:left">YES</td>
+<td style="text-align:left">YES</td>
+<td style="text-align:left">YES</td>
+</tr>
+<tr>
+<td style="text-align:left">Read Committed</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">YES</td>
+<td style="text-align:left">YES</td>
+</tr>
+<tr>
+<td style="text-align:left">Repeatable</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">YES</td>
+</tr>
+<tr>
+<td style="text-align:left">Serializable</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Read-Uncommitted"><a href="#Read-Uncommitted" class="headerlink" title="Read Uncommitted"></a>Read Uncommitted</h3><p>隔离级别最低的事务. 这个级别下, 一个事务会读到另一个事务更新后但是未提交的数据. 如果另一个事务回滚, 那么当前事务读到的就是脏数据.  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">时刻</th>
+<th style="text-align:left">事务A</th>
+<th style="text-align:left">事务B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;</td>
+<td style="text-align:left">SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">BEGIN;</td>
+<td style="text-align:left">BEGIN;</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">UPDATE students SET name = ‘Bob’ WHERE id = 1;</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SELECT * FROM students WHERE id = 1;</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">ROLLBACK;</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SELECT * FROM students WHERE id = 1;</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">COMMIT;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Read-Committed"><a href="#Read-Committed" class="headerlink" title="Read Committed"></a>Read Committed</h3><p>在该隔离级别下, 一个事务可能遇到不可重复读(Non Repeatable Read)问题<br>不可重复读,是指一个事务内多次读同一数据, 这个事务还没有结束时, 另一个事务恰好修改了这个数据, 那么第一个事务中两次读取的数据就可能不一致  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">时刻</th>
+<th style="text-align:left">事务A</th>
+<th style="text-align:left">事务B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">SET TRANSACTION ISOLATION LEVEL READ COMMITTED;</td>
+<td style="text-align:left">SET TRANSACTION ISOLATION LEVEL READ COMMITTED;</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">BEGIN;</td>
+<td style="text-align:left">BEGIN;</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SELECT * FROM students WHERE id = 1;</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">UPDATE students SET name = ‘Bob’ WHERE id = 1;</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">COMMIT;</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SELECT * FROM students WHERE id = 1;</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">COMMIT;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Repeatable-Read"><a href="#Repeatable-Read" class="headerlink" title="Repeatable Read"></a>Repeatable Read</h3><p>这个隔离级别下, 一个事务可能遇到幻读的问题<br>幻读, 是指一个事务中, 第一次查询某条记录, 发现没有, 但是当试图更新这条不存在的记录时竟能成功, 并且再次读取到同一条记录就出现了  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">时刻</th>
+<th style="text-align:left">事务A</th>
+<th style="text-align:left">事务B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;</td>
+<td style="text-align:left">SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">BEGIN;</td>
+<td style="text-align:left">BEGIN;</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SELECT * FROM students WHERE id = 99;</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">INSERT INTO students (id, name) VALUES (99, ‘Bob’);</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">COMMIT;</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SELECT * FROM students WHERE id = 99;</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">UPDATE students SET name = ‘Alice’ WHERE id = 99;</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SELECT * FROM students WHERE id = 99;</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">COMMIT;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Serializable"><a href="#Serializable" class="headerlink" title="Serializable"></a>Serializable</h3><p>最严格的隔离级别, 在Serializable级别下, 所有事务按照次序依次执行.<br>但是由于事务是串行执行, 效率会大大下降, 一般只有特别重要的情景才会使用该隔离级别  </p>
+<h3 id="默认隔离级别"><a href="#默认隔离级别" class="headerlink" title="默认隔离级别"></a>默认隔离级别</h3><p>如果没有指定隔离级别, 数据库会使用默认的隔离级别. 在MySQL中, 使用InnoDB, 默认的隔离级别为Repeatable Read  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/21/K8S系统架构与组件/" rel="next" title="K8S系统架构与组件">
+                <i class="fa fa-chevron-left"></i> K8S系统架构与组件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/21/VPLS/" rel="prev" title="VPLS">
+                VPLS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">XuWei Huang</p>
+              <p class="site-description motion-element" itemprop="description">Your path will make sense in the end.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Chris-huangxw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chris_huangxw@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL"><span class="nav-number">1.</span> <span class="nav-text">SQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库模型"><span class="nav-number">1.1.</span> <span class="nav-text">数据库模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主流关系数据库"><span class="nav-number">1.2.</span> <span class="nav-text">主流关系数据库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL"><span class="nav-number">2.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MariaDB"><span class="nav-number">2.1.</span> <span class="nav-text">MariaDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Aurora"><span class="nav-number">2.2.</span> <span class="nav-text">Aurora</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PolarDB"><span class="nav-number">2.3.</span> <span class="nav-text">PolarDB</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关系模型"><span class="nav-number">3.</span> <span class="nav-text">关系模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主键"><span class="nav-number">3.1.</span> <span class="nav-text">主键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#联合主键"><span class="nav-number">3.1.1.</span> <span class="nav-text">联合主键</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外键"><span class="nav-number">3.2.</span> <span class="nav-text">外键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多对多"><span class="nav-number">3.2.1.</span> <span class="nav-text">多对多</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一对一"><span class="nav-number">3.2.2.</span> <span class="nav-text">一对一</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-number">3.3.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#唯一索引"><span class="nav-number">3.3.1.</span> <span class="nav-text">唯一索引</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询数据"><span class="nav-number">4.</span> <span class="nav-text">查询数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件查询"><span class="nav-number">4.1.</span> <span class="nav-text">条件查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#投影查询"><span class="nav-number">4.2.</span> <span class="nav-text">投影查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">4.3.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分页"><span class="nav-number">4.4.</span> <span class="nav-text">分页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚合查询"><span class="nav-number">4.5.</span> <span class="nav-text">聚合查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多表查询"><span class="nav-number">4.6.</span> <span class="nav-text">多表查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接查询"><span class="nav-number">4.7.</span> <span class="nav-text">连接查询</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改数据"><span class="nav-number">5.</span> <span class="nav-text">修改数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#INSERT"><span class="nav-number">5.1.</span> <span class="nav-text">INSERT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UPDATE"><span class="nav-number">5.2.</span> <span class="nav-text">UPDATE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE"><span class="nav-number">5.3.</span> <span class="nav-text">DELETE</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管理MySQL"><span class="nav-number">6.</span> <span class="nav-text">管理MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实用SQL语句"><span class="nav-number">6.1.</span> <span class="nav-text">实用SQL语句</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务"><span class="nav-number">7.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#隔离级别"><span class="nav-number">7.1.</span> <span class="nav-text">隔离级别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Read-Uncommitted"><span class="nav-number">7.1.1.</span> <span class="nav-text">Read Uncommitted</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Read-Committed"><span class="nav-number">7.1.2.</span> <span class="nav-text">Read Committed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repeatable-Read"><span class="nav-number">7.1.3.</span> <span class="nav-text">Repeatable Read</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serializable"><span class="nav-number">7.1.4.</span> <span class="nav-text">Serializable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认隔离级别"><span class="nav-number">7.1.5.</span> <span class="nav-text">默认隔离级别</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuWei Huang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

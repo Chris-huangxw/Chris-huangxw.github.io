@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="文件详细信息使用命令ls -al，可以查看当前目录下文件的详细信息，包括隐藏文件。根据图片上的信息，分别代表了权限、连接、所有者、用户组、文件容量、修改日期、文件名  文件权限文件权限第一个字符分别代表了不同的含义。  |:–|:–||d|目录||-|文件||I|连接文件linkfile||b|设备文件里面可供存储的接口设备||c|设备文件里面的串行端口设备|后面的9位，以3位为一组，分别代表文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件权限和目录配置">
+<meta property="og:url" content="https://hxwiwsh.com/2019/02/21/文件权限和目录配置/index.html">
+<meta property="og:site_name" content="Learn More Do More">
+<meta property="og:description" content="文件详细信息使用命令ls -al，可以查看当前目录下文件的详细信息，包括隐藏文件。根据图片上的信息，分别代表了权限、连接、所有者、用户组、文件容量、修改日期、文件名  文件权限文件权限第一个字符分别代表了不同的含义。  |:–|:–||d|目录||-|文件||I|连接文件linkfile||b|设备文件里面可供存储的接口设备||c|设备文件里面的串行端口设备|后面的9位，以3位为一组，分别代表文件">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://hxwiwsh.com/images/linux/ls%20-al.png">
+<meta property="og:updated_time" content="2019-02-21T09:10:04.820Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文件权限和目录配置">
+<meta name="twitter:description" content="文件详细信息使用命令ls -al，可以查看当前目录下文件的详细信息，包括隐藏文件。根据图片上的信息，分别代表了权限、连接、所有者、用户组、文件容量、修改日期、文件名  文件权限文件权限第一个字符分别代表了不同的含义。  |:–|:–||d|目录||-|文件||I|连接文件linkfile||b|设备文件里面可供存储的接口设备||c|设备文件里面的串行端口设备|后面的9位，以3位为一组，分别代表文件">
+<meta name="twitter:image" content="https://hxwiwsh.com/images/linux/ls%20-al.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxwiwsh.com/2019/02/21/文件权限和目录配置/"/>
+
+
+
+
+
+  <title>文件权限和目录配置 | Learn More Do More</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Learn More Do More</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/02/21/文件权限和目录配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuWei Huang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn More Do More">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">文件权限和目录配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-21T16:48:28+08:00">
+                2019-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="文件详细信息"><a href="#文件详细信息" class="headerlink" title="文件详细信息"></a>文件详细信息</h1><p>使用命令ls -al，可以查看当前目录下文件的详细信息，包括隐藏文件。<br><img src="/images/linux/ls -al.png" alt="name"><br>根据图片上的信息，分别代表了权限、连接、所有者、用户组、文件容量、修改日期、文件名</p>
+<ul>
+<li>文件权限<br>文件权限第一个字符分别代表了不同的含义。</li>
+</ul>
+<p>|:–|:–|<br>|d|目录|<br>|-|文件|<br>|I|连接文件linkfile|<br>|b|设备文件里面可供存储的接口设备|<br>|c|设备文件里面的串行端口设备|<br>后面的9位，以3位为一组，分别代表文件所有者的权限、同用户组的权限、非本用户组的权限(该权限可以用数字表示421)</p>
+<ul>
+<li>连接数<br>每个文件都会将它的权限和属性记录到文件系统的i-node中，但我们使用的目录树是用文件名来记录的。每个文件名就会连接到一个i-node。这个连接数就是表明多少个不同的文件名连接到同一个i-node上。</li>
+<li>文件/目录的所有者</li>
+<li>文件所属于的用户组</li>
+<li>文件大小 默认单位为B</li>
+<li>文件的创建日期或者是最近修改日期</li>
+<li>文件名</li>
+</ul>
+<p>如果文件前面带了. 那么表示该文件是一个隐藏文件。<br>使用命令chmod 777 文件名称，可以让所有用户可以操作该文件。</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a><strong>例子</strong></h2><p>如果一个文件的权限是drwxr–r– 3 root root，此时有一个vbird用户不属于root用户组，那么只可以访问该目录下的文件结构，但是无法进入该目录。</p>
+<h2 id="文件种类和扩展名"><a href="#文件种类和扩展名" class="headerlink" title="文件种类和扩展名"></a>文件种类和扩展名</h2><p>除了前面表格中的文件类型，还有其他的文件类型。比如套接字sockets，第一个属性为s，常用在网络上的数据连接，通常在/var/run目录下可以看到类似文件； 比如管道pipe，第一个属性为p，是一个特殊的文件类型，主要目的是解决多个程序访问同一个文件所造成的uowu问题，first-in-first-out。</p>
+<h2 id="文件扩展名"><a href="#文件扩展名" class="headerlink" title="文件扩展名"></a>文件扩展名</h2><p>Ibanezlinux文件是否可以被执行，与权限中第10个属性有关，和文件名称没有任何关系。</p>
+<h2 id="linux文件长度限制"><a href="#linux文件长度限制" class="headerlink" title="linux文件长度限制"></a>linux文件长度限制</h2><p>linux使用默认的Ext2/Ext3文件系统时，针对文件的文件名长度限制为：</p>
+<ul>
+<li>单一文件或目录的最大容许文件名为255字符</li>
+<li>包含完整路径名称及目录的完整文件名为4096个字符</li>
+</ul>
+<h1 id="文件目录配置标准FHS"><a href="#文件目录配置标准FHS" class="headerlink" title="文件目录配置标准FHS"></a>文件目录配置标准FHS</h1><p>不变的/可分享的：<br>/usr 软件放置处<br>/opt 第三方软件  </p>
+<p>不变的/不可分享的:<br>/etc 配置文件<br>/boot 开机与内核文件  </p>
+<p>可变的/可分享的：<br>/var/mail 用户邮件信箱<br>/var/spool/news 新闻组  </p>
+<p>可变的/不可分享的:<br>/var/run 程序相关<br>/var/lock 程序相关  </p>
+<p>FHS针对目录树结构仅定义出三层目录：<br>/：与开机系统有关<br>/usr：与软件安装/执行有关<br>/var：与系统运作过程有关  </p>
+<p>在/目录下最好有下面的子目录:</p>
+<ul>
+<li>/bin：放置的时单用户维护模式下还能操作命令，在/bin下的命令可以被root与一般账号使用</li>
+<li>/boot：置开机会使用到的文件，linux kernel常用文件名为vmlinuz，如果使用grub引导装载程序，则还会存在/boot/grub</li>
+<li>/dev：任何设备与接口设备都是以文件的形式存在于这个目录中，通过访问目录下的文件就等于访问某个设备。</li>
+<li>/etc：存放系统主要的配置文件，一般用户可以查阅，只有root可以修改，FHS建议不要放可执行文件在该目录下。/etc/init.d存放了所有启动脚本等等，</li>
+<li>/home：默认用户主文件夹</li>
+<li>/lib：放置了开机时会用到的函数库，以及/bin或者/sbin下面命令调用的函数库。</li>
+<li>/media：可以移除的设备，如光驱等等</li>
+<li>/mnt：暂时挂载某些额外设备</li>
+</ul>
+<h1 id="档案修改"><a href="#档案修改" class="headerlink" title="档案修改"></a>档案修改</h1><ol>
+<li>chgrp 修改文件所属群组</li>
+<li>chown 修改文件所属人</li>
+<li>chmod 修改文件属性</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/21/Linux初始化/" rel="next" title="Linux初始化">
+                <i class="fa fa-chevron-left"></i> Linux初始化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/21/文件压缩和打包/" rel="prev" title="文件压缩和打包">
+                文件压缩和打包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">XuWei Huang</p>
+              <p class="site-description motion-element" itemprop="description">Your path will make sense in the end.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Chris-huangxw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chris_huangxw@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文件详细信息"><span class="nav-number">1.</span> <span class="nav-text">文件详细信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件种类和扩展名"><span class="nav-number">1.2.</span> <span class="nav-text">文件种类和扩展名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件扩展名"><span class="nav-number">1.3.</span> <span class="nav-text">文件扩展名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux文件长度限制"><span class="nav-number">1.4.</span> <span class="nav-text">linux文件长度限制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件目录配置标准FHS"><span class="nav-number">2.</span> <span class="nav-text">文件目录配置标准FHS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#档案修改"><span class="nav-number">3.</span> <span class="nav-text">档案修改</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuWei Huang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

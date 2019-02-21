@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="在PaloAlto防火墙上, 策略路由称为PBF(Policy Based Forwarding)配置完成后commit提交即可">
+<meta name="description" content="PaloAlto策略路由Policy Based Forwarding就是PaloAlto防火墙上策略路由的名称叫法.    配置在policies选项卡下,选择policy based forwarding,并点击Add添加策略路由  设置策略的名称 设置源所属于的区域或者接口,以及源IP地址 设置目的IP地址,application,service. 在最佳实践中,可以将service设置为a">
 <meta name="keywords" content="PaloAlto">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PaloAlto策略路由">
 <meta property="og:url" content="https://hxwiwsh.com/2019/02/21/PaloAlto策略路由/index.html">
 <meta property="og:site_name" content="Learn More Do More">
-<meta property="og:description" content="在PaloAlto防火墙上, 策略路由称为PBF(Policy Based Forwarding)配置完成后commit提交即可">
+<meta property="og:description" content="PaloAlto策略路由Policy Based Forwarding就是PaloAlto防火墙上策略路由的名称叫法.    配置在policies选项卡下,选择policy based forwarding,并点击Add添加策略路由  设置策略的名称 设置源所属于的区域或者接口,以及源IP地址 设置目的IP地址,application,service. 在最佳实践中,可以将service设置为a">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://hxwiwsh.com/images/PA/PBF.png">
-<meta property="og:updated_time" content="2019-02-21T07:46:24.172Z">
+<meta property="og:updated_time" content="2019-02-21T08:16:40.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PaloAlto策略路由">
-<meta name="twitter:description" content="在PaloAlto防火墙上, 策略路由称为PBF(Policy Based Forwarding)配置完成后commit提交即可">
-<meta name="twitter:image" content="https://hxwiwsh.com/images/PA/PBF.png">
+<meta name="twitter:description" content="PaloAlto策略路由Policy Based Forwarding就是PaloAlto防火墙上策略路由的名称叫法.    配置在policies选项卡下,选择policy based forwarding,并点击Add添加策略路由  设置策略的名称 设置源所属于的区域或者接口,以及源IP地址 设置目的IP地址,application,service. 在最佳实践中,可以将service设置为a">
 
 
 
@@ -344,7 +342,17 @@
       
 
       
-        <p>在PaloAlto防火墙上, 策略路由称为PBF(Policy Based Forwarding)<br><img src="/images/PA/PBF.png" alt="PBF"><br>配置完成后commit提交即可</p>
+        <h1 id="PaloAlto策略路由"><a href="#PaloAlto策略路由" class="headerlink" title="PaloAlto策略路由"></a>PaloAlto策略路由</h1><p>Policy Based Forwarding就是PaloAlto防火墙上策略路由的名称叫法.   </p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>在policies选项卡下,选择policy based forwarding,并点击Add添加策略路由</p>
+<ol>
+<li>设置策略的名称</li>
+<li>设置源所属于的区域或者接口,以及源IP地址</li>
+<li>设置目的IP地址,application,service. <strong>在最佳实践中,可以将service设置为application-default</strong>.  </li>
+<li>在forwarding的选项卡中,可以设置该策略执行的操作(转发、丢弃、NoPBF指定流量不执行策略路由)．设置出接口、设置下一跳．</li>
+<li>(可选)设置monitor监控,如果线路不通,可以使该策略失效</li>
+<li>(可选)设置schedule,使得策略只在固定时间内生效</li>
+</ol>
+<p><a href="/images/PA/PA策略路由.PNG">01</a></p>
 
       
     </div>
@@ -384,6 +392,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/21/二分查找/" rel="prev" title="二分查找">
+                二分查找 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -435,8 +447,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -451,7 +472,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -462,7 +483,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -473,7 +494,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -512,6 +533,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PaloAlto策略路由"><span class="nav-number">1.</span> <span class="nav-text">PaloAlto策略路由</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">1.1.</span> <span class="nav-text">配置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

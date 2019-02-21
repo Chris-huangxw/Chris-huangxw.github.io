@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="狄克斯特拉算法," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Dijkstra’s 算法包含4个步骤:    找出最便宜得节点, 即可在最短时间内到达得节点 更新该节点的邻居的开销 重复这个过程直到图中所有的节点都这样做了 计算最终路径  例子起点–(6)–&amp;gt;A起点–(2)–&amp;gt;BB–(3)–&amp;gt;AA–(1)–&amp;gt;终点B–(5)–&amp;gt;终点   第一步找到最便宜的节点, 站在起点可以走到A, 也可以走到B, 但是去往A需要6分钟, 去往B">
+<meta name="keywords" content="狄克斯特拉算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="狄克斯特拉算法">
+<meta property="og:url" content="https://hxwiwsh.com/2019/02/21/狄克斯特拉算法/index.html">
+<meta property="og:site_name" content="Learn More Do More">
+<meta property="og:description" content="Dijkstra’s 算法包含4个步骤:    找出最便宜得节点, 即可在最短时间内到达得节点 更新该节点的邻居的开销 重复这个过程直到图中所有的节点都这样做了 计算最终路径  例子起点–(6)–&amp;gt;A起点–(2)–&amp;gt;BB–(3)–&amp;gt;AA–(1)–&amp;gt;终点B–(5)–&amp;gt;终点   第一步找到最便宜的节点, 站在起点可以走到A, 也可以走到B, 但是去往A需要6分钟, 去往B">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-21T08:08:13.804Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="狄克斯特拉算法">
+<meta name="twitter:description" content="Dijkstra’s 算法包含4个步骤:    找出最便宜得节点, 即可在最短时间内到达得节点 更新该节点的邻居的开销 重复这个过程直到图中所有的节点都这样做了 计算最终路径  例子起点–(6)–&amp;gt;A起点–(2)–&amp;gt;BB–(3)–&amp;gt;AA–(1)–&amp;gt;终点B–(5)–&amp;gt;终点   第一步找到最便宜的节点, 站在起点可以走到A, 也可以走到B, 但是去往A需要6分钟, 去往B">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxwiwsh.com/2019/02/21/狄克斯特拉算法/"/>
+
+
+
+
+
+  <title>狄克斯特拉算法 | Learn More Do More</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Learn More Do More</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/02/21/狄克斯特拉算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuWei Huang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn More Do More">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">狄克斯特拉算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-21T16:01:39+08:00">
+                2019-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithms</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Dijkstra’s 算法包含4个步骤:  </p>
+<ol>
+<li>找出最便宜得节点, 即可在最短时间内到达得节点</li>
+<li>更新该节点的邻居的开销</li>
+<li>重复这个过程直到图中所有的节点都这样做了</li>
+<li>计算最终路径</li>
+</ol>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>起点–(6)–&gt;A<br>起点–(2)–&gt;B<br>B–(3)–&gt;A<br>A–(1)–&gt;终点<br>B–(5)–&gt;终点  </p>
+<h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>找到最便宜的节点, 站在起点可以走到A, 也可以走到B, 但是去往A需要6分钟, 去往B需要2分钟. 去往其他节点的时间还不知道.<br>所以先选择去最短路径B节点</p>
+<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h2><p>计算经B节点前往其各个邻居所需的时间<br>从B节点到A节点的开销为5分钟, 比原来的开销小, 所以更新去A节点的开销为5分钟<br>对于B节点的邻居, 如果找到了前往它的更短路径, 那么就更新其开销.<br>这里我们发现去往终点的开销变成了7分钟</p>
+<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h2><p>重复前面第一步第二步的操作, 直到所有的节点都运行了Dijkstra’s 算法</p>
+<h2 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h2><p>计算最终路径</p>
+<h1 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h1><p>Dijkstra’s 算法对于图中每一条边都关联了数字, 这个称为weight.<br>带权重的图为加权图, 不带权重的图称为非加权图<br>前者可以使用Dijkstra’s 算法(仅限于有向无环图), 后者可以使用广度优先搜索</p>
+<h1 id="换钢琴"><a href="#换钢琴" class="headerlink" title="换钢琴"></a>换钢琴</h1><p>Rama想用一本乐谱换钢琴<br>Alex可以用海报换乐谱, 或者用乐谱+5美元换黑胶唱片<br>Amy可以用吉他=海报+30美元/黑胶唱片+15美元, 或者黑胶唱片换架子鼓<br>Bee可以用钢琴换架子鼓或者吉他<br>问Rama如何用最小的代价换到钢琴?<br>和之前的步骤一样, 计算每一个节点到各个邻居的开销, 关键理念就是 找到图中最便宜的节点, 并确保没有到该节点的更便宜的路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">乐谱 --&gt; 海报</span><br><span class="line">乐谱 --&gt; 黑胶唱片+5</span><br><span class="line">选择 海报</span><br><span class="line">计算海报邻居的开销</span><br><span class="line">海报 --&gt; 吉他+30</span><br><span class="line">海报 --&gt; 架子鼓+35</span><br><span class="line">选择吉他</span><br><span class="line">吉他 --&gt; 钢琴+40</span><br><span class="line">选择架子鼓</span><br><span class="line">架子鼓 --&gt; 钢琴+35</span><br></pre></td></tr></table></figure></p>
+<p>上面的只是一个思路 最终要在每个节点要都要运行Dijkstra’s 算法.</p>
+<h1 id="负权边"><a href="#负权边" class="headerlink" title="负权边"></a>负权边</h1><p>当图的边 weight存在负值的时候, 就不能使用Dijkstra’s算法. 因为这个时候会发现已经处理完的节点开销更新了.<br><strong>这个时候需要使用贝尔曼-福德算法</strong>  </p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>这里我们总共需要三个散列表, 一个存图的信息, 一个存开销信息, 一个存父节点信息<br>这里使用例子中的图, 起点、A、B、终点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">graph = &#123;&#125;</span><br><span class="line">graph[&apos;start&apos;][&apos;a&apos;] = 6</span><br><span class="line">graph[&apos;start&apos;][&apos;b&apos;] = 2</span><br><span class="line">graph[&apos;a&apos;][&apos;fin&apos;] = 1</span><br><span class="line">graph[&apos;b&apos;][&apos;a&apos;] = 3</span><br><span class="line">graph[&apos;b&apos;][&apos;fin&apos;] = 2</span><br><span class="line">graph[&apos;fin&apos;] = &#123;&#125;</span><br><span class="line">#终点没有任何邻居</span><br></pre></td></tr></table></figure></p>
+<p>我们还需要一个表来存开销信息, 在起点我们直到去往a和b的开销, 但是我们还不知道去往终点的开销所以是无穷大<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">infinity = float(&apos;inf&apos;)</span><br><span class="line">costs = &#123;&#125;</span><br><span class="line">costs[&apos;a&apos;] = 6</span><br><span class="line">costs[&apos;b&apos;] = 2</span><br><span class="line">costs[&apos;fin&apos;] = infinity</span><br><span class="line">```  </span><br><span class="line">一个表用来存放父节点的散列表, 用于选择最终路径</span><br></pre></td></tr></table></figure></p>
+<p>parents = {}<br>parents[‘a’] = ‘start’<br>parents[‘b’] = ‘start’<br>parents[‘fin’] = None<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">同时我们还需要一个数组来存放已经处理过的节点 **processed = []**</span><br><span class="line">```python</span><br><span class="line">def find_lowest_cost_node(costs):</span><br><span class="line">    lowest_cost = float(&apos;inf&apos;)</span><br><span class="line">    lowest_cost_node = None</span><br><span class="line">    for node in costs:</span><br><span class="line">        cost = costs[node]</span><br><span class="line">        if cost &lt; lowest_cost and node not in Processed:</span><br><span class="line">            lowest_cost = cost</span><br><span class="line">            lowest_cost_node = node</span><br><span class="line">    return lowest_cost_node</span><br><span class="line">node = find_lowest_cost_node(costs)</span><br><span class="line">#在未处理的节点中找出开销最小的节点</span><br><span class="line">while node is not None:</span><br><span class="line">    cost = costs[node]</span><br><span class="line">    neighbors = graph[node]</span><br><span class="line">    for n in neighbors.keys():</span><br><span class="line">    #遍历该节点所有的邻居</span><br><span class="line">        new_cost = cost + neighbors[n]</span><br><span class="line">        if costs[n] &gt; new_cost:</span><br><span class="line">            costs[n] = new_cost</span><br><span class="line">            parents[n] = node</span><br><span class="line">    processed.append(node)</span><br><span class="line">    #将当前节点标记为已处理</span><br><span class="line">    node = find_lowest_cost_node(costs)</span><br><span class="line">    #找出接下来要处理的节点</span><br></pre></td></tr></table></figure></p>
+<h1 id="小节"><a href="#小节" class="headerlink" title="小节"></a>小节</h1><ul>
+<li>广度优先搜索用于非加权图中查找最短路径</li>
+<li>Dijkstra’s算法用于在加权图中查找最短路径</li>
+<li>仅当权重为正时 Dijkstra’s算法才有效</li>
+<li>如果图中包含负权边, 则需要使用贝尔曼-福德算法</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/狄克斯特拉算法/" rel="tag"># 狄克斯特拉算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/21/散列表/" rel="next" title="散列表">
+                <i class="fa fa-chevron-left"></i> 散列表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/21/选择排序/" rel="prev" title="选择排序">
+                选择排序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">XuWei Huang</p>
+              <p class="site-description motion-element" itemprop="description">Your path will make sense in the end.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Chris-huangxw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chris_huangxw@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#例子"><span class="nav-number">1.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步"><span class="nav-number">1.1.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步"><span class="nav-number">1.2.</span> <span class="nav-text">第二步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三步"><span class="nav-number">1.3.</span> <span class="nav-text">第三步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四步"><span class="nav-number">1.4.</span> <span class="nav-text">第四步</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#术语"><span class="nav-number">2.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#换钢琴"><span class="nav-number">3.</span> <span class="nav-text">换钢琴</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#负权边"><span class="nav-number">4.</span> <span class="nav-text">负权边</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">5.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小节"><span class="nav-number">6.</span> <span class="nav-text">小节</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuWei Huang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

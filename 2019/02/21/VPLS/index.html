@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MPLS,VPLS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="VPLS原理VPLS(Virtual Private LAN Services虚拟专用LAN业务), 是一种在MPLS网络上提供类似LAN的业务,可以使用户从多个地理位置分散的点同时接入网络,相互访问，就像这些点直接接入到LAN上.上图为一个VPLS的组网图，加入VPLS的接口支持广播,转发和过滤以太网帧. PE之间通过PW(Pseudo Wire)互相连接，对客户形成一个仿真LAN,每个PE不但">
+<meta name="keywords" content="MPLS,VPLS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VPLS">
+<meta property="og:url" content="https://hxwiwsh.com/2019/02/21/VPLS/index.html">
+<meta property="og:site_name" content="Learn More Do More">
+<meta property="og:description" content="VPLS原理VPLS(Virtual Private LAN Services虚拟专用LAN业务), 是一种在MPLS网络上提供类似LAN的业务,可以使用户从多个地理位置分散的点同时接入网络,相互访问，就像这些点直接接入到LAN上.上图为一个VPLS的组网图，加入VPLS的接口支持广播,转发和过滤以太网帧. PE之间通过PW(Pseudo Wire)互相连接，对客户形成一个仿真LAN,每个PE不但">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://hxwiwsh.com/images/vpls/VPLS经典组图.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/vpls/PW-LDP.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/vpls/PW-BGP.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/vpls/VPLS基本传输构件.PNG">
+<meta property="og:updated_time" content="2019-02-21T09:09:41.883Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VPLS">
+<meta name="twitter:description" content="VPLS原理VPLS(Virtual Private LAN Services虚拟专用LAN业务), 是一种在MPLS网络上提供类似LAN的业务,可以使用户从多个地理位置分散的点同时接入网络,相互访问，就像这些点直接接入到LAN上.上图为一个VPLS的组网图，加入VPLS的接口支持广播,转发和过滤以太网帧. PE之间通过PW(Pseudo Wire)互相连接，对客户形成一个仿真LAN,每个PE不但">
+<meta name="twitter:image" content="https://hxwiwsh.com/images/vpls/VPLS经典组图.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxwiwsh.com/2019/02/21/VPLS/"/>
+
+
+
+
+
+  <title>VPLS | Learn More Do More</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Learn More Do More</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/02/21/VPLS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuWei Huang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn More Do More">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">VPLS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-21T17:02:22+08:00">
+                2019-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/network/" itemprop="url" rel="index">
+                    <span itemprop="name">network</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="VPLS原理"><a href="#VPLS原理" class="headerlink" title="VPLS原理"></a>VPLS原理</h1><p>VPLS(Virtual Private LAN Services虚拟专用LAN业务), 是一种在MPLS网络上提供类似LAN的业务,可以使用户从多个地理位置分散的点同时接入网络,相互访问，就像这些点直接接入到LAN上.<br><img src="/images/vpls/VPLS经典组图.PNG" alt="01"><br>上图为一个VPLS的组网图，加入VPLS的接口支持广播,转发和过滤以太网帧. PE之间通过PW(Pseudo Wire)互相连接，对客户形成一个仿真LAN,每个PE不但要学习从PW来的以太网报文的MAC地址，也要学习所连接CE来的MAC地址. PW通常使用MPLS隧道,也可以使用其他任何隧道,如GRE, L2TPV3, TE等;PE通常是MPLS边员路由器，并能够建立到其他PE的隧道。</p>
+<h1 id="VPLS-PW建立的两种信令方式"><a href="#VPLS-PW建立的两种信令方式" class="headerlink" title="VPLS PW建立的两种信令方式"></a>VPLS PW建立的两种信令方式</h1><p>PW隧道的建立常用有两种信令: LDP和MP-BGP.</p>
+<h2 id="LDP"><a href="#LDP" class="headerlink" title="LDP"></a>LDP</h2><p>采用LDP作为信令时，通过扩展标准LDP的TLV来携带VPLS信息,增加了128类型和129类型的FEC TLV. 建立PW时的标签分配顺序采用DU模式,标签保留模式采用liberal label retention,用来交换VC信令的LDP连接需要配置成Remote方式.<br>当PE1配置了一个VSI并指定PE2为peer,如果PE1与PE2之间的LDP session已经建立就会分配一个标签并给PE2发送mapping消息,PE2收到mapping消息后检查本地是否配置了同样的VSI,如果配置了,并且VSI ID与封装类型都相同,说明两个PE上的VSI都在一个VPN内,如果彼此接口参数都一致,则PE2端的PW就建立起来了. PE1收到PE2的mapping消息后作同样的检查和处理。<br>当PW1不想再转发PE2的报文(撤销指定PE2为peer),发送withdraw消息给PE2,PE2收到withdraw消息后查出PW,并回应release消息,PE1收到release消息后释放标签,查出PW.<br><img src="/images/vpls/PW-LDP.PNG" alt="02"></p>
+<h2 id="MP-BGP"><a href="#MP-BGP" class="headerlink" title="MP-BGP"></a>MP-BGP</h2><p>采用BGP作信令时,利用BGP的多协议扩展传递VPLS成员信息,其中MP-reach和MP-unreach属性传递VPLS的标签信息,接口参数信息在扩展团体属性中传递,VPN成员关系靠RD和VPN-TARGET来确定,RD和VPN-TARGET都在扩展团体属性中传递.<br>PE1配置一个VSI建立了到PE2的BGP session.并在该session上使能VPLS地址族(address-family l2vpn vpls),如果PE1与PE2之间的BGP session已经建立就会分配一个标签并给PE2发送MP-reach属性的update消息. PE2收到update消息后检查本地是否配置了相同的VSI,如果配置了并且VPN-TARTGET匹配(L3VPN匹配的含义相同),则说明这两个PE上的VSI都在一个VPN内,如果此时接口参数都一致则PE2的PW就建立起来了. PE1收到PE2的update消息后作同样的检查和处理.<br>当PW1不想转发PE2的报文,发送MP-unreach属性的update消息给PE2,同时拆除PW,释放标签. PE2收到update消息后拆除PW.<br><img src="/images/vpls/PW-BGP.PNG" alt="03"></p>
+<h2 id="LDP和BGP的对比"><a href="#LDP和BGP的对比" class="headerlink" title="LDP和BGP的对比"></a>LDP和BGP的对比</h2><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">LDP</th>
+<th style="text-align:center">BGP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">对PE能力要求</td>
+<td style="text-align:center">一般</td>
+<td style="text-align:center">高</td>
+</tr>
+<tr>
+<td style="text-align:center">支持自动发现</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">实现复杂度</td>
+<td style="text-align:center">低</td>
+<td style="text-align:center">高</td>
+</tr>
+<tr>
+<td style="text-align:center">可扩展性</td>
+<td style="text-align:center">差</td>
+<td style="text-align:center">好</td>
+</tr>
+<tr>
+<td style="text-align:center">标签利用率</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center">低</td>
+</tr>
+<tr>
+<td style="text-align:center">配置工作量</td>
+<td style="text-align:center">大</td>
+<td style="text-align:center">小</td>
+</tr>
+<tr>
+<td style="text-align:center">跨域时的限制</td>
+<td style="text-align:center">大</td>
+<td style="text-align:center">小</td>
+</tr>
+</tbody>
+</table>
+<p>相比之下,BGP方式适合用在大型网络核心层,PE本身运行BGP以及有跨域需求的情况;LDP适用于VPLS的site点比较少,不需要或很少跨域的情况,特别PE不运行BGP的时候.<br>当VPLS网络比较大时,可以采用两种方法结合的HVPLS(分层VPLS),核心层使用BGP方式,接入层使用LDP方式.  </p>
+<h1 id="报文转发"><a href="#报文转发" class="headerlink" title="报文转发"></a>报文转发</h1><p>VPLS通过在每个VPN的各个site之间建立PW,并通过PW将用户二层报文在站点间透析. 对于PE,会在转发报文的同时学习源MAC并建立MAC转发表项,完成MAC地址与用户介入接口AC和虚链路PW的映射关系.<br>VPLS网络的基本传输构件及作用如下:</p>
+<ol>
+<li>接入链路AC: CE到PE之间的连接链路或者虚链路,AC上的所有用户报文都要求原封不动转发到对端site去,包括用户的二三层协议报文</li>
+<li>虚链路PW: 虚连接就是VC加隧道, 隧道可以是LSP、L2TPV3、或者是TE. 虚连接是有方向的,VPLS中虚连接的建立是需要通过信令(LDP或者BGP)来传递VC信息,然后通过VSI管理来将VC信息和隧道管理形成一个PW. PW对于VPLS来说,就是一条本地AC到对端AC之间的一条直连线路,完成用户二层数据透传.</li>
+<li>转发器: PE收到AC上的数据帧,由转发器选定转发报文使用的PW,转发器就是VPLS的转发表.</li>
+<li>隧道Tunnels: 用于承载PW,一条隧道上可以承载多条PW,一般情况下为MPLS隧道. 隧道时一条本地PE与对端PE之间的直连通道,完成PE之间的数据透传.</li>
+<li>封装: PW上传输的报文使用标准的PW封装格式和技术. PW上VPLS报文封装有两种模式: Tagged和Raw模式.</li>
+<li>PW信令协议: PW信令协议是VPLS的实现基础,用于创建和维护PW. PW信令协议还可以用于自动发现VSI对端的PE设备.</li>
+<li>服务质量: 根据用户二层报文头的优先级信息,映射成在公用网络上传输的QoS优先级来转发,这个一般需要应用支持MPLS QoS.</li>
+</ol>
+<p><img src="/images/vpls/VPLS基本传输构件.PNG" alt="04"><br>CE1到CE3的VPN1报文流:<br>CE1上送二层报文,通过AC接入PE1,PE1收到报文后,由转发器选定转发报文的PW,系统在根据PW的转发表项压入PW标签,并送到外层隧道(PW标签用于表示PW,然后穿越隧道到达PE2),经过公网隧道到达PE2,PE2利用PW标签转发报文到相应的AC,将报文最终送到CE3.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MPLS/" rel="tag"># MPLS</a>
+          
+            <a href="/tags/VPLS/" rel="tag"># VPLS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/21/sql基本知识点/" rel="next" title="sql基本知识点">
+                <i class="fa fa-chevron-left"></i> sql基本知识点
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">XuWei Huang</p>
+              <p class="site-description motion-element" itemprop="description">Your path will make sense in the end.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Chris-huangxw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chris_huangxw@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VPLS原理"><span class="nav-number">1.</span> <span class="nav-text">VPLS原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VPLS-PW建立的两种信令方式"><span class="nav-number">2.</span> <span class="nav-text">VPLS PW建立的两种信令方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LDP"><span class="nav-number">2.1.</span> <span class="nav-text">LDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MP-BGP"><span class="nav-number">2.2.</span> <span class="nav-text">MP-BGP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LDP和BGP的对比"><span class="nav-number">2.3.</span> <span class="nav-text">LDP和BGP的对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#报文转发"><span class="nav-number">3.</span> <span class="nav-text">报文转发</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuWei Huang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="集中式vs分布式SVN和CVS都是集中式的版本控制系统, GIT是分布式的版本控制系统   集中式版本控制系统版本库集中存放在中央服务器, 干活的时候用的都是自己的电脑, 先从中央服务器取得最新的版本, 然后开始干活, 干完活再把自己的活推送给中央服务器.最大的缺点就是需要联网才能工作, 如果在互联网商网速慢的话, 提交一个文件花费的时间就会很长   分布式版本控制系统在每一个人的电脑上都是一个版">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Learn Git">
+<meta property="og:url" content="https://hxwiwsh.com/2019/02/21/Learn-Git/index.html">
+<meta property="og:site_name" content="Learn More Do More">
+<meta property="og:description" content="集中式vs分布式SVN和CVS都是集中式的版本控制系统, GIT是分布式的版本控制系统   集中式版本控制系统版本库集中存放在中央服务器, 干活的时候用的都是自己的电脑, 先从中央服务器取得最新的版本, 然后开始干活, 干完活再把自己的活推送给中央服务器.最大的缺点就是需要联网才能工作, 如果在互联网商网速慢的话, 提交一个文件花费的时间就会很长   分布式版本控制系统在每一个人的电脑上都是一个版">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://hxwiwsh.com/images/git/master.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/git/dev.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/git/dev-1.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/git/master-1.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/git/conflict.PNG">
+<meta property="og:image" content="https://hxwiwsh.com/images/git/no-ff.PNG">
+<meta property="og:updated_time" content="2019-02-21T08:15:00.646Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Learn Git">
+<meta name="twitter:description" content="集中式vs分布式SVN和CVS都是集中式的版本控制系统, GIT是分布式的版本控制系统   集中式版本控制系统版本库集中存放在中央服务器, 干活的时候用的都是自己的电脑, 先从中央服务器取得最新的版本, 然后开始干活, 干完活再把自己的活推送给中央服务器.最大的缺点就是需要联网才能工作, 如果在互联网商网速慢的话, 提交一个文件花费的时间就会很长   分布式版本控制系统在每一个人的电脑上都是一个版">
+<meta name="twitter:image" content="https://hxwiwsh.com/images/git/master.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hxwiwsh.com/2019/02/21/Learn-Git/"/>
+
+
+
+
+
+  <title>Learn Git | Learn More Do More</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Learn More Do More</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hxwiwsh.com/2019/02/21/Learn-Git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuWei Huang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn More Do More">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Learn Git</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-21T16:10:59+08:00">
+                2019-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/develop/" itemprop="url" rel="index">
+                    <span itemprop="name">develop</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="集中式vs分布式"><a href="#集中式vs分布式" class="headerlink" title="集中式vs分布式"></a>集中式vs分布式</h1><p>SVN和CVS都是集中式的版本控制系统, GIT是分布式的版本控制系统  </p>
+<h2 id="集中式版本控制系统"><a href="#集中式版本控制系统" class="headerlink" title="集中式版本控制系统"></a>集中式版本控制系统</h2><p>版本库集中存放在中央服务器, 干活的时候用的都是自己的电脑, 先从中央服务器取得最新的版本, 然后开始干活, 干完活再把自己的活推送给中央服务器.<br>最大的缺点就是需要联网才能工作, 如果在互联网商网速慢的话, 提交一个文件花费的时间就会很长  </p>
+<h2 id="分布式版本控制系统"><a href="#分布式版本控制系统" class="headerlink" title="分布式版本控制系统"></a>分布式版本控制系统</h2><p>在每一个人的电脑上都是一个版本库, 同时有一台服务器充当中央服务器的角色, 用来方便交换大家的修改</p>
+<h1 id="git的安装"><a href="#git的安装" class="headerlink" title="git的安装"></a>git的安装</h1><p>现在git可以运行在linux、unix、mac、windowsuoge平台上<br>如果是linux平台, 根据不同的系统, 使用apt-get install git或者yum install git在命令行中就可以安装. 或者在git官网上下载源码进行编译安装(./configure make &amp;&amp; make install)<br>如果是其他平台的话, 自行在官网上下载对应的安装包</p>
+<h1 id="git的配置"><a href="#git的配置" class="headerlink" title="git的配置"></a>git的配置</h1><p>安装完git之后, 你需要配置你的信息name以及email<br>git config –global user.name “your name”<br>git config –global user.email “your email”<br>–gloabl这个参数表示所有的库都会用这个参数, 但是也可以对某个仓库使用指定的用户名等信息<br>如果要使用github的话, 还需要配置你的账号密码, 并且在github中添加你这台设备的ssh key, 这样才可能通过本地git访问到github.</p>
+<h1 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h1><p>可以在本地创建一个空文件夹, 并进入到该文件夹下使用git init将目录变成git可以管理的仓库, 这个时候可以看到该文件夹下多了一个.git的隐藏文件夹, 这里隐藏的是版本控制信息, 不要轻易修改里面的内容.  </p>
+<h1 id="git的基本操作步骤"><a href="#git的基本操作步骤" class="headerlink" title="git的基本操作步骤"></a>git的基本操作步骤</h1><h2 id="git-add-xx-amp-git-commit"><a href="#git-add-xx-amp-git-commit" class="headerlink" title="git add xx &amp; git commit"></a>git add xx &amp; git commit</h2><p>如果说在新建的仓库中新建了一个readme.txt文件</p>
+<ol>
+<li>首先使用git add readme.txt, 将文件添加到仓库</li>
+<li>再使用git commit -m ‘备注信息’, 将文件提交到仓库, 同时每次提交都需要commit信息, 主要是用来描述此次提交涉及到的修改信息.</li>
+</ol>
+<h2 id="git-status"><a href="#git-status" class="headerlink" title="git status"></a>git status</h2><p>使用命令git status命令可以查看该仓库的状态, 是否和服务器上的仓库有差别.当你再次修改readme.txt文件的内容后, git status就会提示你有修改后的内容没有commit, 这个时候需要再次执行git add以及git commit操作.同时我们也可以用git diff来查看文件和当前服务器上的文件修改了哪些内容.</p>
+<h2 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h2><p>git log命令可以查看从最近到最远的提交日志.</p>
+<h2 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a>git reset</h2><p>git reset命令可以使仓库回退到指定版本, 当前版本为HEAD, 前一个版本是HEAD^, 以此类推前100个版本就是HEAD~100.<br>git reset –hard HEAD^表示回退到前一个版本, 这个时候查看git log可以看到当前版本已经回退到前一个版本了<br>这个时候如果要再回退到最新的版本只需要用git reset –hard <commit id的前几位="">. 因为使用git reset命令的时候, 只是把HEAD的指针指到了指定的版本, 并没有做什么其他操作</commit></p>
+<h2 id="git-reflog"><a href="#git-reflog" class="headerlink" title="git reflog"></a>git reflog</h2><p>git reflog可以显示多次commit的信息, 包括了每次的commit id</p>
+<h1 id="工作区和暂存区"><a href="#工作区和暂存区" class="headerlink" title="工作区和暂存区"></a>工作区和暂存区</h1><p>git相比其他版本控制系统多了一个暂存区的概念. 我们在创建git版本库的时候, git自动为我们创建了一个master分支, 所以git commit就是往master分支上提交更改<br>git add是将文件修改添加到暂存区, git commit将暂存区的文件提交到当前分支</p>
+<h1 id="管理和修改"><a href="#管理和修改" class="headerlink" title="管理和修改"></a>管理和修改</h1><p><strong>git commit只会将暂存区的内容提交到当前分支</strong><br>比如修改了readme.txt文件, 使用git add命令添加到暂存区, 再次修改reademe.txt文件, 使用git commit提交. 这个时候可以看到当前仓库内readme.txt文件的内容是第一次修改后的, 第二次修改的内容没有commit. 所以在git commit之前用git add将readme.txt文件添加到暂存区就可以了.这样最新的就是第二次修改的readm.txt</p>
+<h1 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h1><p>git checkout – <filename>可以丢弃工作区的修改, 这里有两种情况:  </filename></p>
+<ol>
+<li>readme.txt修改后还没有放到暂存区, 现在撤销修改就回到版本库的状态</li>
+<li>readme.txt添加到暂存区后, 又做了修改, 现在撤销修改就回到了暂存区的状态</li>
+</ol>
+<p>简单的说git checkout – <filename>就是将文件回复到最近的一次git commit或者git add时候的状态<br>如果文件已经放到暂存区了, 可以使用git reset HEAD <filename>将暂存区的文件回退到工作区, 然后再使用git checkout – <filename>来丢弃工作区的修改  </filename></filename></filename></p>
+<h1 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h1><p>git rm <filename>可以删除版本库中的文件, 同时使用git checkout – <filename>可以将删除的恢复(但是只能恢复文件到最新版本, 如果已经提交到版本库的话可以恢复到修改后的, 但是如果没有提交就将丢失最新一次的修改)  </filename></filename></p>
+<h1 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h1><p>使用github来保存你的仓库时, 要先生成SSH Key.<br>ssh-keygen -t rsa -C “<a href="mailto:youremail@example.com" target="_blank" rel="noopener">youremail@example.com</a>“<br>然后可以在用户的主目录下.ssh文件夹内找到id_rsa和id_rsa.pub, 这是生成的一对密钥. 然后需要将公钥的内容贴到github上, 这样机器就可以远程连接到github的服务器了.  </p>
+<h2 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h2><p>在github上新建一个仓库名为learngit, 这个时候仓库还是空的.<br>这个时候我们将本地仓库与之关联, git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:chris/learngit.git<br>使用命令git push -u origin master将本地的内容推送到远程库中, 第一次推送的时候需要添加-u参数, 之后就不需要添加-u参数了.</p>
+<h1 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h1><h2 id="创建与合并分支"><a href="#创建与合并分支" class="headerlink" title="创建与合并分支"></a>创建与合并分支</h2><p>一开始, master分支是一条线, Git用master指向最新的提交, 在用HEAD指向master, 就能确定当前分支, 以及当前分支的提交点.<br>每一次提交master分支都会向前移动一步.<br><img src="/images/git/master.PNG" alt="master"><br>当我们创建新的分支dev, Git新建了一个指针dev, 指向master相同的提交, 再把HEAD指向dev, 表示当前分支在dev上.<br><img src="/images/git/dev.PNG" alt="dev"><br>现在进行的修改都是针对dev分支, 新提交一次后, dev指针往前移动一步, 而master指针不变<br><img src="/images/git/dev-1.PNG" alt="dev-1"><br>如果我们在dev分支上的工作完成了, 就可以把dev合并到master上. 只需要将master的指针指向dev当前的提交就可以了.<br><img src="/images/git/master-1.PNG" alt="master-1"><br>合并完成后, 删除dev分支(就是删除dev指针), 这样我们就剩下一条master分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev</span><br><span class="line"># 创建并切换到dev分支, 相当于git branch dev &amp;&amp; git checkout dev</span><br><span class="line">git branch</span><br><span class="line">#查看所有的分支, 并显示当前所在的分支</span><br><span class="line">git merge dev</span><br><span class="line">#合并指定分支到当前分支, 合并的时候有多种方式,(fast-forward模式, 直接把master的指针知道dev指针所在的提交)</span><br><span class="line">git branch -d dev</span><br><span class="line">#删除dev分支</span><br></pre></td></tr></table></figure></p>
+<h2 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h2><p>新建分支dev, 修改readme.txt文件并提交; 切换到master分支, 同样修改readme.txt并提交.<br><img src="/images/git/conflict.PNG" alt="conflict"><br>这个时候执行git merge dev, 会提示我们有冲突. 使用git status可以查看相关信息.<br>当Git无法自动合并分支时, 必须首先解决冲突. 解决冲突后再提交合并.<br>用git log –graph命令可以查看分支合并图  </p>
+<h2 id="分支康策略"><a href="#分支康策略" class="headerlink" title="分支康策略"></a>分支康策略</h2><p>一般情况下, 合并分支会用fast forward模式, 这种模式下, 删除分支后, 会丢失分支信息.<br>如果强制禁用fast forward模式(–no-ff), Git就会在merge的时候生成一个新的commit. 这样从分支历史上就可以看出分支信息.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev</span><br><span class="line">#修改readne.txt文件</span><br><span class="line">git add readme.txt</span><br><span class="line">git commit -m &apos;add merge&apos;</span><br><span class="line">git checkout master</span><br><span class="line">git merge --no-ff -m &apos;merge with --no-ff&apos; dev</span><br></pre></td></tr></table></figure></p>
+<p>不使用fast forward模式, merge后就像这样<br><img src="/images/git/no-ff.PNG" alt="no-ff"></p>
+<h2 id="Bug分支"><a href="#Bug分支" class="headerlink" title="Bug分支"></a>Bug分支</h2><p>可以创建一个分支issue-101来修复bug, 但是当前正在dev上进行的工作还没有完成提交, 这个时候可以使用git stash功能保存当前工作状态. 再用git status可以看到工作区内是干净的.<br>要在哪个分支修复bug, 就需要在哪个分支上创建临时分支. 修复bug后提交后merge就可以了. 这个时候回到工作的dev分支使用git stash list查看, 之前保存的状态.<br>git stash apply 可以恢复之前工作的状态, 但是不删除stash内容, 需要使用git stash drop来手动删除<br>git stash pop可以恢复之前的工作状态同时也把stash内容删除<br>可以使用多次使用stash, 然后恢复的时候指定某一次的保存内容就可以了 git stash apply stash@{0}</p>
+<h2 id="feature分支"><a href="#feature分支" class="headerlink" title="feature分支"></a>feature分支</h2><p>如果开发一个新的feature最好新建一个分支, 如果要删除一个没有合并的分支, 需要使用-D参数才可以  </p>
+<h2 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h2><p>git remote -v查看远程信息<br>$ git remote -v<br>origin  <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:Chris-huangxw/algorithms-learning.git (fetch)<br>origin  <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:Chris-huangxw/algorithms-learning.git (push)<br>只有有push权限才能看到上面的信息<br>git push orign &lt;分支&gt;默认master 推送本地内容到远端仓库中, 指定特定的分支<br>多人合作的冲突  </p>
+<h2 id="Rebase"><a href="#Rebase" class="headerlink" title="Rebase"></a>Rebase</h2><p>xxx</p>
+<h1 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h1><p>Git的标签虽然是版本库的快照, 但其实它就是指向某个commit的指针(但是和分支不一样, 分支可以移动, 但是标签不能移动).<br>tag可以和某个commit绑在一起  </p>
+<h2 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h2><p>首先切换到需要打标签的分支上<br>git branch<br>git checkout master<br>git tag v1.0<br>使用git tag查看所有标签. 默认标签是打在最新提交的commit上的. 如果要在之前的commit上打上标签就需要之前commit的commit id就可以了.<br>git log –pretty=oneline –abbrev-commit<br>12a631b (HEAD -&gt; master, tag: v1.0, origin/master) merged bug fix 101<br>4c805e2 fix bug 101<br>e1e9c68 merge with no-ff<br>f52c633 add merge<br>cf810e4 conflict fixed<br>5dc6824 &amp; simple<br>git tag v0.9 f52c633<br>标签不是按时间顺序列出的, 是按照字母排序的. git show <tagname>可以查看某一标签的详细信息.<br>git tag -a v0.1 -m ‘release note’ f52c633<br>-a参数指定标签名, -m参数指定说明内容  </tagname></p>
+<h2 id="操作标签"><a href="#操作标签" class="headerlink" title="操作标签"></a>操作标签</h2><p>git tag -d v0.1 可以删除指定标签, 而且标签操作默认都是在本地操作, 删除标签不会推送到远程库.<br>如果需要推送某个标签到远程, 使用命令git push origin <tagname>(推送指定标签) 或者git pus origin –tags(推送所有未推送到远程的本地标签)<br>如果要删除远程库中的标签, <strong>git push origin :refs/tags/v0.9</strong>  </tagname></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/21/递归/" rel="next" title="递归">
+                <i class="fa fa-chevron-left"></i> 递归
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/21/交换机端口丢包/" rel="prev" title="交换机端口丢包">
+                交换机端口丢包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">XuWei Huang</p>
+              <p class="site-description motion-element" itemprop="description">Your path will make sense in the end.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Chris-huangxw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chris_huangxw@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#集中式vs分布式"><span class="nav-number">1.</span> <span class="nav-text">集中式vs分布式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集中式版本控制系统"><span class="nav-number">1.1.</span> <span class="nav-text">集中式版本控制系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式版本控制系统"><span class="nav-number">1.2.</span> <span class="nav-text">分布式版本控制系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git的安装"><span class="nav-number">2.</span> <span class="nav-text">git的安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git的配置"><span class="nav-number">3.</span> <span class="nav-text">git的配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建版本库"><span class="nav-number">4.</span> <span class="nav-text">创建版本库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git的基本操作步骤"><span class="nav-number">5.</span> <span class="nav-text">git的基本操作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-add-xx-amp-git-commit"><span class="nav-number">5.1.</span> <span class="nav-text">git add xx &amp; git commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-status"><span class="nav-number">5.2.</span> <span class="nav-text">git status</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-log"><span class="nav-number">5.3.</span> <span class="nav-text">git log</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-reset"><span class="nav-number">5.4.</span> <span class="nav-text">git reset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-reflog"><span class="nav-number">5.5.</span> <span class="nav-text">git reflog</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工作区和暂存区"><span class="nav-number">6.</span> <span class="nav-text">工作区和暂存区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管理和修改"><span class="nav-number">7.</span> <span class="nav-text">管理和修改</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#撤销修改"><span class="nav-number">8.</span> <span class="nav-text">撤销修改</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除文件"><span class="nav-number">9.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程仓库"><span class="nav-number">10.</span> <span class="nav-text">远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加远程仓库"><span class="nav-number">10.1.</span> <span class="nav-text">添加远程仓库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分支管理"><span class="nav-number">11.</span> <span class="nav-text">分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建与合并分支"><span class="nav-number">11.1.</span> <span class="nav-text">创建与合并分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决冲突"><span class="nav-number">11.2.</span> <span class="nav-text">解决冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支康策略"><span class="nav-number">11.3.</span> <span class="nav-text">分支康策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bug分支"><span class="nav-number">11.4.</span> <span class="nav-text">Bug分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feature分支"><span class="nav-number">11.5.</span> <span class="nav-text">feature分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多人协作"><span class="nav-number">11.6.</span> <span class="nav-text">多人协作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rebase"><span class="nav-number">11.7.</span> <span class="nav-text">Rebase</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标签管理"><span class="nav-number">12.</span> <span class="nav-text">标签管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建标签"><span class="nav-number">12.1.</span> <span class="nav-text">创建标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作标签"><span class="nav-number">12.2.</span> <span class="nav-text">操作标签</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuWei Huang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
