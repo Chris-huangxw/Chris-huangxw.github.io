@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="FEX技术FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.N2K 无法被管理, 只能通过上联设备来进行统一管理.N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧   NIV(network interface virtualization)NIV架构扩展了交换机端口到下游设">
+<meta name="description" content="FEX技术 FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展. N2K 无法被管理, 只能通过上联设备来进行统一管理. N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧NIV(network interface virtualization)NIV架构扩展了交换机端口到下游设">
 <meta name="keywords" content="Nexus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nexus FEX技术">
 <meta property="og:url" content="https://hxwiwsh.com/2019/02/13/Nexus-FEX技术/index.html">
 <meta property="og:site_name" content="Learn More Do More">
-<meta property="og:description" content="FEX技术FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.N2K 无法被管理, 只能通过上联设备来进行统一管理.N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧   NIV(network interface virtualization)NIV架构扩展了交换机端口到下游设">
+<meta property="og:description" content="FEX技术 FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展. N2K 无法被管理, 只能通过上联设备来进行统一管理. N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧NIV(network interface virtualization)NIV架构扩展了交换机端口到下游设">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-14T01:47:53.498Z">
+<meta property="og:updated_time" content="2019-02-21T02:38:02.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nexus FEX技术">
-<meta name="twitter:description" content="FEX技术FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.N2K 无法被管理, 只能通过上联设备来进行统一管理.N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧   NIV(network interface virtualization)NIV架构扩展了交换机端口到下游设">
+<meta name="twitter:description" content="FEX技术 FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展. N2K 无法被管理, 只能通过上联设备来进行统一管理. N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧NIV(network interface virtualization)NIV架构扩展了交换机端口到下游设">
 
 
 
@@ -342,12 +342,13 @@
       
 
       
-        <h1 id="FEX技术"><a href="#FEX技术" class="headerlink" title="FEX技术"></a>FEX技术</h1><p>FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.<br>N2K 无法被管理, 只能通过上联设备来进行统一管理.<br>N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧  </p>
-<h2 id="NIV-network-interface-virtualization"><a href="#NIV-network-interface-virtualization" class="headerlink" title="NIV(network interface virtualization)"></a>NIV(network interface virtualization)</h2><p>NIV架构扩展了交换机端口到下游设备.  </p>
-<ul>
-<li>所有的FEX fabric link必须在同一个VDC下  </li>
-<li>SPAN的时候, N2K上的端口可以作为源端口, 但是不能作为目的端口.  </li>
-<li>etherchannel模式下, 针对2层帧, 基于源目MAC地址做load balance; 针对3层帧, 基于源目MAC地址以及源目IP地址进行负载  </li>
+        <h1 id="FEX技术"><a href="#FEX技术" class="headerlink" title="FEX技术"></a>FEX技术</h1><ul>
+<li>FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.</li>
+<li>N2K 无法被管理, 只能通过上联设备来进行统一管理.</li>
+<li>N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧<h2 id="NIV-network-interface-virtualization"><a href="#NIV-network-interface-virtualization" class="headerlink" title="NIV(network interface virtualization)"></a>NIV(network interface virtualization)</h2>NIV架构扩展了交换机端口到下游设备.</li>
+<li>所有的FEX fabric link必须在同一个VDC下</li>
+<li>SPAN的时候, N2K上的端口可以作为源端口, 但是不能作为目的端口.</li>
+<li>etherchannel模式下, 针对2层帧, 基于源目MAC地址做load balance; 针对3层帧, 基于源目MAC地址以及源目IP地址进行负载</li>
 <li><p>同时etherchannel模式不支持LACP, 只支持channel-group 1 mode on</p>
 <h2 id="端口命名规则"><a href="#端口命名规则" class="headerlink" title="端口命名规则"></a>端口命名规则</h2><p>interface ethernet chassis/slot/port</p>
 <h2 id="Host-Interface"><a href="#Host-Interface" class="headerlink" title="Host Interface"></a>Host Interface</h2><p>FEX上所有的host interface 都不允许接交换机, 默认开启了bpdu guard, 而且无法关闭<br>这样的话我们可以在host interface上启用快速收敛 spanning-tree port type edge (trunk)</p>

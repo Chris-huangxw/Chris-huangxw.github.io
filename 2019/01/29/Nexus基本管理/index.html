@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="Nexus初始化在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.在有SUP2E的情况下VDC的分布:    8个普通vdc, 1个admin vdc(只有管理流量)   7个普通vdc, 1个default vdc(即有管理流量也有业务流量)在N7K启动过程中,会先启动kickstart版本的镜像, 在其启动dk9版本">
+<meta name="description" content="Nexus初始化在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.在有SUP2E的情况下VDC的分布:  8个普通vdc, 1个admin vdc(只有管理流量) 7个普通vdc, 1个default vdc(即有管理流量也有业务流量)在N7K启动过程中,会先启动kickstart版本的镜像, 在其启动dk9版本的镜像.">
 <meta name="keywords" content="Nexus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nexus基本管理">
 <meta property="og:url" content="https://hxwiwsh.com/2019/01/29/Nexus基本管理/index.html">
 <meta property="og:site_name" content="Learn More Do More">
-<meta property="og:description" content="Nexus初始化在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.在有SUP2E的情况下VDC的分布:    8个普通vdc, 1个admin vdc(只有管理流量)   7个普通vdc, 1个default vdc(即有管理流量也有业务流量)在N7K启动过程中,会先启动kickstart版本的镜像, 在其启动dk9版本">
+<meta property="og:description" content="Nexus初始化在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.在有SUP2E的情况下VDC的分布:  8个普通vdc, 1个admin vdc(只有管理流量) 7个普通vdc, 1个default vdc(即有管理流量也有业务流量)在N7K启动过程中,会先启动kickstart版本的镜像, 在其启动dk9版本的镜像.">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://hxwiwsh.com/images/nexus/show%20boot.PNG">
 <meta property="og:image" content="https://hxwiwsh.com/images/nexus/show%20module.PNG">
 <meta property="og:image" content="https://hxwiwsh.com/images/nexus/power%20redundant.PNG">
 <meta property="og:image" content="https://hxwiwsh.com/images/nexus/cfs.PNG">
-<meta property="og:updated_time" content="2019-01-30T02:50:01.578Z">
+<meta property="og:updated_time" content="2019-02-21T03:09:05.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nexus基本管理">
-<meta name="twitter:description" content="Nexus初始化在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.在有SUP2E的情况下VDC的分布:    8个普通vdc, 1个admin vdc(只有管理流量)   7个普通vdc, 1个default vdc(即有管理流量也有业务流量)在N7K启动过程中,会先启动kickstart版本的镜像, 在其启动dk9版本">
+<meta name="twitter:description" content="Nexus初始化在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.在有SUP2E的情况下VDC的分布:  8个普通vdc, 1个admin vdc(只有管理流量) 7个普通vdc, 1个default vdc(即有管理流量也有业务流量)在N7K启动过程中,会先启动kickstart版本的镜像, 在其启动dk9版本的镜像.">
 <meta name="twitter:image" content="https://hxwiwsh.com/images/nexus/show%20boot.PNG">
 
 
@@ -347,12 +347,14 @@
       
 
       
-        <h2 id="Nexus初始化"><a href="#Nexus初始化" class="headerlink" title="Nexus初始化"></a>Nexus初始化</h2><p>在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.<br>在有SUP2E的情况下VDC的分布:  </p>
+        <h2 id="Nexus初始化"><a href="#Nexus初始化" class="headerlink" title="Nexus初始化"></a>Nexus初始化</h2><p>在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.<br>在有SUP2E的情况下VDC的分布:</p>
 <ol>
-<li>8个普通vdc, 1个admin vdc(只有管理流量)  </li>
-<li>7个普通vdc, 1个default vdc(即有管理流量也有业务流量)<br>在N7K启动过程中,会先启动kickstart版本的镜像, 在其启动dk9版本的镜像.这两个版本信息一定要一致才可以.<br><img src="/images/nexus/show boot.PNG" alt="show boot">  <h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2></li>
+<li>8个普通vdc, 1个admin vdc(只有管理流量)</li>
+<li>7个普通vdc, 1个default vdc(即有管理流量也有业务流量)<br>在N7K启动过程中,会先启动kickstart版本的镜像, 在其启动dk9版本的镜像.这两个版本信息一定要一致才可以.<br><img src="/images/nexus/show boot.PNG" alt="show boot"></li>
+</ol>
+<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><ol>
 <li>show module 查看引擎板卡等信息<br><img src="/images/nexus/show module.PNG" alt="show module"></li>
-<li><p>配置管理端口<br>管理端口默认在vrf management下, 只需要配置ip地址就可以了<br>配置管理路由的话, 需要按照下面命令:  </p>
+<li><p>配置管理端口<br>管理端口默认在vrf management下, 只需要配置ip地址就可以了<br>配置管理路由的话, 需要按照下面命令:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vrf context management</span><br><span class="line">    ip route 0.0.0.0 0.0.0.0 (gateway-ip)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>show cdp neighbor<br>可以看到每个VDC的mgmt ip都是在同一个mgmt口上的<br>每个mgmt ip都可以ping通外部地址, 但是同一个mgmt口上的mgmt ip之间是无法ping通的<br>N2K不支持cdp  </p>

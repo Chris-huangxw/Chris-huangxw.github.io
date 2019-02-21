@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="接口基本配置N7K上所有端口默认处于shutdown状态; N5K上所有端口默认处于no shutdown状态(所有端口都是switchport)默认所有接口都是三层route模式, 只有当线卡不支持三层的时候, 接口才会处于二层switchport模式show run all | in “system default”    创建SVI口需要提前打开特性 feature interface-vl">
+<meta name="description" content="接口基本配置N7K上所有端口默认处于shutdown状态; N5K上所有端口默认处于no shutdown状态(所有端口都是switchport)默认所有接口都是三层route模式, 只有当线卡不支持三层的时候, 接口才会处于二层switchport模式show run all | in “system default”  创建SVI口需要提前打开特性 feature interface-vlan">
 <meta name="keywords" content="Nexus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nexus L2 L3基本配置">
 <meta property="og:url" content="https://hxwiwsh.com/2019/02/13/Nexus-L2-L3基本配置/index.html">
 <meta property="og:site_name" content="Learn More Do More">
-<meta property="og:description" content="接口基本配置N7K上所有端口默认处于shutdown状态; N5K上所有端口默认处于no shutdown状态(所有端口都是switchport)默认所有接口都是三层route模式, 只有当线卡不支持三层的时候, 接口才会处于二层switchport模式show run all | in “system default”    创建SVI口需要提前打开特性 feature interface-vl">
+<meta property="og:description" content="接口基本配置N7K上所有端口默认处于shutdown状态; N5K上所有端口默认处于no shutdown状态(所有端口都是switchport)默认所有接口都是三层route模式, 只有当线卡不支持三层的时候, 接口才会处于二层switchport模式show run all | in “system default”  创建SVI口需要提前打开特性 feature interface-vlan">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-13T06:34:02.153Z">
+<meta property="og:updated_time" content="2019-02-21T03:07:18.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nexus L2 L3基本配置">
-<meta name="twitter:description" content="接口基本配置N7K上所有端口默认处于shutdown状态; N5K上所有端口默认处于no shutdown状态(所有端口都是switchport)默认所有接口都是三层route模式, 只有当线卡不支持三层的时候, 接口才会处于二层switchport模式show run all | in “system default”    创建SVI口需要提前打开特性 feature interface-vl">
+<meta name="twitter:description" content="接口基本配置N7K上所有端口默认处于shutdown状态; N5K上所有端口默认处于no shutdown状态(所有端口都是switchport)默认所有接口都是三层route模式, 只有当线卡不支持三层的时候, 接口才会处于二层switchport模式show run all | in “system default”  创建SVI口需要提前打开特性 feature interface-vlan">
 
 
 
@@ -342,25 +342,28 @@
       
 
       
-        <h1 id="接口基本配置"><a href="#接口基本配置" class="headerlink" title="接口基本配置"></a>接口基本配置</h1><p>N7K上所有端口默认处于shutdown状态; N5K上所有端口默认处于no shutdown状态(所有端口都是switchport)<br>默认所有接口都是三层route模式, 只有当线卡不支持三层的时候, 接口才会处于二层switchport模式<br>show run all | in “system default”  </p>
+        <h1 id="接口基本配置"><a href="#接口基本配置" class="headerlink" title="接口基本配置"></a>接口基本配置</h1><p>N7K上所有端口默认处于shutdown状态; N5K上所有端口默认处于no shutdown状态(所有端口都是switchport)<br>默认所有接口都是三层route模式, 只有当线卡不支持三层的时候, 接口才会处于二层switchport模式<br>show run all | in “system default”</p>
 <ul>
-<li>创建SVI口需要提前打开特性 feature interface-vlan, 并且需要在创建SVI口之后, 手动no shutdown  </li>
-<li>show interface e1/1 transceiver 可以查看端口上的模块信息  </li>
-<li>show interface e1/1 cap 查看端口能力  <h2 id="MTU"><a href="#MTU" class="headerlink" title="MTU"></a>MTU</h2>数据中心中一些overlay技术或者FCoE环境下需要修改网络的最大MTU  </li>
-<li>对于三层接口, 576-9216之间的偶数都可以来配置MTU  </li>
-<li>对于二层接口, 要么1500, 要么是9216(default system jumbo MTU, 如果要修改这个值需要在全局模式下修改)  </li>
-<li><p>N5K的二层接口不支持MTU, 需要基于QoS class来进行设置  </p>
-<h2 id="UDLD"><a href="#UDLD" class="headerlink" title="UDLD"></a>UDLD</h2><p>UDLD是二层技术使交换机检查单向链路故障, 可以和物理层协商工作.<br>当一个单向链路被发现, 会被标记为未确定状态或者被关闭; UDLD aggressive模式当丢失邻居的时候, UDLD主动尝试重新建立与邻居的连接. 但是尝试次数超过8次之后, 端口状态会变成err-disable状态  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">feature udld</span><br><span class="line">inter e1/1</span><br><span class="line">udld aggressive</span><br><span class="line"><span class="comment"># 禁用命令</span></span><br><span class="line">no udld aggressive</span><br><span class="line">no udld <span class="built_in">enable</span></span><br><span class="line"><span class="comment"># 查看命令</span></span><br><span class="line">show udld neighbor</span><br><span class="line">show udld global</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>UDLD是由supervisor来处理的, 不建议在所有的端口上开启, 建议在internal switch之间以及WAN互联接口之间开启  </p>
-</li>
-<li>推荐UDLD的normal模式, 可以在vPC的peer-link以及member port上开启  <h2 id="port-profile"><a href="#port-profile" class="headerlink" title="port profile"></a>port profile</h2>Port Profile 可以为相同配置的端口配置一个相同的模板; port profile之间是可以继承的  </li>
+<li>创建SVI口需要提前打开特性 feature interface-vlan, 并且需要在创建SVI口之后, 手动no shutdown</li>
+<li>show interface e1/1 transceiver 可以查看端口上的模块信息</li>
+<li>show interface e1/1 cap 查看端口能力</li>
 </ul>
+<h2 id="MTU"><a href="#MTU" class="headerlink" title="MTU"></a>MTU</h2><p>数据中心中一些overlay技术或者FCoE环境下需要修改网络的最大MTU</p>
+<ul>
+<li>对于三层接口, 576-9216之间的偶数都可以来配置MTU</li>
+<li>对于二层接口, 要么1500, 要么是9216(default system jumbo MTU, 如果要修改这个值需要在全局模式下修改)</li>
+<li>N5K的二层接口不支持MTU, 需要基于QoS class来进行设置</li>
+</ul>
+<h2 id="UDLD"><a href="#UDLD" class="headerlink" title="UDLD"></a>UDLD</h2><p>UDLD是二层技术使交换机检查单向链路故障, 可以和物理层协商工作.<br>当一个单向链路被发现, 会被标记为未确定状态或者被关闭; UDLD aggressive模式当丢失邻居的时候, UDLD主动尝试重新建立与邻居的连接. 但是尝试次数超过8次之后, 端口状态会变成err-disable状态<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">feature udld</span><br><span class="line">inter e1/1</span><br><span class="line">udld aggressive</span><br><span class="line"><span class="comment"># 禁用命令</span></span><br><span class="line">no udld aggressive</span><br><span class="line">no udld <span class="built_in">enable</span></span><br><span class="line"><span class="comment"># 查看命令</span></span><br><span class="line">show udld neighbor</span><br><span class="line">show udld global</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>UDLD是由supervisor来处理的, 不建议在所有的端口上开启, 建议在internal switch之间以及WAN互联接口之间开启</li>
+<li>推荐UDLD的normal模式, 可以在vPC的peer-link以及member port上开启</li>
+</ul>
+<h2 id="port-profile"><a href="#port-profile" class="headerlink" title="port profile"></a>port profile</h2><p>Port Profile 可以为相同配置的端口配置一个相同的模板; port profile之间是可以继承的</p>
 <h1 id="动态路由协议"><a href="#动态路由协议" class="headerlink" title="动态路由协议"></a>动态路由协议</h1><ul>
-<li>对于OSPF, 可以直接在接口下使用 ip router ospf 1 area 0 来将端口宣告进OSPF中  <h2 id="针对OSPF快速收敛的BFD"><a href="#针对OSPF快速收敛的BFD" class="headerlink" title="针对OSPF快速收敛的BFD"></a>针对OSPF快速收敛的BFD</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feature bfd</span><br><span class="line">router ospf 1</span><br><span class="line">bfd</span><br><span class="line">int vlan12</span><br><span class="line">no ip redirects</span><br><span class="line">bfd interval 150 min 150 mul 150</span><br></pre></td></tr></table></figure>
-</li>
+<li>对于OSPF, 可以直接在接口下使用 ip router ospf 1 area 0 来将端口宣告进OSPF中</li>
 </ul>
+<h2 id="针对OSPF快速收敛的BFD"><a href="#针对OSPF快速收敛的BFD" class="headerlink" title="针对OSPF快速收敛的BFD"></a>针对OSPF快速收敛的BFD</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feature bfd</span><br><span class="line">router ospf 1</span><br><span class="line">bfd</span><br><span class="line">int vlan12</span><br><span class="line">no ip redirects</span><br><span class="line">bfd interval 150 min 150 mul 150</span><br></pre></td></tr></table></figure>
 <p>BFD邻居关系的建立  </p>
 <ol>
 <li>当OSPF发现一个邻居  </li>
@@ -369,12 +372,14 @@
 </ol>
 <ul>
 <li>检测机制: 默认回声模式; 还有查询模式, 异步模式  </li>
-<li>需要no ip redirect<h2 id="PSS-默认开启"><a href="#PSS-默认开启" class="headerlink" title="PSS(默认开启)"></a>PSS(默认开启)</h2>在运行动态路由协议的时候, 协议进程的数据是存储在内存中的. PSS提供了额外的数据信息备份. 在协议进程意外重启的时候, 可以通过PSS存储的数据恢复之前的状态.  <h2 id="NSF-不间断转发-默认开启"><a href="#NSF-不间断转发-默认开启" class="headerlink" title="NSF 不间断转发(默认开启)"></a>NSF 不间断转发(默认开启)</h2>当手动重启路由协议进程的时候, 会给邻居发送一个9类的LSA, 让邻居暂时保存当前的路由表(保留时间120s, 如果超过120s之后按正常收敛的路由更新路由表), 可以保证正在传输的数据不会中断.<br>完美重启的条件:  </li>
+<li>需要no ip redirect</li>
 </ul>
+<h2 id="PSS-默认开启"><a href="#PSS-默认开启" class="headerlink" title="PSS(默认开启)"></a>PSS(默认开启)</h2><p>在运行动态路由协议的时候, 协议进程的数据是存储在内存中的. PSS提供了额外的数据信息备份. 在协议进程意外重启的时候, 可以通过PSS存储的数据恢复之前的状态.</p>
+<h2 id="NSF-不间断转发-默认开启"><a href="#NSF-不间断转发-默认开启" class="headerlink" title="NSF 不间断转发(默认开启)"></a>NSF 不间断转发(默认开启)</h2><p>当手动重启路由协议进程的时候, 会给邻居发送一个9类的LSA, 让邻居暂时保存当前的路由表(保留时间120s, 如果超过120s之后按正常收敛的路由更新路由表), 可以保证正在传输的数据不会中断.<br>完美重启的条件:</p>
 <ol>
 <li>手动重启路由进程 restart ospf 1</li>
 <li>Active 引擎被移除, standby引擎开始工作</li>
-<li>Active 引擎重启, reload module active-sup  </li>
+<li>Active 引擎重启, reload module active-sup</li>
 </ol>
 <h1 id="二层配置Trunk-VLAN-VTP"><a href="#二层配置Trunk-VLAN-VTP" class="headerlink" title="二层配置Trunk, VLAN, VTP"></a>二层配置Trunk, VLAN, VTP</h1><p>N7K支持 MST和rapid pvst. 前者基于实例, 后者基于vlan  </p>
 <h1 id="HSRP与VRRP"><a href="#HSRP与VRRP" class="headerlink" title="HSRP与VRRP"></a>HSRP与VRRP</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">feature hsrp</span><br><span class="line">feature vrrp</span><br><span class="line">feature interface-vlan</span><br><span class="line">int vlan100</span><br><span class="line">  ip add 192.168.1.1/24</span><br><span class="line">  hsrp 1</span><br><span class="line">    preempt</span><br><span class="line">    priority 105</span><br><span class="line">    ip 192.168.1.3</span><br><span class="line">int vlan200</span><br><span class="line">  ip add 192.168.2.1/24</span><br><span class="line">  vrrp 1</span><br><span class="line">    address 192.168.2.3</span><br><span class="line">    no shutdown</span><br><span class="line"><span class="comment"># 另一边配置相似</span></span><br></pre></td></tr></table></figure>

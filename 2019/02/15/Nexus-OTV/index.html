@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="OTV是一个典型的二层VPN, 提供多站点之间二层VPN以及数据中心之间的互联.在站点内的以太网流量被封装MAC in IP, 使用IP报头重新封装二层帧来传递.   OTV术语 OTV edge deviceOTV边界设备连接一个站点到核心, 执行所有的OTV功能.     控制层面功能 基于硬件的OTV封装和解封装 一个站点最多拥有两个OTV设备, 实现高可用以及冗余   internal i">
+<meta name="description" content="OTV是一个典型的二层VPN, 提供多站点之间二层VPN以及数据中心之间的互联.在站点内的以太网流量被封装MAC in IP, 使用IP报头重新封装二层帧来传递.   OTV术语 OTV edge deviceOTV边界设备连接一个站点到核心, 执行所有的OTV功能.   控制层面功能 基于硬件的OTV封装和解封装 一个站点最多拥有两个OTV设备, 实现高可用以及冗余   internal int">
 <meta name="keywords" content="Nexus,OTV">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nexus OTV">
 <meta property="og:url" content="https://hxwiwsh.com/2019/02/15/Nexus-OTV/index.html">
 <meta property="og:site_name" content="Learn More Do More">
-<meta property="og:description" content="OTV是一个典型的二层VPN, 提供多站点之间二层VPN以及数据中心之间的互联.在站点内的以太网流量被封装MAC in IP, 使用IP报头重新封装二层帧来传递.   OTV术语 OTV edge deviceOTV边界设备连接一个站点到核心, 执行所有的OTV功能.     控制层面功能 基于硬件的OTV封装和解封装 一个站点最多拥有两个OTV设备, 实现高可用以及冗余   internal i">
+<meta property="og:description" content="OTV是一个典型的二层VPN, 提供多站点之间二层VPN以及数据中心之间的互联.在站点内的以太网流量被封装MAC in IP, 使用IP报头重新封装二层帧来传递.   OTV术语 OTV edge deviceOTV边界设备连接一个站点到核心, 执行所有的OTV功能.   控制层面功能 基于硬件的OTV封装和解封装 一个站点最多拥有两个OTV设备, 实现高可用以及冗余   internal int">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://hxwiwsh.com/images/nexus/OTV封装.PNG">
-<meta property="og:updated_time" content="2019-02-18T07:31:55.693Z">
+<meta property="og:updated_time" content="2019-02-21T03:07:48.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nexus OTV">
-<meta name="twitter:description" content="OTV是一个典型的二层VPN, 提供多站点之间二层VPN以及数据中心之间的互联.在站点内的以太网流量被封装MAC in IP, 使用IP报头重新封装二层帧来传递.   OTV术语 OTV edge deviceOTV边界设备连接一个站点到核心, 执行所有的OTV功能.     控制层面功能 基于硬件的OTV封装和解封装 一个站点最多拥有两个OTV设备, 实现高可用以及冗余   internal i">
+<meta name="twitter:description" content="OTV是一个典型的二层VPN, 提供多站点之间二层VPN以及数据中心之间的互联.在站点内的以太网流量被封装MAC in IP, 使用IP报头重新封装二层帧来传递.   OTV术语 OTV edge deviceOTV边界设备连接一个站点到核心, 执行所有的OTV功能.   控制层面功能 基于硬件的OTV封装和解封装 一个站点最多拥有两个OTV设备, 实现高可用以及冗余   internal int">
 <meta name="twitter:image" content="https://hxwiwsh.com/images/nexus/OTV封装.PNG">
 
 
@@ -346,7 +346,7 @@
       
         <p>OTV是一个典型的二层VPN, 提供多站点之间二层VPN以及数据中心之间的互联.<br>在站点内的以太网流量被封装MAC in IP, 使用IP报头重新封装二层帧来传递.  </p>
 <h1 id="OTV术语"><a href="#OTV术语" class="headerlink" title="OTV术语"></a>OTV术语</h1><ol>
-<li>OTV edge device<br>OTV边界设备连接一个站点到核心, 执行所有的OTV功能.  </li>
+<li>OTV edge device<br>OTV边界设备连接一个站点到核心, 执行所有的OTV功能.</li>
 </ol>
 <ul>
 <li>控制层面功能</li>
@@ -356,22 +356,26 @@
 <ol start="2">
 <li>internal interface<br>典型的二层trunk口, 一个OTV edge设备使用内部接口连接站点</li>
 <li>join interface<br>面向WAN的三层接口</li>
-<li>overlay interface<br>封装二层帧到IP单播或者组播头部内的, 封装解封装OTV数据包  <h1 id="系统需求和原则"><a href="#系统需求和原则" class="headerlink" title="系统需求和原则"></a>系统需求和原则</h1></li>
+<li>overlay interface<br>封装二层帧到IP单播或者组播头部内的, 封装解封装OTV数据包</li>
 </ol>
-<ul>
+<h1 id="系统需求和原则"><a href="#系统需求和原则" class="headerlink" title="系统需求和原则"></a>系统需求和原则</h1><ul>
 <li><strong>在一个VDC中, 一个特定的vlan能够关联到一个SVI. 或者使用OTV扩展, 但是不能两者都做</strong>  </li>
 <li>一个overlay interface只能指派一个join interface</li>
-<li>同一个站点内多个overlay接口可以共享一个site vlan<h1 id="OTV封装格式"><a href="#OTV封装格式" class="headerlink" title="OTV封装格式"></a>OTV封装格式</h1>OTV添加了42字节的额外头部:  </li>
+<li>同一个站点内多个overlay接口可以共享一个site vlan</li>
 </ul>
+<h1 id="OTV封装格式"><a href="#OTV封装格式" class="headerlink" title="OTV封装格式"></a>OTV封装格式</h1><p>OTV添加了42字节的额外头部:  </p>
 <ol>
 <li>需要调整MTU, OTV的DF位是被设位的, 不允许分片. 要么调小内网的MTU, 要么调大广域网的MTU</li>
 <li>14字节的二层以太网头部(源目MAC地址和以太网类型, CRC重新计算替换原有帧内的CRC)</li>
 <li>20字节IP头部(OTV连接接口的源目IP地址, 原始帧的CoS位被映射成DSCP的高位比特)</li>
-<li>8字节OTV头部(使用MPLS over GRE格式, 原始帧的vlan id拷贝到otv头部)<br><img src="/images/nexus/OTV封装.PNG" alt="OTV封装">  <h1 id="OTV邻居建立"><a href="#OTV邻居建立" class="headerlink" title="OTV邻居建立"></a>OTV邻居建立</h1>OTV边界设备形成比邻和交换MAC路由信息.  </li>
-<li>Multicast-capable core(支持组播的核心, 边界设备加入普通的组播组)<br>所有控制层面通讯通过组播组来进行交互, 核心设备优化复制控制层面信息</li>
-<li>Unicast-only core(仅支持单播的核心, 需要一个或多个边界设备做比邻服务器)<br>比邻服务器作为边界设备信息交换场所, 所有控制层面信息通过点到点单播实现<h1 id="OTV二层故障隔离"><a href="#OTV二层故障隔离" class="headerlink" title="OTV二层故障隔离"></a>OTV二层故障隔离</h1></li>
+<li>8字节OTV头部(使用MPLS over GRE格式, 原始帧的vlan id拷贝到otv头部)<br><img src="/images/nexus/OTV封装.PNG" alt="OTV封装"></li>
 </ol>
-<ul>
+<h1 id="OTV邻居建立"><a href="#OTV邻居建立" class="headerlink" title="OTV邻居建立"></a>OTV邻居建立</h1><p>OTV边界设备形成比邻和交换MAC路由信息.  </p>
+<ol>
+<li>Multicast-capable core(支持组播的核心, 边界设备加入普通的组播组)<br>所有控制层面通讯通过组播组来进行交互, 核心设备优化复制控制层面信息</li>
+<li>Unicast-only core(仅支持单播的核心, 需要一个或多个边界设备做比邻服务器)<br>比邻服务器作为边界设备信息交换场所, 所有控制层面信息通过点到点单播实现</li>
+</ol>
+<h1 id="OTV二层故障隔离"><a href="#OTV二层故障隔离" class="headerlink" title="OTV二层故障隔离"></a>OTV二层故障隔离</h1><ul>
 <li>STP生成树隔离<ol>
 <li>没有BPDU通过overlay接口转发</li>
 <li>STP保留在每个站点本地</li>
@@ -383,7 +387,9 @@
 <li>可以使用特性 选择性的对不知道目的的单播帧进行泛洪</li>
 </ol>
 </li>
-<li>使用代理ARP缓存作为远端站点主机提供服务<h1 id="OTV最佳实践"><a href="#OTV最佳实践" class="headerlink" title="OTV最佳实践"></a>OTV最佳实践</h1></li>
+<li>使用代理ARP缓存作为远端站点主机提供服务</li>
+</ul>
+<h1 id="OTV最佳实践"><a href="#OTV最佳实践" class="headerlink" title="OTV最佳实践"></a>OTV最佳实践</h1><ul>
 <li>internal interface面向每一个站点, 并承载至少一个OTV vlan<ol>
 <li>在多个站点间承载OTV site vlan</li>
 <li>一个标准的二层访问或者trunk</li>
@@ -391,11 +397,11 @@
 </li>
 <li>每个overlay interface一个join interface; join interface是一个三层口, 不能使用SVI; 必须属于默认vrf下</li>
 <li>OVT边界设备部署<ol>
-<li>在一个特定vdc下, 一个特定vlan即可以支持SVI, 也可以支持OTV扩展, 但是不可以同时支持<h1 id="OTV新特性"><a href="#OTV新特性" class="headerlink" title="OTV新特性"></a>OTV新特性</h1></li>
+<li>在一个特定vdc下, 一个特定vlan即可以支持SVI, 也可以支持OTV扩展, 但是不可以同时支持</li>
 </ol>
 </li>
 </ul>
-<ol>
+<h1 id="OTV新特性"><a href="#OTV新特性" class="headerlink" title="OTV新特性"></a>OTV新特性</h1><ol>
 <li>source interface with loopback</li>
 <li>authentication (控制层面和数据层面)</li>
 <li>tunnel depolarization with secondary ip<br>使用相同源和目的地址在AED设备之间封装流量,限制了portchannel和ECMP负载均衡的优势  </li>

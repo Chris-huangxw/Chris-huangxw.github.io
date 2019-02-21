@@ -345,13 +345,13 @@
       
         
           
-          最近在工作使用到了ACL, 在使用过程中对到底在接口下In方向调用, 还是out方向调用, 以前也没有认真了解过. 所以准备通过实验来详细了解一下扩展ACL在接口下的应用.  
+          最近在工作使用到了ACL, 在使用过程中对到底在接口下In方向调用, 还是out方向调用, 以前也没有认真了解过. 所以准备通过实验来详细了解一下扩展ACL在接口下的应用.
 实验拓扑
 实验信息
 R1
 e0/0 192.168.1.2/24
 e0/1 192.168.3.254/24
-e0/2 1
+e0/2 192
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -649,10 +649,10 @@ e0/2 1
         
           
           Vxlan overviewVxlan 基于MAC in UDP的方式传输.  
-Vxlan Format24位网络标识符(instance id)为流量隔离提供了1600万个vxlan字段  
+Vxlan Format24位网络标识符(instance id)为流量隔离提供了1600万个vxlan字段
 Vxlan VTEP
 Vxlan隧道终结在VTEP上
-每个VTEP都会有两种端口, 一种为本地主机提供桥
+每个VTEP都会有两种端口, 一种为本地主机提供桥接功
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -802,11 +802,11 @@ Vxlan隧道终结在VTEP上
           
           OTV是一个典型的二层VPN, 提供多站点之间二层VPN以及数据中心之间的互联.在站点内的以太网流量被封装MAC in IP, 使用IP报头重新封装二层帧来传递.  
 OTV术语
-OTV edge deviceOTV边界设备连接一个站点到核心, 执行所有的OTV功能.  
+OTV edge deviceOTV边界设备连接一个站点到核心, 执行所有的OTV功能.
 
 
 控制层面功能
-基于硬件
+基于硬件的O
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -954,8 +954,10 @@ OTV edge deviceOTV边界设备连接一个站点到核心, 执行所有的OTV功
       
         
           
-          FEX技术FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.N2K 无法被管理, 只能通过上联设备来进行统一管理.N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧  
-NIV(
+          FEX技术
+FEX称为 Fabric Extender. N2K 可以作为一个远程线卡的能力, 作为N9K, N7K, N6K, N5K的扩展.
+N2K 无法被管理, 只能通过上联设备来进行统一管理.
+N2K 和 上联的父系交换机之间是要通过新的vn tag字段来通信的, 不是传统的以太网帧NIV(
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1254,9 +1256,9 @@ NIV(
           PortChannel
 绑定多个物理链路到一个逻辑链路
 一个portchannel内的所有端口必须有相同的速率和双工模式
-Nexus中M1卡和F2卡的接口不能捆绑成portchannelportchannel模式
+Nexus中M1卡和F2卡的接口不能捆绑成portchannel
 
-
+portchannel模式
 静态portchannel, 配置模式为’on’
 动态portchannel(LA
           ...
@@ -1554,10 +1556,10 @@ Nexus中M1卡和F2卡的接口不能捆绑成portchannelportchannel模式
       
         
           
-          Nexus初始化在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.在有SUP2E的情况下VDC的分布:  
+          Nexus初始化在default vdc或者 admin vdc中输入命令’wr erase’, 按提示输入Y即可. 然后reload就可以了.在有SUP2E的情况下VDC的分布:
 
-8个普通vdc, 1个admin vdc(只有管理流量)  
-7个普通vdc, 1个default vdc(即有
+8个普通vdc, 1个admin vdc(只有管理流量)
+7个普通vdc, 1个default vdc(即有管理流量
           ...
           <!--noindex-->
           <div class="post-button text-center">

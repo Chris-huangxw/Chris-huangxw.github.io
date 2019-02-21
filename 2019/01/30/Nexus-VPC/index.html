@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="PortChannel 绑定多个物理链路到一个逻辑链路 一个portchannel内的所有端口必须有相同的速率和双工模式 Nexus中M1卡和F2卡的接口不能捆绑成portchannelportchannel模式   静态portchannel, 配置模式为’on’ 动态portchannel(LACP), 首先要全局激活, 然后设置模式’active’或者’passive’. 相比静态协议收敛的">
+<meta name="description" content="PortChannel 绑定多个物理链路到一个逻辑链路 一个portchannel内的所有端口必须有相同的速率和双工模式 Nexus中M1卡和F2卡的接口不能捆绑成portchannel  portchannel模式 静态portchannel, 配置模式为’on’ 动态portchannel(LACP), 首先要全局激活, 然后设置模式’active’或者’passive’. 相比静态协议收敛的">
 <meta name="keywords" content="Nexus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nexus VPC">
 <meta property="og:url" content="https://hxwiwsh.com/2019/01/30/Nexus-VPC/index.html">
 <meta property="og:site_name" content="Learn More Do More">
-<meta property="og:description" content="PortChannel 绑定多个物理链路到一个逻辑链路 一个portchannel内的所有端口必须有相同的速率和双工模式 Nexus中M1卡和F2卡的接口不能捆绑成portchannelportchannel模式   静态portchannel, 配置模式为’on’ 动态portchannel(LACP), 首先要全局激活, 然后设置模式’active’或者’passive’. 相比静态协议收敛的">
+<meta property="og:description" content="PortChannel 绑定多个物理链路到一个逻辑链路 一个portchannel内的所有端口必须有相同的速率和双工模式 Nexus中M1卡和F2卡的接口不能捆绑成portchannel  portchannel模式 静态portchannel, 配置模式为’on’ 动态portchannel(LACP), 首先要全局激活, 然后设置模式’active’或者’passive’. 相比静态协议收敛的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-15T02:34:53.784Z">
+<meta property="og:updated_time" content="2019-02-21T03:03:44.678Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nexus VPC">
-<meta name="twitter:description" content="PortChannel 绑定多个物理链路到一个逻辑链路 一个portchannel内的所有端口必须有相同的速率和双工模式 Nexus中M1卡和F2卡的接口不能捆绑成portchannelportchannel模式   静态portchannel, 配置模式为’on’ 动态portchannel(LACP), 首先要全局激活, 然后设置模式’active’或者’passive’. 相比静态协议收敛的">
+<meta name="twitter:description" content="PortChannel 绑定多个物理链路到一个逻辑链路 一个portchannel内的所有端口必须有相同的速率和双工模式 Nexus中M1卡和F2卡的接口不能捆绑成portchannel  portchannel模式 静态portchannel, 配置模式为’on’ 动态portchannel(LACP), 首先要全局激活, 然后设置模式’active’或者’passive’. 相比静态协议收敛的">
 
 
 
@@ -345,59 +345,72 @@
         <h1 id="PortChannel"><a href="#PortChannel" class="headerlink" title="PortChannel"></a>PortChannel</h1><ul>
 <li>绑定多个物理链路到一个逻辑链路</li>
 <li>一个portchannel内的所有端口必须有相同的速率和双工模式</li>
-<li>Nexus中M1卡和F2卡的接口不能捆绑成portchannel<h2 id="portchannel模式"><a href="#portchannel模式" class="headerlink" title="portchannel模式"></a>portchannel模式</h2></li>
+<li>Nexus中M1卡和F2卡的接口不能捆绑成portchannel</li>
 </ul>
-<ol>
+<h2 id="portchannel模式"><a href="#portchannel模式" class="headerlink" title="portchannel模式"></a>portchannel模式</h2><ol>
 <li>静态portchannel, 配置模式为’on’</li>
 <li>动态portchannel(LACP), 首先要全局激活, 然后设置模式’active’或者’passive’. 相比静态协议收敛的更快</li>
-<li>Nexus不支持PAgP<h2 id="Hash-Option"><a href="#Hash-Option" class="headerlink" title="Hash Option"></a>Hash Option</h2>负载均衡方式调整, 可以基于MAC, 基于IP等等. 只能在admin vdc下调整.  <h1 id="vPC"><a href="#vPC" class="headerlink" title="vPC"></a>vPC</h1></li>
+<li>Nexus不支持PAgP</li>
 </ol>
-<ul>
+<h2 id="Hash-Option"><a href="#Hash-Option" class="headerlink" title="Hash Option"></a>Hash Option</h2><p>负载均衡方式调整, 可以基于MAC, 基于IP等等. 只能在admin vdc下调整.</p>
+<h1 id="vPC"><a href="#vPC" class="headerlink" title="vPC"></a>vPC</h1><ul>
 <li>允许一个设备使用两个上游设备的port-channel</li>
 <li>消除STP阻止端口</li>
 <li>提供一个无环拓扑</li>
 <li>使用所有可用的上联带宽</li>
 <li>vPC对等体负载均衡方式是由对等体本地设备决定</li>
-<li>对于M卡, 一个对等体可以有8个active链路, 两个就是16条; 对于F卡, 一个对等体可以有16条active链路, 两个就是32条<h2 id="vPC配置原则"><a href="#vPC配置原则" class="headerlink" title="vPC配置原则"></a>vPC配置原则</h2></li>
+<li>对于M卡, 一个对等体可以有8个active链路, 两个就是16条; 对于F卡, 一个对等体可以有16条active链路, 两个就是32条</li>
+</ul>
+<h2 id="vPC配置原则"><a href="#vPC配置原则" class="headerlink" title="vPC配置原则"></a>vPC配置原则</h2><ul>
 <li>首先激活vPC特性</li>
 <li>配置vPC domain里的peer-keepalive链路, 然后配置peer-link链路</li>
 <li>vPC两端的配置要相同</li>
 <li>配置vPC会有短暂的流量中断</li>
-<li>建议使用LACP<h2 id="vPC组件"><a href="#vPC组件" class="headerlink" title="vPC组件"></a>vPC组件</h2></li>
+<li>建议使用LACP</li>
 </ul>
-<ol>
+<h2 id="vPC组件"><a href="#vPC组件" class="headerlink" title="vPC组件"></a>vPC组件</h2><ol>
 <li>vPC peers: 激活了vPC的一组交换机</li>
 <li>vPC Domain: 一对vPC peer以及相关组件</li>
 <li>vPC Peer Keepalive Link: 三层路由链路, 承载心跳数据包, 进行双A检测</li>
 <li>vPC Peer Link: 两个vPC Peer之间 承载控制层面流量(两端板卡型号要一致, 10G)</li>
-<li>Cisco Fabric Sevice: 用来状态同步(MAC表等)以及配置确认(判断两端配置是否一致)<h2 id="vPC控制层面操作"><a href="#vPC控制层面操作" class="headerlink" title="vPC控制层面操作"></a>vPC控制层面操作</h2>CFS通过peer-link用于同步vPC控制层面信息  </li>
+<li>Cisco Fabric Sevice: 用来状态同步(MAC表等)以及配置确认(判断两端配置是否一致)</li>
 </ol>
+<h2 id="vPC控制层面操作"><a href="#vPC控制层面操作" class="headerlink" title="vPC控制层面操作"></a>vPC控制层面操作</h2><p>CFS通过peer-link用于同步vPC控制层面信息</p>
 <ul>
 <li>MAC地址学习</li>
 <li>IGMP嗅探</li>
 <li>配置一致性检查</li>
 <li>vPC端口成员状态</li>
-<li>ARP缓存<br>两个vPC Peers之间存在Primary和Secondary关系  </li>
+<li>ARP缓存<br>两个vPC Peers之间存在Primary和Secondary关系</li>
 <li>角色决定Peer-Link失效时的行为</li>
 <li>Primary交换机主导vPC中的STP</li>
-<li>不支持抢占选举<h2 id="vPC数据层面操作"><a href="#vPC数据层面操作" class="headerlink" title="vPC数据层面操作"></a>vPC数据层面操作</h2>vPC Peer Link链路只承载以下流量:  </li>
+<li>不支持抢占选举</li>
+</ul>
+<h2 id="vPC数据层面操作"><a href="#vPC数据层面操作" class="headerlink" title="vPC数据层面操作"></a>vPC数据层面操作</h2><p>vPC Peer Link链路只承载以下流量:  </p>
+<ul>
 <li>vPC控制层面流量</li>
 <li>泛洪流量</li>
-<li>Orphan孤立端口流量<h2 id="vPC数据层防环"><a href="#vPC数据层防环" class="headerlink" title="vPC数据层防环"></a>vPC数据层防环</h2></li>
-<li>从Peer Link进入vPC对等体的帧不会通过vPC成员端口转发</li>
-<li>如果一端vPC出现故障, Peer Link链路可以作为备用链路实现冗余<h2 id="vPC-PeerLink-Device-Failure"><a href="#vPC-PeerLink-Device-Failure" class="headerlink" title="vPC PeerLink Device Failure"></a>vPC PeerLink Device Failure</h2>SWA = SWB<br>\   /<br> SWC  </li>
+<li>Orphan孤立端口流量</li>
 </ul>
+<h2 id="vPC数据层防环"><a href="#vPC数据层防环" class="headerlink" title="vPC数据层防环"></a>vPC数据层防环</h2><ul>
+<li>从Peer Link进入vPC对等体的帧不会通过vPC成员端口转发</li>
+<li>如果一端vPC出现故障, Peer Link链路可以作为备用链路实现冗余</li>
+</ul>
+<h2 id="vPC-PeerLink-Device-Failure"><a href="#vPC-PeerLink-Device-Failure" class="headerlink" title="vPC PeerLink Device Failure"></a>vPC PeerLink Device Failure</h2><p>SWA = SWB<br> \   /<br>   SWC  </p>
 <ol>
 <li>SWA vPC Peer Link链路失效</li>
 <li>通过keep alive链路检测到SWB状态</li>
 <li>如果SWB是UP的, Secondary vPC SWB会禁用所有的vPC端口, 阻止泛洪, 环路和黑洞  </li>
-<li>数据在portchannel中仍然active的链路上发送(Primary)<h2 id="vPC-Peer-Failure-—-Keep-Alive-Link"><a href="#vPC-Peer-Failure-—-Keep-Alive-Link" class="headerlink" title="vPC Peer Failure — Keep Alive Link"></a>vPC Peer Failure — Keep Alive Link</h2>当Peer Keepalive Link失效的时候, 对数据没有任何影响. 在控制层面还是主备, 在数据层面是双A的.(前提Peer Link链路是正常的)<h2 id="vPC基本配置"><a href="#vPC基本配置" class="headerlink" title="vPC基本配置"></a>vPC基本配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">feature vpc</span><br><span class="line">feature lacp</span><br><span class="line">vpc domain 7(peer两端要一致)</span><br><span class="line">role priority 100</span><br><span class="line">system-priority 2500(peer两端要一致)</span><br><span class="line">peer-keepalive dest 10.1.1.1 <span class="built_in">source</span> 10.1.1.2 vrf default (默认走管理vrf)</span><br><span class="line">show vpc</span><br><span class="line"><span class="comment"># 配置peer link</span></span><br><span class="line">interface e1/1-2</span><br><span class="line">channel-group 1 mode active</span><br><span class="line">no shutdown</span><br><span class="line">int po1</span><br><span class="line">switchport</span><br><span class="line">sw mo trunk</span><br><span class="line">vpc peer-link</span><br><span class="line"><span class="comment"># 配置vPC</span></span><br><span class="line">int e2/1-2</span><br><span class="line">channel-group 20 mo active</span><br><span class="line">no shutdown</span><br><span class="line">int po20</span><br><span class="line">switchport</span><br><span class="line">sw mo tr</span><br><span class="line">vpc 20</span><br></pre></td></tr></table></figure>
-</li>
+<li>数据在portchannel中仍然active的链路上发送(Primary)</li>
 </ol>
+<h2 id="vPC-Peer-Failure-—-Keep-Alive-Link"><a href="#vPC-Peer-Failure-—-Keep-Alive-Link" class="headerlink" title="vPC Peer Failure — Keep Alive Link"></a>vPC Peer Failure — Keep Alive Link</h2><p>当Peer Keepalive Link失效的时候, 对数据没有任何影响. 在控制层面还是主备, 在数据层面是双A的.(前提Peer Link链路是正常的)</p>
+<h2 id="vPC基本配置"><a href="#vPC基本配置" class="headerlink" title="vPC基本配置"></a>vPC基本配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">feature vpc</span><br><span class="line">feature lacp</span><br><span class="line">vpc domain 7(peer两端要一致)</span><br><span class="line">role priority 100</span><br><span class="line">system-priority 2500(peer两端要一致)</span><br><span class="line">peer-keepalive dest 10.1.1.1 <span class="built_in">source</span> 10.1.1.2 vrf default (默认走管理vrf)</span><br><span class="line">show vpc</span><br><span class="line"><span class="comment"># 配置peer link</span></span><br><span class="line">interface e1/1-2</span><br><span class="line">channel-group 1 mode active</span><br><span class="line">no shutdown</span><br><span class="line">int po1</span><br><span class="line">switchport</span><br><span class="line">sw mo trunk</span><br><span class="line">vpc peer-link</span><br><span class="line"><span class="comment"># 配置vPC</span></span><br><span class="line">int e2/1-2</span><br><span class="line">channel-group 20 mo active</span><br><span class="line">no shutdown</span><br><span class="line">int po20</span><br><span class="line">switchport</span><br><span class="line">sw mo tr</span><br><span class="line">vpc 20</span><br></pre></td></tr></table></figure>
 <ul>
-<li>一致性检查<br>show vpc con 所有type1类型的数据必须一致, type2的最好一致,但是无影响.  <h2 id="vPC与FHRP"><a href="#vPC与FHRP" class="headerlink" title="vPC与FHRP"></a>vPC与FHRP</h2>HSRP与VRRP的行为都会被vPC所修改, 所有运行了FHRP的设备都会转发流量, 在数据层面都是双A的. 避免流量经过peer link  <h2 id="vPC与-STP-BPDU"><a href="#vPC与-STP-BPDU" class="headerlink" title="vPC与 STP BPDU"></a>vPC与 STP BPDU</h2>对于vPC ports, 只有primary运行STP<br>Peer Switch特性可以让两台peers用同一个虚MAC发送BPDU  <h2 id="vPC-Object-Tracking"><a href="#vPC-Object-Tracking" class="headerlink" title="vPC Object Tracking"></a>vPC Object Tracking</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vpc domain 7</span><br><span class="line">track 66</span><br></pre></td></tr></table></figure>
-</li>
+<li>一致性检查<br>show vpc con 所有type1类型的数据必须一致, type2的最好一致,但是无影响.</li>
 </ul>
+<h2 id="vPC与FHRP"><a href="#vPC与FHRP" class="headerlink" title="vPC与FHRP"></a>vPC与FHRP</h2><p>HSRP与VRRP的行为都会被vPC所修改, 所有运行了FHRP的设备都会转发流量, 在数据层面都是双A的. 避免流量经过peer link  </p>
+<h2 id="vPC与-STP-BPDU"><a href="#vPC与-STP-BPDU" class="headerlink" title="vPC与 STP BPDU"></a>vPC与 STP BPDU</h2><p>对于vPC ports, 只有primary运行STP<br>Peer Switch特性可以让两台peers用同一个虚MAC发送BPDU  </p>
+<h2 id="vPC-Object-Tracking"><a href="#vPC-Object-Tracking" class="headerlink" title="vPC Object Tracking"></a>vPC Object Tracking</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vpc domain 7</span><br><span class="line">track 66</span><br></pre></td></tr></table></figure>
 <p>track上联接口的物理状态  </p>
 <h2 id="ARP-Sync-默认开启"><a href="#ARP-Sync-默认开启" class="headerlink" title="ARP Sync 默认开启"></a>ARP Sync 默认开启</h2><ul>
 <li>提升三层流量收敛时间</li>
@@ -411,8 +424,7 @@
 <li>运行CFS服务(CoS=4), 提供以下功能:</li>
 </ul>
 <ol>
-<li>vPC配置一致性检查</li>
-<li></li>
+<li>vPC配置一致性检查<br>2.</li>
 </ol>
 
       

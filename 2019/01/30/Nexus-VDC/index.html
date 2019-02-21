@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://hxwiwsh.com/images/nexus/vdc%20resource%20template.PNG">
 <meta property="og:image" content="https://hxwiwsh.com/images/nexus/Layer2Switch.PNG">
 <meta property="og:image" content="https://hxwiwsh.com/images/nexus/Layer3Switch.PNG">
-<meta property="og:updated_time" content="2019-01-30T03:46:29.599Z">
+<meta property="og:updated_time" content="2019-02-21T03:08:30.896Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nexus VDC">
 <meta name="twitter:description" content="VDC概念虚拟化可扩展性SUP2引擎支持4个VDC(1个default vdc + 3个no-default vdc)或者(1个admin vdc + 4个no-default vdc)SUP2E引擎支持8个VDC(1个default vdc + 7个no-default vdc)或者(1个admin vdc + 8个no-default vdc)    每一个vdc最多支持4096个vlan 每">
@@ -351,12 +351,23 @@
 <li>每一个vdc最多支持4096个vlan</li>
 <li>每一个vdc最多支持4096个vrf</li>
 <li>在一台物理设备上最多支持768个port-channel</li>
-<li>一台物理设备上只支持2个SPAN  <h2 id="default-vdc"><a href="#default-vdc" class="headerlink" title="default vdc"></a>default vdc</h2>完整功能的VDC, 拥有所有功能. 既包含管理流量, 也能承载业务流量.  <h2 id="VDC资源共享"><a href="#VDC资源共享" class="headerlink" title="VDC资源共享"></a>VDC资源共享</h2>在default vdc或者admin vdc下设置的资源都是全局共享的<br>在其他vdc下的vlan等信息都是只在vdc内生效的  <h2 id="Storge-VDC"><a href="#Storge-VDC" class="headerlink" title="Storge VDC"></a>Storge VDC</h2>主要用来运行FCoE的流量.</li>
+<li>一台物理设备上只支持2个SPAN</li>
+</ul>
+<h2 id="default-vdc"><a href="#default-vdc" class="headerlink" title="default vdc"></a>default vdc</h2><p>完整功能的VDC, 拥有所有功能. 既包含管理流量, 也能承载业务流量.</p>
+<h2 id="VDC资源共享"><a href="#VDC资源共享" class="headerlink" title="VDC资源共享"></a>VDC资源共享</h2><p>在default vdc或者admin vdc下设置的资源都是全局共享的<br>在其他vdc下的vlan等信息都是只在vdc内生效的</p>
+<h2 id="Storge-VDC"><a href="#Storge-VDC" class="headerlink" title="Storge VDC"></a>Storge VDC</h2><p>主要用来运行FCoE的流量.</p>
+<ul>
 <li>分离LAN和SAN的流量</li>
 <li>支持连接FCoE的存储或主机</li>
 <li>支持与其他交换机(N7K, N5K, MDS)之间的FCoE ISLs</li>
-<li>每一个物理设备只支持一个storge vdc<h2 id="Line-Card-—-port-group"><a href="#Line-Card-—-port-group" class="headerlink" title="Line Card — port group"></a>Line Card — port group</h2>在线卡上存在port group的概念, 属于同一个port group的端口必须划分到同一个vdc. 不同的线卡, port group的数量也是不一样的.  <h2 id="VDC-之间的通讯"><a href="#VDC-之间的通讯" class="headerlink" title="VDC 之间的通讯"></a>VDC 之间的通讯</h2>只能通过物理连线才可以通信.  <h2 id="Resource-Template"><a href="#Resource-Template" class="headerlink" title="Resource Template"></a>Resource Template</h2>下图是创建VDC时分配的默认资源模板<br><img src="/images/nexus/vdc resource template.PNG" alt="vdc resource template">  <h2 id="VDC硬件利用"><a href="#VDC硬件利用" class="headerlink" title="VDC硬件利用"></a>VDC硬件利用</h2>在特定线卡上的转发引擎, 只包含线卡上关联的vdc的MAC地址条目<br><img src="/images/nexus/Layer2Switch.PNG" alt="Layer2"><br>同理, 三层交换也是一样的. FIB表以及ACL TCAM表<br><img src="/images/nexus/Layer3Switch.PNG" alt="Layer3"><br><strong>一般vdc用到几个端口, 才把几个线卡上的端口划入到vdc中去</strong><br><strong>理论上 一个线卡上的端口全都分配给一个vdc使用是最优化的</strong>  <h1 id="VDC配置"><a href="#VDC配置" class="headerlink" title="VDC配置"></a>VDC配置</h1>直接使用vdc <vdc name="">就可以创建一个vdc; 如果要删除的话, 只要no vdc <vdc name=""><br>使用show vdc membership可以查看当前端口的分配  <h2 id="启动顺序"><a href="#启动顺序" class="headerlink" title="启动顺序"></a>启动顺序</h2>当设备重启后, default vdc或者admin vdc是第一个启动的. 其他non-default vdc按顺序启动. 影响启动的参数boot order默认都是1, 越小越优先, 当boot order相同时, 按照顺序启动.  </vdc></vdc></li>
+<li>每一个物理设备只支持一个storge vdc</li>
 </ul>
+<h2 id="Line-Card-—-port-group"><a href="#Line-Card-—-port-group" class="headerlink" title="Line Card — port group"></a>Line Card — port group</h2><p>在线卡上存在port group的概念, 属于同一个port group的端口必须划分到同一个vdc. 不同的线卡, port group的数量也是不一样的.  </p>
+<h2 id="VDC-之间的通讯"><a href="#VDC-之间的通讯" class="headerlink" title="VDC 之间的通讯"></a>VDC 之间的通讯</h2><p>只能通过物理连线才可以通信.  </p>
+<h2 id="Resource-Template"><a href="#Resource-Template" class="headerlink" title="Resource Template"></a>Resource Template</h2><p>下图是创建VDC时分配的默认资源模板<br><img src="/images/nexus/vdc resource template.PNG" alt="vdc resource template"></p>
+<h2 id="VDC硬件利用"><a href="#VDC硬件利用" class="headerlink" title="VDC硬件利用"></a>VDC硬件利用</h2><p>在特定线卡上的转发引擎, 只包含线卡上关联的vdc的MAC地址条目<br><img src="/images/nexus/Layer2Switch.PNG" alt="Layer2"><br>同理, 三层交换也是一样的. FIB表以及ACL TCAM表<br><img src="/images/nexus/Layer3Switch.PNG" alt="Layer3"><br><strong>一般vdc用到几个端口, 才把几个线卡上的端口划入到vdc中去</strong><br><strong>理论上 一个线卡上的端口全都分配给一个vdc使用是最优化的</strong>  </p>
+<h1 id="VDC配置"><a href="#VDC配置" class="headerlink" title="VDC配置"></a>VDC配置</h1><p>直接使用vdc <vdc name="">就可以创建一个vdc; 如果要删除的话, 只要no vdc <vdc name=""><br>使用show vdc membership可以查看当前端口的分配</vdc></vdc></p>
+<h2 id="启动顺序"><a href="#启动顺序" class="headerlink" title="启动顺序"></a>启动顺序</h2><p>当设备重启后, default vdc或者admin vdc是第一个启动的. 其他non-default vdc按顺序启动. 影响启动的参数boot order默认都是1, 越小越优先, 当boot order相同时, 按照顺序启动.  </p>
 
       
     </div>

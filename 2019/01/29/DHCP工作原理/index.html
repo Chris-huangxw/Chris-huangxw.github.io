@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://hxwiwsh.com/images/dhcp/DHCP拓扑.PNG">
 <meta property="og:image" content="https://hxwiwsh.com/images/dhcp/DHCP报文.PNG">
 <meta property="og:image" content="https://hxwiwsh.com/images/dhcp/DHCP%20offer报文.PNG">
-<meta property="og:updated_time" content="2019-01-30T02:45:51.787Z">
+<meta property="og:updated_time" content="2019-02-21T03:06:23.078Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DHCP工作原理">
 <meta name="twitter:description" content="DHCP报文类型 DHCP Discover客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫">
@@ -350,8 +350,10 @@
 <li>DHCP Discover<br>客户端广播发送DHCP discover报文消息, 客户端通过UDP68端口向网络上发送DHCP discover数据包(包含MAC地址和计算机名等信息).源为0.0.0.0, 目的为255.255.255.255<br>discover等待时间默认为1秒, 1秒内没有得到回应, 客户机会将这一广播包重新发送4次(以2,4,8,16秒为间隔, 加上1-1000毫秒之间随机长度的时间). 如果没有得到DHCP server的回应. 客户端会从169.254.0.0/16这个地址段中选取一个IP地址. 并且每隔5分钟重新广播依次. 如果收到dhcp server的响应, 则继续IP租用过程.  </li>
 <li>DHCP Offer<br>服务器单播客户端提供IP地址</li>
 <li>DHCP Request<br>客户端向服务器请求使用该IP地址</li>
-<li>DHCP ACK<br>服务器确认客户端可以使用该地址, 这个时候客户端上IP地址开始生效<h2 id="DHCP验证"><a href="#DHCP验证" class="headerlink" title="DHCP验证"></a>DHCP验证</h2></li>
-<li>直连情况下, client与server直连, 拓扑如下:<br><img src="/images/dhcp/DHCP拓扑.PNG" alt="dhcp拓扑-1"><br>我们在client-1和server之间进行抓包, 结果如下:<br><img src="/images/dhcp/DHCP报文.PNG" alt="dhcp报文">  </li>
+<li>DHCP ACK<br>服务器确认客户端可以使用该地址, 这个时候客户端上IP地址开始生效</li>
+</ol>
+<h2 id="DHCP验证"><a href="#DHCP验证" class="headerlink" title="DHCP验证"></a>DHCP验证</h2><ol>
+<li>直连情况下, client与server直连, 拓扑如下:<br><img src="/images/dhcp/DHCP拓扑.PNG" alt="dhcp拓扑-1"><br>我们在client-1和server之间进行抓包, 结果如下:<br><img src="/images/dhcp/DHCP报文.PNG" alt="dhcp报文"></li>
 </ol>
 <ul>
 <li>client接入网络后, 会先发送一个dhcp discover广播包源为0.0.0.0目的为255.255.255.255</li>
@@ -369,9 +371,9 @@
 <li>client收到回复后 提出dhcp request 广播包</li>
 <li>server收到后 返回dhcp ack包, 此时client分配的IP地址开始生效</li>
 <li>client和switch之间的交互就可案例1中client和server交互式一样的, server的ip地址是在dhcp报文中进行体现的</li>
-<li>switch和server之间就是单播包的交互, switch将收到的所有dhcp请求报文封装成单播包发送给server<h2 id="DHCP配置"><a href="#DHCP配置" class="headerlink" title="DHCP配置"></a>DHCP配置</h2>一般在cisco设备上的配置如下:  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ip dhcp excluded-address 192.168.1.200 192.168.1.255</span><br><span class="line">ip dhcp excluded-address 192.168.100.200 192.168.100.255</span><br><span class="line">ip dhcp pool test</span><br><span class="line"> network 192.168.1.0 255.255.255.0</span><br><span class="line"> default-router 192.168.1.254</span><br><span class="line"> dns-server 192.168.1.254</span><br><span class="line">ip dhcp pool vlan100</span><br><span class="line"> network 192.168.100.0 255.255.255.0</span><br><span class="line"> default-router 192.168.100.254</span><br><span class="line"> dns-server 192.168.100.254</span><br><span class="line">ip dhcp pool vlan1_tom</span><br><span class="line">  host 10.1.1.50 255.255.255.0</span><br><span class="line">  client-identifier 010010.3ab1.eac8</span><br></pre></td></tr></table></figure>
-</li>
+<li>switch和server之间就是单播包的交互, switch将收到的所有dhcp请求报文封装成单播包发送给server</li>
 </ul>
+<h2 id="DHCP配置"><a href="#DHCP配置" class="headerlink" title="DHCP配置"></a>DHCP配置</h2><p>一般在cisco设备上的配置如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ip dhcp excluded-address 192.168.1.200 192.168.1.255</span><br><span class="line">ip dhcp excluded-address 192.168.100.200 192.168.100.255</span><br><span class="line">ip dhcp pool test</span><br><span class="line"> network 192.168.1.0 255.255.255.0</span><br><span class="line"> default-router 192.168.1.254</span><br><span class="line"> dns-server 192.168.1.254</span><br><span class="line">ip dhcp pool vlan100</span><br><span class="line"> network 192.168.100.0 255.255.255.0</span><br><span class="line"> default-router 192.168.100.254</span><br><span class="line"> dns-server 192.168.100.254</span><br><span class="line">ip dhcp pool vlan1_tom</span><br><span class="line">  host 10.1.1.50 255.255.255.0</span><br><span class="line">  client-identifier 010010.3ab1.eac8</span><br></pre></td></tr></table></figure></p>
 <p>可以给pool指定一个地址端, 可以将某些地址排除在pool之外, 可以根据mac和IP进行绑定<br>可以配置租期等其他属性  </p>
 <h2 id="DHCP冗余"><a href="#DHCP冗余" class="headerlink" title="DHCP冗余"></a>DHCP冗余</h2><p>一般情况下, 公司都会配置2台dhcp服务器进行冗余, 提高可用性. 但是在网络设备上,同时配置两台dhcp服务器进行冗余的方法没有碰到过.<br>也可以使用专门的dhcp服务器, 这种一般都会提供冗余的特性<br>或者在windows或者linux服务器上搭建dhcp服务也可以, 但是冗余的配置方法就不确定<br>关于dhcp冗余的方法将在之后另外用一篇文章来讲述  </p>
 
